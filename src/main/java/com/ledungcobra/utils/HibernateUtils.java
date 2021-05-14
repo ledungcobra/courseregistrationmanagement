@@ -13,8 +13,6 @@ public class HibernateUtils {
 
     static {
         sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-        System.out.println("RUN");
-
     }
 
     public static Session getCurrentSession(){

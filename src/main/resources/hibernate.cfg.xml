@@ -3,17 +3,28 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/testdb</property>
         <property name="hibernate.connection.pool_size">5</property>
-        <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.connection.username">root</property>
-
         <property name="hibernate.connection.password">Anhchang01</property>
         <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 
+<!--        Method to auto generate database-->
+        <property name="hbm2ddl.auto">create-drop</property>
+
+<!--        Entity Mapping-->
+        <mapping class="com.ledungcobra.entites.TeachingManager"/>
+        <mapping class="com.ledungcobra.entites.Class"/>
+        <mapping class="com.ledungcobra.entites.Semester"/>
+        <mapping class="com.ledungcobra.entites.Student"/>
+        <mapping class="com.ledungcobra.entites.Subject"/>
         <mapping class="com.ledungcobra.entites.Course"/>
+        <mapping class="com.ledungcobra.entites.CourseRegistrationSession"/>
+        <mapping class="com.ledungcobra.entites.StudentCourse"/>
 
     </session-factory>
 </hibernate-configuration>

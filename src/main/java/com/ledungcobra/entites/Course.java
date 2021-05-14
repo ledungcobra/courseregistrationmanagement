@@ -1,32 +1,41 @@
 package com.ledungcobra.entites;
 
+import com.ledungcobra.entites.embedable.CourseId;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+
+import static com.ledungcobra.utils.Constants.COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK;
 
 @Table(name = "course")
 @Entity
-public class Course {
+@Getter
+@Setter
+public class Course extends BaseEntity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    @Id
-    private Long id;
+    @EmbeddedId
+    private CourseId id;
 
-    @Column(name = "course_name")
-    private String name;
+    @Column(name = "SUBJECT_ID",nullable = false)
+    private String subjectId;
 
-    public String getName() {
-        return name;
-    }
+    @Column(name = "COURSE_CREDIT",nullable = false)
+    private Integer credit;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Column(name = "THEORY_TEACHER_NAME",nullable = false)
+    private String teacher;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "DAY_TO_STUDY_IN_WEEK", columnDefinition = "VARCHAR(255) CHARSET utf8 "+COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK,nullable = false)
+    private String dateToStudyInWeek;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "CLASSROOM_NAME",nullable = false)
+    private String classroomName;
+
+    @Column(name = "SHIFT_TO_STUDY_IN_DAY",nullable = false)
+    private String shiftToStudyInDay;
+
+    @Column(name = "NUMBER_OF_SLOT", nullable = false)
+    private Integer numberOfSlot;
+
 }
