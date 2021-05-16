@@ -11,21 +11,27 @@ public class HibernateUtils {
     private static SessionFactory sessionFactory;
     private static Session session;
 
-    static {
+
+    public static void buildSessionFactory() {
         sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
-    public static Session getCurrentSession(){
+    public static Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
 
-    public static Session openSession(){
+    public static Session openSession() {
 
-        if(Objects.isNull(session)){
+        if (Objects.isNull(session)) {
             session = sessionFactory.openSession();
         }
-
         return session;
+    }
+
+    public static void closeSession() {
+        if (Objects.nonNull(session)) {
+            session.close();
+        }
     }
 
 }

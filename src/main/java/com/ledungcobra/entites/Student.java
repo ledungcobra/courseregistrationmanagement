@@ -18,7 +18,7 @@ public class Student extends User {
     @Column(name = "GENDER")
     private String gender;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CLASS_ID", foreignKey = @ForeignKey(name = "FK_STUDENT_CLASS"))
     private Class studiedClass;
 

@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 import static com.ledungcobra.utils.Constants.SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME;
 
@@ -31,6 +32,12 @@ public class Semester extends BaseEntity{
 
     @Column(name = "YEAR")
     private Integer year;
+
+    @Column(name = "ACTIVE")
+    private Boolean active;
+
+    @ManyToMany(mappedBy = "semesters",fetch = FetchType.LAZY)
+    private List<Course> courses;
 
 }
 

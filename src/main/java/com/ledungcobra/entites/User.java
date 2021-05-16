@@ -16,4 +16,7 @@ public class User extends BaseEntity {
     @Column(name = "PASSWORD", nullable = false)
     protected String password;
 
+    @Column(name = "FULL_NAME",columnDefinition = "VARCHAR(255) CHARSET utf8")
+    protected String fullName;
+
 }

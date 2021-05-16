@@ -19,7 +19,7 @@ public class TeachingManager extends User{
     @OneToMany(mappedBy = "manager")
     private List<TeachingManager> teachingManagers;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", foreignKey = @ForeignKey(name = "FK_CREATEDX_X"))
     private TeachingManager manager;
 

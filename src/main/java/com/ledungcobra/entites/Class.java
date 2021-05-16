@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Class")
@@ -22,6 +23,7 @@ public class Class extends BaseEntity{
     @JoinColumn(name = "CREATED_BY", foreignKey = @ForeignKey(name = "FK_CLASS_TEACHING_MANAGER"))
     private TeachingManager createdBy;
 
-
+    @OneToMany(mappedBy = "studiedClass",fetch = FetchType.LAZY)
+    private List<Student> students;
 
 }

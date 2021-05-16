@@ -1,10 +1,11 @@
 package com.ledungcobra.entites;
 
-import com.ledungcobra.entites.embedable.CourseId;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import java.util.List;
 
 import static com.ledungcobra.utils.Constants.COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK;
 
@@ -14,8 +15,9 @@ import static com.ledungcobra.utils.Constants.COURSE_CHECK_CONSTRAINT_DAY_IN_WEE
 @Setter
 public class Course extends BaseEntity {
 
-    @EmbeddedId
-    private CourseId id;
+    @Id
+    @Column(name = "COURSE_ID")
+    private String id;
 
     @Column(name = "SUBJECT_ID",nullable = false)
     private String subjectId;
@@ -38,4 +40,10 @@ public class Course extends BaseEntity {
     @Column(name = "NUMBER_OF_SLOT", nullable = false)
     private Integer numberOfSlot;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "COURSE_SEMESTER",joinColumns = @JoinColumn(name = "COURSE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "SEMESTER_ID")
+    )
+
+    private List<Semester> semesters;
 }
