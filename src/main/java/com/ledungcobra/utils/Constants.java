@@ -25,4 +25,6 @@ public class Constants {
             "'" + CHU_NHAT + "'))";
     public static final String SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME  = "CONSTRAINT SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME CHECK (SEMESTER_NAME IN ( '"+HK1+"','"+HK2+"','"+HK3+"'))";;
 
+    public static final String USERNAME = "18120331";
+
 }

@@ -13,11 +13,14 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static com.ledungcobra.utils.Constants.USERNAME;
+
 public class LoginScreen extends Screen {
 
-    public static final String USER = "USER";
+    public static final String USER_KEY = "USER";
+    public static final String ROLE_KEY = "ROLE";
 
-    private enum ROLE {
+    public enum ROLE {
         STUDENT,
         TEACHING_MANAGER
     }
@@ -34,6 +37,7 @@ public class LoginScreen extends Screen {
 
     @Override
     public void onCreateView() {
+
         // Set up title
         val loginLabel = new JLabel("LOGIN", SwingConstants.LEFT);
         loginLabel.setFont(new Font(Font.SERIF, Font.ITALIC, 20));
@@ -48,13 +52,13 @@ public class LoginScreen extends Screen {
         val passwordPanel = new JPanel(new GridLayout(1, 2));
 
 
-        username = new JTextField();
+        username = new JTextField(USERNAME);
         val usernamePane = new JPanel(new GridLayout(1, 2));
         usernamePane.add(userNameLabel);
         usernamePane.add(username);
 
         val passwordText = new JLabel("Password");
-        password = new JPasswordField();
+        password = new JPasswordField(USERNAME);
         passwordPanel.add(passwordText);
         passwordPanel.add(password);
 
@@ -136,8 +140,8 @@ public class LoginScreen extends Screen {
                     val intent = new Intent<MenuScreen>();
 
                     val data = new HashMap<String,Object>();
-                    data.put(USER, userService.findById(username.getText()));
-
+                    data.put(USER_KEY, userService.findById(username.getText()));
+                    data.put(ROLE_KEY,role);
                     intent.navigate(800,500, data);
                 } else {
                     // Login fail

@@ -3,9 +3,8 @@ package com.ledungcobra.scenes;
 import lombok.NonNull;
 import lombok.val;
 
-import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -40,21 +39,21 @@ public class ScreenStackManager {
         screen.setVisible(true);
         screen.show();
     }
-
-    private void hideScreen(@NonNull Screen screen) {
+    private void hideScreen(@NonNull Screen screen){
         screen.setVisible(false);
         screen.hide();
+    }
+    private void closeScreen(@NonNull Screen screen) {
+        WindowEvent winClosingEvent = new WindowEvent(screen,WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
     }
 
     public void popTopScreen() {
         if (screensStack.size() > 1) {
-            screensStack.pop();
-        }
-        val elements = screensStack.elements();
-        while (elements.hasMoreElements()) {
-            val currentScreen = elements.nextElement();
+            val currentScreen = screensStack.pop();
             hideScreen(currentScreen);
         }
+
         if (!screensStack.isEmpty()) {
             showScreen(screensStack.peek());
         }

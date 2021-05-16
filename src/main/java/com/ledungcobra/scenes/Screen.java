@@ -9,8 +9,7 @@ import java.util.Map;
 
 public abstract class Screen extends JFrame {
 
-    protected Map<String,Object> data;
-
+    protected Map<String, Object> data;
 
 
     public Screen() throws HeadlessException {
@@ -39,7 +38,7 @@ public abstract class Screen extends JFrame {
         val x = this.getX();
         val y = this.getY();
 
-        this.setLocation(x-width/2,y-height/2);
+        this.setLocation(x - width / 2, y - height / 2);
     }
 
     public abstract void onCreateView();
@@ -50,5 +49,9 @@ public abstract class Screen extends JFrame {
 
     public Map<String, Object> getData() {
         return data;
+    }
+
+    protected void finish(){
+        ScreenStackManager.getInstance().popTopScreen();
     }
 }
