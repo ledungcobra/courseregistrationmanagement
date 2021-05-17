@@ -23,7 +23,8 @@ public class StudentCourseSemesterId implements Serializable {
     private Course course;
 
     @ManyToOne
-    @JoinColumn(name = "SEMESTER_ID")
+    @JoinColumns({@JoinColumn(name = "SEMESTER_NAME"),
+            @JoinColumn(name = "YEAR")})
     private Semester studentCourseSemester;
 
 

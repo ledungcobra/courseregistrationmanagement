@@ -18,6 +18,9 @@ public class Subject extends BaseEntity{
     @Column(name = "SUBJECT_ID",nullable = false)
     private String id;
 
+    @Column(name = "SUBJECT_NAME",unique = true)
+    private String name;
+
     @Column(name = "SUBJECT_CREDIT", nullable = false)
     private Integer credit;
 

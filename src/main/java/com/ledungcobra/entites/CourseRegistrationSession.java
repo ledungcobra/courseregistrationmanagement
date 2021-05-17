@@ -25,11 +25,10 @@ public class CourseRegistrationSession extends BaseEntity {
     private Date endDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OPEN_BY", foreignKey = @ForeignKey(name = "FK_COURSE_REGISTRATION_SESSION_TEACHING_MANAGER"))
-    private TeachingManager teachingManager;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SEMESTER_ID", foreignKey = @ForeignKey(name = "FK_COURSE_REGISTRATION_SESSION_SEMESTER"))
+    @JoinColumns(value = {
+            @JoinColumn(name = "SEMESTER_NAME"),
+            @JoinColumn(name = "YEAR")
+    }, foreignKey = @ForeignKey(name = "FK_COURSE_REGISTRATION_SESSION_SEMESTER"))
     private Semester semester;
 
 

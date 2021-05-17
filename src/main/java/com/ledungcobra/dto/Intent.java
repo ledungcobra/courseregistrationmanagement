@@ -21,6 +21,14 @@ public class Intent <T extends Screen> {
         screen.setData(data);
         screen.onCreateView();
         ScreenStackManager.getInstance().pushScreen(screen);
-
     }
+
+    @SneakyThrows
+    public void navigate( Map<String, Object> data){
+        T screen = clazz.newInstance();
+        screen.setData(data);
+        screen.onCreateView();
+        ScreenStackManager.getInstance().pushScreen(screen);
+    }
+
 }

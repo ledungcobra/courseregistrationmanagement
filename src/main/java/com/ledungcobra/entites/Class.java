@@ -16,7 +16,7 @@ public class Class extends BaseEntity{
     @Column(name = "CLASS_ID")
     private Long id;
 
-    @Column(name = "CLASS_NAME")
+    @Column(name = "CLASS_NAME",unique = true)
     private String className;
 
     @ManyToOne

@@ -42,7 +42,7 @@ public class Course extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "COURSE_SEMESTER",joinColumns = @JoinColumn(name = "COURSE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "SEMESTER_ID")
+            inverseJoinColumns = { @JoinColumn(name = "SEMESTER_NAME"), @JoinColumn(name = "YEAR")}
     )
 
     private List<Semester> semesters;

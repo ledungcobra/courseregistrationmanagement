@@ -124,7 +124,6 @@ public class MenuScreen extends Screen implements ActionListener {
         SwingUtilities.updateComponentTreeUI(this.mainPanel);
         mainPanel.invalidate();
         mainPanel.validate();
-
         mainPanel.repaint();
     }
 

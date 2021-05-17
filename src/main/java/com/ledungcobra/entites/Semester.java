@@ -1,5 +1,6 @@
 package com.ledungcobra.entites;
 
+import com.ledungcobra.entites.embedable.SemesterId;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,15 +15,10 @@ import static com.ledungcobra.utils.Constants.SEMESTER_CHECK_CONSTRAINT_SEMESTER
 @Table(name = "Semester")
 @Getter
 @Setter
-public class Semester extends BaseEntity{
+public class Semester extends BaseEntity {
 
-    @Id
-    @Column(name = "SEMESTER_ID")
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "SEMESTER_NAME", columnDefinition = "VARCHAR(255) CHARSET utf8 " + SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME)
-    private String semesterName;
+    @EmbeddedId
+    private SemesterId id;
 
     @Column(name = "START_DATE")
     private Date startDate;
@@ -30,13 +26,10 @@ public class Semester extends BaseEntity{
     @Column(name = "END_DATE")
     private Date endDate;
 
-    @Column(name = "YEAR")
-    private Integer year;
-
     @Column(name = "ACTIVE")
     private Boolean active;
 
-    @ManyToMany(mappedBy = "semesters",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "semesters", fetch = FetchType.LAZY)
     private List<Course> courses;
 
 }
