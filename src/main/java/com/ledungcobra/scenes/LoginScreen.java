@@ -114,11 +114,8 @@ public class LoginScreen extends Screen {
 
     private void registerEventListener() {
         studentRoleRadioBtn.addActionListener(e -> role = ROLE.STUDENT);
-
         teachingManagerRoleRadioBtn.addActionListener(e -> role = ROLE.TEACHING_MANAGER);
-
         loginButton.addActionListener(e -> login());
-
     }
 
     private void login() {

@@ -139,7 +139,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
 
     // Student management
 
-    public List<Student> getListStudentInClass(@NonNull Class classEntity) {
+    public List<StudentAccount> getListStudentInClass(@NonNull Class classEntity) {
 
         Transaction transaction = beginTransaction();
         val students = classEntity.getStudents();
@@ -148,7 +148,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         return students;
     }
 
-    public List<Student> searchStudent(@NonNull Class classEntity, @NonNull String keyword) {
+    public List<StudentAccount> searchStudent(@NonNull Class classEntity, @NonNull String keyword) {
 
         val transaction = beginTransaction();
         val students = studentDao.searchStudent(classEntity, keyword);
@@ -157,13 +157,13 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         return students;
     }
 
-    public void addStudentToClass(@NonNull Student student, @NonNull Class classEntity) {
+    public void addStudentToClass(@NonNull StudentAccount student, @NonNull Class classEntity) {
         val transaction = beginTransaction();
         studentDao.addStudentToClass(student, classEntity);
         transaction.commit();
     }
 
-    public Student updateStudentInfo(@NonNull Student student) {
+    public StudentAccount updateStudentInfo(@NonNull StudentAccount student) {
 
         val transaction = beginTransaction();
         studentDao.update(student);
@@ -172,10 +172,10 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         return student;
     }
 
-    public Student resetStudentPassword(@NonNull Student student) {
+    public StudentAccount resetStudentPassword(@NonNull StudentAccount student) {
 
         val transaction = beginTransaction();
-        student.setPassword(student.getId());
+        student.setPassword(student.getUserName());
         studentDao.update(student);
         transaction.commit();
 

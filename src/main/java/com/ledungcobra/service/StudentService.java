@@ -1,7 +1,7 @@
 package com.ledungcobra.service;
 
-import com.ledungcobra.entites.Student;
+import com.ledungcobra.entites.StudentAccount;
 
-public class StudentService extends UserService<Student> {
+public class StudentService extends UserService<StudentAccount> {
 
 }

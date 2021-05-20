@@ -13,8 +13,8 @@ public class TeachingManagerDao extends BaseDao<TeachingManager, String> impleme
     }
 
     @Override
-    public TeachingManager findUserByUserName(String username) {
-        return (TeachingManager) session.createQuery("from " + TeachingManager.class.getSimpleName() + " where TeachingManager .userName=:username").setParameter("username", username).getSingleResult();
+    public TeachingManager findUserByUserId(String username) {
+        return (TeachingManager) session.createQuery("from TeachingManager t where t.id=:username").setParameter("username", username).getSingleResult();
     }
 
     public List<TeachingManager> findTeachingManager(String keyword) {

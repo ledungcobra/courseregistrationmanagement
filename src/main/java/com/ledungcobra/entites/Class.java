@@ -24,6 +24,6 @@ public class Class extends BaseEntity{
     private TeachingManager createdBy;
 
     @OneToMany(mappedBy = "studiedClass",fetch = FetchType.LAZY)
-    private List<Student> students;
+    private List<StudentAccount> students;
 
 }

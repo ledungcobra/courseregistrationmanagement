@@ -1,9 +1,8 @@
 package com.ledungcobra.scenes;
 
-import com.ledungcobra.entites.Student;
+import com.ledungcobra.entites.StudentAccount;
 import com.ledungcobra.entites.TeachingManager;
 import com.ledungcobra.entites.User;
-import com.ledungcobra.service.StudentService;
 import lombok.val;
 
 import javax.swing.*;
@@ -85,11 +84,11 @@ public class MenuScreen extends Screen implements ActionListener {
 
         contentPanel = new JPanel(new GridLayout(0, 2));
         contentPanel.setBorder(new EmptyBorder(30,30,30,30));
-        if (user instanceof Student) {
-            Student student = (Student) user;
+        if (user instanceof StudentAccount) {
+            StudentAccount student = (StudentAccount) user;
 
             contentPanel.add(new JLabel("ID"));
-            contentPanel.add(new JLabel(student.getId()));
+            contentPanel.add(new JLabel(student.getUserName()));
 
             contentPanel.add(new JLabel("Username"));
             val username = new JTextField(student.getUserName());
@@ -106,7 +105,7 @@ public class MenuScreen extends Screen implements ActionListener {
             group.add(boy);
             group.add(girl);
 
-            group.setSelected(student.getGender().equalsIgnoreCase("Boy") ? boy.getModel() : girl.getModel(), true);
+            group.setSelected(student.getStudentAccountId().getStudentInfo().getGender().equalsIgnoreCase("Boy") ? boy.getModel() : girl.getModel(), true);
 
             val genderPanel = new JPanel(new FlowLayout());
             genderPanel.add(boy);

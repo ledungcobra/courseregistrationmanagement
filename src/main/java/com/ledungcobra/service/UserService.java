@@ -3,7 +3,7 @@ package com.ledungcobra.service;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.dao.BaseDao;
 import com.ledungcobra.dao.UserDao;
-import com.ledungcobra.entites.Student;
+import com.ledungcobra.entites.StudentAccount;
 import com.ledungcobra.entites.TeachingManager;
 import com.ledungcobra.entites.User;
 import com.ledungcobra.exception.*;
@@ -13,15 +13,15 @@ import java.util.Objects;
 
 public abstract class UserService<E extends User> {
 
-    protected BaseDao userDao;
+    protected UserDao userDao;
 
     protected UserService(E... e) {
 
         Class<E> typeClass = (Class<E>) e.getClass().getComponentType();
         if (typeClass.getSimpleName()
-                .equals(Student.class.getSimpleName())) {
+                .equals(StudentAccount.class.getSimpleName())) {
             userDao = AppContext.studentDao;
-        }else if(typeClass.getSimpleName().equals(TeachingManager.class.getSimpleName())){
+        } else if (typeClass.getSimpleName().equals(TeachingManager.class.getSimpleName())) {
             userDao = AppContext.teachingManagerDao;
         }
 
@@ -29,16 +29,16 @@ public abstract class UserService<E extends User> {
 
     public boolean login(@NonNull String username, @NonNull String password) throws UserNotFound {
 
-        User student = (User) userDao.findById(username);
+        User user = userDao.findUserByUserId(username);
 
-        if (Objects.nonNull(student)) {
-            if(password.equals(student.getPassword())){
+        if (Objects.nonNull(user)) {
+            if (password.equals(user.getPassword())) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
-             throw new UserNotFound("");
+        } else {
+            throw new UserNotFound("");
         }
 
     }
@@ -50,7 +50,7 @@ public abstract class UserService<E extends User> {
                                @NonNull String confirmPassword)
             throws AccountNotFound, PasswordDoesNotChange, ConfirmPasswordFail, CannotUpdatePassword {
 
-        User user = (User) userDao.findById(id);
+        User user = userDao.findUserByUserId(id);
 
         if (Objects.isNull(user)) {
             throw new AccountNotFound("The id " + id + " is match with no rows");
@@ -73,8 +73,8 @@ public abstract class UserService<E extends User> {
         }
     }
 
-    public E findById(String id){
-       return (E) userDao.findById(id);
+    public E findById(String id) {
+        return (E) userDao.findUserByUserId(id);
     }
 
 
