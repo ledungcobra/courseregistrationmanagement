@@ -3,9 +3,12 @@ package com.ledungcobra.scenes;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.dto.Intent;
 import com.ledungcobra.exception.UserNotFound;
+import com.ledungcobra.scenes.generatedscreen.StudentMenuScreen;
+import com.ledungcobra.scenes.generatedscreen.TeachingManagerMenuScreen;
 import com.ledungcobra.service.UserService;
 import lombok.val;
 
+import javax.persistence.NoResultException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -125,21 +128,26 @@ public class LoginScreen extends Screen {
 
             if (role.equals(ROLE.STUDENT)) {
                 userService = AppContext.studentService;
-
-
             } else if (role.equals(ROLE.TEACHING_MANAGER)) {
                 userService = AppContext.teachingManagerService;
             }
 
             if (Objects.nonNull(userService)) {
-
                 if (userService.login(username.getText(), password.getText())) {
-                    val intent = new Intent<MenuScreen>();
+                    Intent intent = null;
 
-                    val data = new HashMap<String,Object>();
+                    if (role.equals(ROLE.TEACHING_MANAGER)) {
+                        intent = new Intent<TeachingManagerMenuScreen>();
+                    }else if(role.equals(ROLE.STUDENT)){
+                        intent = new Intent<StudentMenuScreen>();
+                    }
+
+                    val data = new HashMap<String, Object>();
+
                     data.put(USER_KEY, userService.findById(username.getText()));
-                    data.put(ROLE_KEY,role);
-                    intent.navigate(800,500, data);
+                    data.put(ROLE_KEY, role);
+
+                    intent.navigate(data);
                 } else {
                     // Login fail
                     JOptionPane.showMessageDialog(this, "User name or password does not match");
@@ -153,6 +161,8 @@ public class LoginScreen extends Screen {
             JOptionPane.showMessageDialog(this, "User not found");
         } catch (IllegalStateException illegalStateException) {
             JOptionPane.showMessageDialog(this, illegalStateException.getMessage());
+        }catch (NoResultException e){
+            JOptionPane.showMessageDialog(this, "User not found");
         }
 
 

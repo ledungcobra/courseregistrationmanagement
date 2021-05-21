@@ -1,6 +1,7 @@
 package com.ledungcobra.applicationcontext;
 
 import com.ledungcobra.dao.*;
+import com.ledungcobra.databoostrap.DataBoostrap;
 import com.ledungcobra.service.StudentService;
 import com.ledungcobra.service.TeachingManagerService;
 import com.ledungcobra.utils.HibernateUtils;
@@ -17,11 +18,13 @@ public class AppContext {
     public static final StudentDao studentDao;
     public static final SubjectDao subjectDao;
     public static final TeachingManagerDao teachingManagerDao;
+    public static final EducationTypeDao educationTypeDao;
     public static final StudentService studentService;
     public static final TeachingManagerService teachingManagerService;
     static {
 
         HibernateUtils.buildSessionFactory();
+
         session = HibernateUtils.openSession();
         classDao = new ClassDao(session);
         courseDao = new CourseDao(session);
@@ -31,8 +34,12 @@ public class AppContext {
         studentDao = new StudentDao(session);
         subjectDao = new SubjectDao(session);
         teachingManagerDao = new TeachingManagerDao(session);
+        educationTypeDao = new EducationTypeDao(session);
+
         studentService = new StudentService();
         teachingManagerService = new TeachingManagerService();
+
+        new DataBoostrap().run();
 
 
     }

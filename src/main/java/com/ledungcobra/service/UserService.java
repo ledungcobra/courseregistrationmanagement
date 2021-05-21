@@ -8,7 +8,10 @@ import com.ledungcobra.entites.TeachingManager;
 import com.ledungcobra.entites.User;
 import com.ledungcobra.exception.*;
 import lombok.NonNull;
+import lombok.val;
+import org.hibernate.Transaction;
 
+import javax.persistence.NoResultException;
 import java.util.Objects;
 
 public abstract class UserService<E extends User> {
@@ -27,7 +30,11 @@ public abstract class UserService<E extends User> {
 
     }
 
-    public boolean login(@NonNull String username, @NonNull String password) throws UserNotFound {
+    protected Transaction beginTransaction() {
+        return AppContext.session.beginTransaction();
+    }
+
+    public boolean login(@NonNull String username, @NonNull String password) throws UserNotFound, NoResultException {
 
         User user = userDao.findUserByUserId(username);
 
@@ -40,7 +47,6 @@ public abstract class UserService<E extends User> {
         } else {
             throw new UserNotFound("");
         }
-
     }
 
 
@@ -67,7 +73,11 @@ public abstract class UserService<E extends User> {
         user.setPassword(newPassword);
 
         try {
+
+            val trans = beginTransaction();
             userDao.update(user);
+            trans.commit();
+
         } catch (Exception exception) {
             throw new CannotUpdatePassword("Update password failed");
         }
@@ -77,5 +87,12 @@ public abstract class UserService<E extends User> {
         return (E) userDao.findUserByUserId(id);
     }
 
+    public E save(E e) {
 
+        val trans = beginTransaction();
+        val value = (E) ((BaseDao) userDao).save(e);
+        trans.commit();
+
+        return value;
+    }
 }

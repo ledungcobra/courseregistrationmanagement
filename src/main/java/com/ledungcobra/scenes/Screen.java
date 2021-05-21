@@ -15,10 +15,9 @@ public abstract class Screen extends JFrame {
     public Screen() throws HeadlessException {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(false);
-        this.hide();
 
-        this.pack();
         this.setLocationRelativeTo(null);
+        this.pack();
 
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");

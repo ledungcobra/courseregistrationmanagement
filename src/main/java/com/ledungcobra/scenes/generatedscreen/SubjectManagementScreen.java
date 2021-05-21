@@ -5,16 +5,17 @@
  */
 package com.ledungcobra.scenes.generatedscreen;
 
+import com.ledungcobra.anotations.BackButton;
+import com.ledungcobra.scenes.Screen;
+
 /**
  *
  * @author ledun
  */
-public class SubjectManagementScreen extends javax.swing.JFrame {
+public class SubjectManagementScreen extends Screen {
 
-    /**
-     * Creates new form SubjectManagementScreen
-     */
-    public SubjectManagementScreen() {
+    @Override
+    public void onCreateView() {
         initComponents();
     }
 
@@ -278,7 +279,8 @@ public class SubjectManagementScreen extends javax.swing.JFrame {
         });
     }
 
-    
+
+    @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JButton clearBtn;
     private javax.swing.JTextField creditTextField;

@@ -5,6 +5,7 @@
  */
 package com.ledungcobra.scenes.generatedscreen;
 
+import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.scenes.Screen;
 
 /**
@@ -297,6 +298,7 @@ public class CourseManagementScreen extends Screen {
         java.awt.EventQueue.invokeLater(() -> new CourseManagementScreen().setVisible(true));
     }
 
+    @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JTextField classRoomNameTextField;
     private javax.swing.JButton clearBtn;

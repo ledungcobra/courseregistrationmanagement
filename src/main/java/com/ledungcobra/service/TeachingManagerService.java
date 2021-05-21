@@ -32,9 +32,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         studentCourseDao = AppContext.studentCourseDao;
     }
 
-    private Transaction beginTransaction() {
-        return AppContext.session.beginTransaction();
-    }
+
 
     // Course Manager
 

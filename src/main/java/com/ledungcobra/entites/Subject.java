@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Subject")
@@ -24,4 +25,18 @@ public class Subject extends BaseEntity{
     @Column(name = "SUBJECT_CREDIT", nullable = false)
     private Integer credit;
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Subject subject = (Subject) o;
+        return Objects.equals(id, subject.id) && Objects.equals(name, subject.name) && Objects.equals(credit, subject.credit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), id, name, credit);
+    }
 }

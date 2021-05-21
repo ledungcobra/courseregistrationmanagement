@@ -12,7 +12,7 @@ public class ScreenStackManager {
 
     private static ScreenStackManager INSTANCE;
 
-    public static ScreenStackManager getInstance() {
+    public static  ScreenStackManager getInstance() {
         if (Objects.isNull(INSTANCE)) {
             INSTANCE = new ScreenStackManager();
         }
@@ -36,12 +36,11 @@ public class ScreenStackManager {
     }
 
     private void showScreen(@NonNull Screen screen) {
+        screen.setLocationRelativeTo(null);
         screen.setVisible(true);
-        screen.show();
     }
     private void hideScreen(@NonNull Screen screen){
         screen.setVisible(false);
-        screen.hide();
     }
     private void closeScreen(@NonNull Screen screen) {
         WindowEvent winClosingEvent = new WindowEvent(screen,WindowEvent.WINDOW_CLOSING);
@@ -59,6 +58,5 @@ public class ScreenStackManager {
         }
 
     }
-
 
 }

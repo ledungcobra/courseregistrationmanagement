@@ -5,6 +5,7 @@
  */
 package com.ledungcobra.scenes.generatedscreen;
 
+import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.scenes.Screen;
 
 public class CourseRegManagementScreen extends Screen {
@@ -229,6 +230,7 @@ public class CourseRegManagementScreen extends Screen {
         });
     }
 
+    @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JButton clearBtn;
     private javax.swing.JFormattedTextField endDateFormatedTextField;

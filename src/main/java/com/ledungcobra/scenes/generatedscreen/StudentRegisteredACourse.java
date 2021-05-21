@@ -5,6 +5,8 @@
  */
 package com.ledungcobra.scenes.generatedscreen;
 
+import com.ledungcobra.anotations.BackButton;
+
 /**
  *
  * @author ledun
@@ -136,7 +138,8 @@ public class StudentRegisteredACourse extends javax.swing.JFrame {
         });
     }
 
-    
+
+    @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel courseName;
     private javax.swing.JLabel jLabel1;

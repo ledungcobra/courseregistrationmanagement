@@ -5,16 +5,14 @@
  */
 package com.ledungcobra.scenes.generatedscreen;
 
+import com.ledungcobra.scenes.Screen;
+
 /**
  *
  * @author ledun
  */
-public class UserInfoScreen extends javax.swing.JFrame {
+public class UserInfoScreen extends Screen {
 
-
-    public UserInfoScreen() {
-        initComponents();
-    }
 
 
     @SuppressWarnings("unchecked")
@@ -183,5 +181,9 @@ public class UserInfoScreen extends javax.swing.JFrame {
     private javax.swing.JTextField passwordTextField;
     private javax.swing.JTextField userIdTextField;
     private javax.swing.JTextField usernameTextField;
-    
+
+    @Override
+    public void onCreateView() {
+        initComponents();
+    }
 }

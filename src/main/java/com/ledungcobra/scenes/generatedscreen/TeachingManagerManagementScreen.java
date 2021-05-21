@@ -5,18 +5,15 @@
  */
 package com.ledungcobra.scenes.generatedscreen;
 
+import com.ledungcobra.anotations.BackButton;
+import com.ledungcobra.scenes.Screen;
+
 /**
  *
  * @author ledun
  */
-public class TeachingManagerManagementScreen extends javax.swing.JFrame {
+public class TeachingManagerManagementScreen extends Screen {
 
-    /**
-     * Creates new form SubjectManagementScreen
-     */
-    public TeachingManagerManagementScreen() {
-        initComponents();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -289,7 +286,8 @@ public class TeachingManagerManagementScreen extends javax.swing.JFrame {
         });
     }
 
-    
+
+    @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JButton clearBtn;
     private javax.swing.JTextField creditTextField;
@@ -309,5 +307,9 @@ public class TeachingManagerManagementScreen extends javax.swing.JFrame {
     private javax.swing.JButton searchBtn;
     private javax.swing.JTable subjectListTable;
     private javax.swing.JTextField usernameTextField;
-    
+
+    @Override
+    public void onCreateView() {
+        initComponents();
+    }
 }

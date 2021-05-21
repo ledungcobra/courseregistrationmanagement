@@ -2,6 +2,7 @@ package com.ledungcobra.dao;
 
 import com.ledungcobra.entites.Class;
 import com.ledungcobra.entites.StudentAccount;
+import com.ledungcobra.entites.StudentInfo;
 import lombok.val;
 import org.hibernate.Session;
 
@@ -14,22 +15,29 @@ public class StudentDao extends BaseDao<StudentAccount, String> implements UserD
     }
 
     @Override
-    public StudentAccount findUserByUserId(String username) {
+    public StudentAccount findUserByUserId(String studentCardId) {
         return (StudentAccount) session
-                .createQuery("from StudentAccount sa where sa.studentCardId=:username")
-                .setParameter("username", username).getSingleResult();
+                .createQuery("from StudentAccount sa where sa.studentCardId=:val")
+                .setParameter("val", studentCardId).getSingleResult();
     }
 
     public List<StudentAccount> searchStudent(Class classEntity, String keyword) {
-        val query = this.session.createQuery("select distinct s from " +
-                "StudentAccount s where s.class=:className and (s.userName like :k or s.userName like :k or s.id like :k)");
+
+        val query = this.session.createQuery("select distinct s from StudentAccount s where s.class=:className " +
+                "and (s.fullName like :k or s.studentCardId like :k or s?.id?.studentInfo?.id like :k)");
+
         query.setParameter("className", classEntity);
         query.setParameter("k", keyword);
         return (List<StudentAccount>) query.getResultList();
     }
 
     public void addStudentToClass(StudentAccount student, Class classEntity) {
-//        student.setStudiedClass(classEntity);
+        student.setStudiedClass(classEntity);
         session.update(student);
+    }
+
+    public StudentInfo saveStudentInfo(StudentInfo info){
+        session.save(info);
+        return info;
     }
 }

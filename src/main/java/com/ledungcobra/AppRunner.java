@@ -3,7 +3,6 @@ package com.ledungcobra;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.dto.Intent;
 import com.ledungcobra.scenes.LoginScreen;
-import com.ledungcobra.scenes.generatedscreen.ClassManagementScreen;
 import lombok.val;
 
 public class AppRunner {

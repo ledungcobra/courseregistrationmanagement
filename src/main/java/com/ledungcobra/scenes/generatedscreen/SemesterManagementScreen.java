@@ -5,6 +5,7 @@
  */
 package com.ledungcobra.scenes.generatedscreen;
 
+import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.scenes.Screen;
 
 /**
@@ -268,6 +269,8 @@ public class SemesterManagementScreen extends Screen {
     }
 
     private javax.swing.JCheckBox activeCheckBox;
+
+    @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JButton clearBtn;
     private javax.swing.JButton deleteBtn;

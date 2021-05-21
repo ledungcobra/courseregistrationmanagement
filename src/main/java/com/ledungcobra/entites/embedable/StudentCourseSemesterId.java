@@ -15,21 +15,32 @@ import java.util.Objects;
 @Setter
 public class StudentCourseSemesterId implements Serializable {
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumns(value = {
             @JoinColumn(name = "STUDENT_INFO_ID"),
             @JoinColumn(name = "EDUCATION_TYPE_ID")},
             foreignKey = @ForeignKey(name = "FK_STUDENT_COURSE_SEMESTER_To_STUDENT"))
     private StudentAccount student;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "COURSE_ID")
     private Course course;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumns({@JoinColumn(name = "SEMESTER_NAME"),
             @JoinColumn(name = "YEAR")})
     private Semester studentCourseSemester;
+
+
+    public StudentCourseSemesterId(StudentAccount student, Course course, Semester studentCourseSemester) {
+        this.student = student;
+        this.course = course;
+        this.studentCourseSemester = studentCourseSemester;
+    }
+
+    public StudentCourseSemesterId() {
+
+    }
 
     @Override
     public boolean equals(Object o) {

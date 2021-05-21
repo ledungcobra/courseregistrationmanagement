@@ -14,7 +14,15 @@ public abstract class User extends BaseEntity {
     protected String fullName;
 
     @Column(name = "PASSWORD",nullable = false)
-    private String password;
+    protected String password;
+
+    public User(String fullName, String password) {
+        this.fullName = fullName;
+        this.password = password;
+    }
+
+    public User() {
+    }
 
     public abstract String getUserName();
 

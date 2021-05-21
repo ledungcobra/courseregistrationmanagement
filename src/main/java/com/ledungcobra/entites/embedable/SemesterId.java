@@ -20,6 +20,16 @@ public class SemesterId implements Serializable {
     @Column(name = "YEAR")
     private Integer year;
 
+
+    public SemesterId(String semesterName, Integer year) {
+        this.semesterName = semesterName;
+        this.year = year;
+    }
+
+    public SemesterId() {
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,5 +41,10 @@ public class SemesterId implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(semesterName, year);
+    }
+
+    @Override
+    public String toString() {
+        return semesterName + " - " + year;
     }
 }
