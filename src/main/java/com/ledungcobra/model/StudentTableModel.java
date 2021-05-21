@@ -1,15 +1,37 @@
-package com.ledungcobra.tablemodel;
+package com.ledungcobra.model;
 
 import com.ledungcobra.entites.StudentAccount;
 import lombok.val;
 
 import java.util.List;
 
-public class StudentModel extends AbstractModel<StudentAccount> {
+public class StudentTableModel extends AbsTableModel<StudentAccount> {
 
-    public StudentModel(List<StudentAccount> t) {
+    public StudentTableModel(List<StudentAccount> t) {
         super(t);
+        this.types = new Class[]{
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+
+        };
+
+        this.canEdit = new boolean[]{
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+
+        };
     }
+
 
     @Override
     public Object[][] getRecords(List<StudentAccount> l) {

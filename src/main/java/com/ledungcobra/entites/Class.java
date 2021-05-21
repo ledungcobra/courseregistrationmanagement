@@ -16,6 +16,7 @@ public class Class extends BaseEntity{
 
     @Id
     @Column(name = "CLASS_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "CLASS_NAME",unique = true)
@@ -40,5 +41,10 @@ public class Class extends BaseEntity{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), id, className, createdBy, students);
+    }
+
+    @Override
+    public String toString() {
+        return this.className;
     }
 }

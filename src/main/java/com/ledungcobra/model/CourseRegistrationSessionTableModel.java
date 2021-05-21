@@ -1,14 +1,29 @@
-package com.ledungcobra.tablemodel;
+package com.ledungcobra.model;
 
 import com.ledungcobra.entites.CourseRegistrationSession;
 import lombok.val;
 
 import java.util.List;
 
-public class CourseRegistrationSessionModel extends AbstractModel<CourseRegistrationSession> {
+public class CourseRegistrationSessionTableModel extends AbsTableModel<CourseRegistrationSession> {
 
-    public CourseRegistrationSessionModel(List<CourseRegistrationSession> t) {
+    public CourseRegistrationSessionTableModel(List<CourseRegistrationSession> t) {
         super(t);
+
+        this.types = new Class[]{
+                String.class,
+                String.class,
+                String.class,
+                String.class
+        };
+
+        this.canEdit = new boolean[]{
+                false,
+                false,
+                false,
+                false
+        };
+
     }
 
     @Override

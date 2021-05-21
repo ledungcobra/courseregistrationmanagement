@@ -1,15 +1,32 @@
-package com.ledungcobra.tablemodel;
+package com.ledungcobra.model;
 
 import com.ledungcobra.entites.Semester;
 import lombok.val;
 
 import java.util.List;
 
-public class SemesterModel extends AbstractModel<Semester> {
+public class SemesterTableModel extends AbsTableModel<Semester> {
 
 
-    public SemesterModel(List<Semester> t) {
+    public SemesterTableModel(List<Semester> t) {
         super(t);
+        this.types = new Class[]{
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+                Boolean.class
+        };
+
+        this.canEdit = new boolean[]{
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+        };
     }
 
     @Override

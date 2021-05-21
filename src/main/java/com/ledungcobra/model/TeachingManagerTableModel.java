@@ -1,13 +1,24 @@
-package com.ledungcobra.tablemodel;
+package com.ledungcobra.model;
 
 import com.ledungcobra.entites.TeachingManager;
 import lombok.val;
 
 import java.util.List;
 
-public class TeachingManagerModel extends AbstractModel<TeachingManager> {
-    public TeachingManagerModel(List<TeachingManager> t) {
+public class TeachingManagerTableModel extends AbsTableModel<TeachingManager> {
+    public TeachingManagerTableModel(List<TeachingManager> t) {
         super(t);
+        this.types = new Class[]{
+                String.class,
+                String.class,
+                String.class,
+        };
+
+        this.canEdit = new boolean[]{
+                false,
+                false,
+                false
+        };
     }
 
     @Override

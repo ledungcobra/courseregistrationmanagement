@@ -7,7 +7,9 @@ import com.ledungcobra.entites.Class;
 import lombok.NonNull;
 import lombok.val;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,8 +33,6 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         classDao = AppContext.classDao;
         studentCourseDao = AppContext.studentCourseDao;
     }
-
-
 
     // Course Manager
 
@@ -67,6 +67,10 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     }
 
     // Teaching Manager
+
+    public List<TeachingManager> getTeachingManagerList() {
+        return teachingManagerDao.findAll();
+    }
 
     public List<TeachingManager> findTeachingManager(String keyword) {
         return teachingManagerDao.findTeachingManager(keyword);
@@ -185,6 +189,8 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     }
 
     public CourseRegistrationSession addCourseRegistrationSession(@NonNull CourseRegistrationSession courseRegistrationSession) {
+
+        //TODO
         val transaction = beginTransaction();
         val semester = semesterDao.getActiveSemester();
 
@@ -210,17 +216,36 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         return classDao.findAll();
     }
 
+
     public Class addNewClass(Class newClass) {
-        val transaction = beginTransaction();
-        classDao.save(newClass);
-        transaction.commit();
+        Transaction trans = null;
+        try {
+            trans = beginTransaction();
+            classDao.save(newClass);
+            trans.commit();
+        } finally {
+            if (trans != null && trans.isActive()) {
+                trans.rollback();
+            }
+        }
+
         return newClass;
     }
 
     public void deleteAnClass(Class clazz) {
-        val transaction = beginTransaction();
-        classDao.deleteByObject(clazz);
-        transaction.commit();
+
+        Transaction transaction = null;
+
+        try {
+            transaction = beginTransaction();
+            classDao.deleteByObject(clazz);
+            transaction.commit();
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+
     }
 
     // Course Student
@@ -229,5 +254,25 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         return studentCourseDao.findAll();
     }
 
+    //
+    public List<Subject> getSubjectList() {
+        return AppContext.subjectDao.findAll();
+    }
 
+
+    public void updateClass(Class currentRow) {
+
+        Transaction trans = null;
+
+        try {
+            trans = beginTransaction();
+            classDao.update(currentRow);
+            trans.commit();
+        } finally {
+            if (trans != null && trans.isActive()) {
+                trans.rollback();
+            }
+        }
+
+    }
 }

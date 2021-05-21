@@ -1,13 +1,25 @@
-package com.ledungcobra.tablemodel;
+package com.ledungcobra.model;
 
 import com.ledungcobra.entites.Subject;
 import lombok.val;
 
 import java.util.List;
 
-public class SubjectModel extends AbstractModel<Subject> {
-    public SubjectModel(List<Subject> t) {
+public class SubjectTableModel extends AbsTableModel<Subject> {
+    public SubjectTableModel(List<Subject> t) {
         super(t);
+
+        this.types = new Class[]{
+            String.class,
+            String.class,
+            String.class
+        };
+        this.canEdit = new boolean[]{
+                false,
+                false,
+                false
+        };
+
     }
 
     @Override

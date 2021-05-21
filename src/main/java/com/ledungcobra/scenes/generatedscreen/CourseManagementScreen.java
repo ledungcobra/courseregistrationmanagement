@@ -6,7 +6,9 @@
 package com.ledungcobra.scenes.generatedscreen;
 
 import com.ledungcobra.anotations.BackButton;
+import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.scenes.Screen;
+import com.ledungcobra.model.CourseTableModel;
 
 /**
  * @author ledun
@@ -75,32 +77,7 @@ public class CourseManagementScreen extends Screen {
 
         backBtn.setText("Back");
 
-        subjectListTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                        {null, null, null},
-                        {null, null, null},
-                        {null, null, null},
-                        {null, null, null}
-                },
-                new String[]{
-                        "ID", "Full name", "Password"
-                }
-        ) {
-            Class[] types = new Class[]{
-                    String.class, Integer.class, Integer.class
-            };
-            boolean[] canEdit = new boolean[]{
-                    false, true, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
         jScrollPane1.setViewportView(subjectListTable);
 
         jLabel2.setText("Course ID");
@@ -302,6 +279,9 @@ public class CourseManagementScreen extends Screen {
     @Override
     public void onCreateView() {
         initComponents();
+        subjectListTable
+                .setModel(new CourseTableModel(AppContext.teachingManagerService
+                        .getCourseListInActiveSemester()));
     }
 
     @Override

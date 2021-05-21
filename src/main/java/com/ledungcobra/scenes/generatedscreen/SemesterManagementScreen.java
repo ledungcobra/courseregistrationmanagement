@@ -6,7 +6,10 @@
 package com.ledungcobra.scenes.generatedscreen;
 
 import com.ledungcobra.anotations.BackButton;
+import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.scenes.Screen;
+import com.ledungcobra.model.SemesterTableModel;
+import lombok.val;
 
 /**
  *
@@ -77,32 +80,7 @@ public class SemesterManagementScreen extends Screen {
 
         searchBtn.setText("Search");
 
-        semesterListTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Semester ID", "Name", "Start Date", "End Date", "Year", "Active"
-            }
-        ) {
-            Class[] types = new Class [] {
-                String.class, String.class, String.class, String.class, Object.class, Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jScrollPane1.setViewportView(semesterListTable);
 
         if (semesterListTable.getColumnModel().getColumnCount() > 0) {
@@ -261,15 +239,11 @@ public class SemesterManagementScreen extends Screen {
     }
 
 
-    public static void main(String args[]) {
-
-    }
-
-
-
     @Override
     public void onCreateView() {
         initComponents();
+        val teachingManagerService = AppContext.teachingManagerService;
+        semesterListTable.setModel(new SemesterTableModel(teachingManagerService.getSemesterList()));
     }
 
     @Override

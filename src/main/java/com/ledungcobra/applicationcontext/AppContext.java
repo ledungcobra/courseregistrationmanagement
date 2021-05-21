@@ -21,6 +21,7 @@ public class AppContext {
     public static final EducationTypeDao educationTypeDao;
     public static final StudentService studentService;
     public static final TeachingManagerService teachingManagerService;
+
     static {
 
         HibernateUtils.buildSessionFactory();
@@ -40,7 +41,6 @@ public class AppContext {
         teachingManagerService = new TeachingManagerService();
 
         new DataBoostrap().run();
-
 
     }
 

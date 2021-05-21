@@ -5,7 +5,7 @@ import com.ledungcobra.interfaces.Backable;
 import com.ledungcobra.scenes.Screen;
 import com.ledungcobra.scenes.ScreenStackManager;
 import lombok.SneakyThrows;
-import lombok.val;
+import org.aspectj.lang.annotation.Aspect;
 
 import javax.swing.*;
 import java.lang.annotation.Annotation;
@@ -38,10 +38,11 @@ public class Intent<T extends Screen> implements Backable {
                     }
                 }
             }
+
+
         }catch (Exception e){
 
         }
-
 
     }
 

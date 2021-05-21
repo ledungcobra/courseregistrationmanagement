@@ -6,19 +6,23 @@
 package com.ledungcobra.scenes.generatedscreen;
 
 import com.ledungcobra.anotations.BackButton;
+import com.ledungcobra.applicationcontext.AppContext;
+import com.ledungcobra.entites.Class;
+import com.ledungcobra.model.ClassComboModel;
+import com.ledungcobra.model.TeachingManagerTableModel;
 import com.ledungcobra.scenes.Screen;
+import lombok.val;
 
 /**
- *
  * @author ledun
  */
 public class StudentManagementScreen extends Screen {
 
     @BackButton
     private javax.swing.JButton backBtn;
-    private javax.swing.JComboBox<String> classNameCombobox;
+    private javax.swing.JComboBox<Class> classNameCombobox;
     private javax.swing.JTextField classRoomNameTextField;
-    private javax.swing.JComboBox<String> classSearchCombobox;
+    private javax.swing.JComboBox<Class> classSearchCombobox;
     private javax.swing.JButton clearBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton editBtn;
@@ -76,37 +80,12 @@ public class StudentManagementScreen extends Screen {
 
         backBtn.setText("Back");
 
-        studentListTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null, null, null},
-                        {null, null, null, null, null, null},
-                        {null, null, null, null, null, null},
-                        {null, null, null, null, null, null}
-                },
-                new String [] {
-                        "Student ID", "Full name", "Password", "Gender", "Date of birth", "Courses"
-                }
-        ) {
-            Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                    false, false, false, false, true, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jScrollPane1.setViewportView(studentListTable);
 
         jLabel2.setText("Student ID");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14));
         jLabel3.setText("Add new student");
 
 
@@ -128,18 +107,15 @@ public class StudentManagementScreen extends Screen {
         deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
         deleteBtn.setText("Delete");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 3, 14)); 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 3, 14));
         jLabel7.setText("Find all student in class");
-
-        classNameCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel9.setText("Date of birth");
 
         jLabel10.setText("Gender");
 
-        shiftToStudyInDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        shiftToStudyInDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
-        classSearchCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel12.setText("Class name");
 
@@ -273,32 +249,38 @@ public class StudentManagementScreen extends Screen {
     }
 
     private void studentIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
     }
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
     }
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
     }
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
     }
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
     }
 
     private void fullNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
     }
 
     @Override
     public void onCreateView() {
         initComponents();
+
+        val teachingManagerService = AppContext.teachingManagerService;
+        val classes = teachingManagerService.getClasses();
+        this.classSearchCombobox.setModel(new ClassComboModel(classes));
+        this.classNameCombobox.setModel(new ClassComboModel(classes));
+
     }
 
     @Override

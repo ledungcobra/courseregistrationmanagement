@@ -6,7 +6,10 @@
 package com.ledungcobra.scenes.generatedscreen;
 
 import com.ledungcobra.anotations.BackButton;
+import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.scenes.Screen;
+import com.ledungcobra.model.TeachingManagerTableModel;
+import lombok.val;
 
 /**
  *
@@ -33,7 +36,7 @@ public class TeachingManagerManagementScreen extends Screen {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton searchBtn;
-    private javax.swing.JTable subjectListTable;
+    private javax.swing.JTable teachingManagerTableList;
     private javax.swing.JTextField usernameTextField;
 
     private void initComponents() {
@@ -42,7 +45,7 @@ public class TeachingManagerManagementScreen extends Screen {
         jLabel1 = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        subjectListTable = new javax.swing.JTable();
+        teachingManagerTableList = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         idTextField = new javax.swing.JTextField();
@@ -65,33 +68,8 @@ public class TeachingManagerManagementScreen extends Screen {
 
         searchBtn.setText("Search");
 
-        subjectListTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "ID", "Full name", "Password"
-            }
-        ) {
-            Class[] types = new Class [] {
-                String.class, Integer.class, Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(subjectListTable);
+        jScrollPane1.setViewportView(teachingManagerTableList);
 
         jLabel2.setText("ID");
 
@@ -239,6 +217,9 @@ public class TeachingManagerManagementScreen extends Screen {
     @Override
     public void onCreateView() {
         initComponents();
+        val teachingManagerService = AppContext.teachingManagerService;
+        teachingManagerTableList.setModel(new TeachingManagerTableModel(teachingManagerService.getTeachingManagerList()));
+
     }
 
     @Override
