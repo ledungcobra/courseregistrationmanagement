@@ -14,7 +14,20 @@ import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 
 public class TeachingManagerMenuScreen extends Screen {
 
-    private Intent intent = null;
+    private javax.swing.JButton changePasswordBtn;
+    private javax.swing.JButton classMngBtn;
+    private javax.swing.JButton courseMngBtn;
+    private javax.swing.JButton courseRegSessionMngBtn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel usernameLbl;
+    private javax.swing.JButton logoutBtn;
+    private javax.swing.JButton semesterMngBtn;
+    private javax.swing.JButton studentMngBtn;
+    private javax.swing.JButton subjectMngBtn;
+    private javax.swing.JButton teachingMngBtn;
+    private javax.swing.JButton userIfoMngBtn;
+
 
     @Override
     public void onCreateView() {
@@ -23,6 +36,7 @@ public class TeachingManagerMenuScreen extends Screen {
             this.usernameLbl.setText(((User) this.data.get(USER_KEY)).getFullName());
         }
     }
+
 
     private void initComponents() {
 
@@ -46,43 +60,30 @@ public class TeachingManagerMenuScreen extends Screen {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         classMngBtn.setText("Class management");
-        classMngBtn.addActionListener(evt -> {
-            new Intent<ClassManagementScreen>().navigate();
-        });
 
 
         teachingMngBtn.setText("Teaching Management");
-        teachingMngBtn.addActionListener(e -> {
-            new Intent<TeachingManagerManagementScreen>().navigate();
-        });
+
 
         courseMngBtn.setText("Course Management");
-        courseMngBtn.addActionListener(e->new Intent<CourseManagementScreen>().navigate());
 
         semesterMngBtn.setText("Semester Management");
-        semesterMngBtn.addActionListener(e->new Intent<SemesterManagementScreen>().navigate());
 
         studentMngBtn.setText("Student Management");
-        studentMngBtn.addActionListener(e->new Intent<StudentManagementScreen>().navigate());
 
         userIfoMngBtn.setText("User Info");
-        userIfoMngBtn.addActionListener(e->new Intent<UserInfoScreen>().navigate());
 
         courseRegSessionMngBtn.setText("Course Registration Session Management");
-        courseRegSessionMngBtn.addActionListener(e->new Intent<CourseRegManagementScreen>().navigate());
 
         changePasswordBtn.setText("Change Password");
-        changePasswordBtn.addActionListener(e->new Intent<ChangePasswordScreen>().navigate());
 
         subjectMngBtn.setText("Subject Management");
-        subjectMngBtn.addActionListener(e->new Intent<SubjectManagementScreen>().navigate());
 
 
         jLabel2.setText("Hi");
         usernameLbl.setText("UserName");
 
         logoutBtn.setText("Logout");
-        logoutBtn.addActionListener(e -> logout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,20 +162,22 @@ public class TeachingManagerMenuScreen extends Screen {
     }
 
 
-
-
-    private javax.swing.JButton changePasswordBtn;
-    private javax.swing.JButton classMngBtn;
-    private javax.swing.JButton courseMngBtn;
-    private javax.swing.JButton courseRegSessionMngBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel usernameLbl;
-    private javax.swing.JButton logoutBtn;
-    private javax.swing.JButton semesterMngBtn;
-    private javax.swing.JButton studentMngBtn;
-    private javax.swing.JButton subjectMngBtn;
-    private javax.swing.JButton teachingMngBtn;
-    private javax.swing.JButton userIfoMngBtn;
+    @Override
+    public void addEventListener() {
+        classMngBtn.addActionListener(evt -> {
+            new Intent<ClassManagementScreen>().navigate();
+        });
+        teachingMngBtn.addActionListener(e -> {
+            new Intent<TeachingManagerManagementScreen>().navigate();
+        });
+        courseMngBtn.addActionListener(e -> new Intent<CourseManagementScreen>().navigate());
+        semesterMngBtn.addActionListener(e -> new Intent<SemesterManagementScreen>().navigate());
+        studentMngBtn.addActionListener(e -> new Intent<StudentManagementScreen>().navigate());
+        userIfoMngBtn.addActionListener(e -> new Intent<UserInfoScreen>().navigate());
+        courseRegSessionMngBtn.addActionListener(e -> new Intent<CourseRegManagementScreen>().navigate());
+        changePasswordBtn.addActionListener(e -> new Intent<ChangePasswordScreen>().navigate(this.data));
+        subjectMngBtn.addActionListener(e -> new Intent<SubjectManagementScreen>().navigate(this.data));
+        logoutBtn.addActionListener(e -> logout());
+    }
 
 }

@@ -14,9 +14,40 @@ import com.ledungcobra.scenes.Screen;
  */
 public class SubjectManagementScreen extends Screen {
 
+    @BackButton
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton clearBtn;
+    private javax.swing.JTextField creditTextField;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton editBtn;
+    private javax.swing.JButton insertBtn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField subjectIDTextField;
+    private javax.swing.JTable subjectListTable;
+    private javax.swing.JTextField subjectNameTextField;
+
     @Override
     public void onCreateView() {
         initComponents();
+    }
+
+    @Override
+    public void addEventListener() {
+        subjectIDTextField.addActionListener(evt -> subjectIDTextFieldActionPerformed(evt));
+        editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
+        insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
+        clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
+        deleteBtn.addActionListener(evt -> deleteBtnActionPerformed(evt));
+        searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
+
     }
 
     /**
@@ -54,11 +85,6 @@ public class SubjectManagementScreen extends Screen {
         jLabel1.setText("Keyword");
 
         searchBtn.setText("Search");
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
-            }
-        });
 
         subjectListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,47 +119,23 @@ public class SubjectManagementScreen extends Screen {
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); 
         jLabel3.setText("Add new subject");
 
-        subjectIDTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                subjectIDTextFieldActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Subject name");
 
         jLabel5.setText("Credit");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 3, 14)); 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 3, 14));
         jLabel6.setText("Manage subject");
 
         editBtn.setText("Edit");
-        editBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBtnActionPerformed(evt);
-            }
-        });
+
 
         insertBtn.setText("Insert");
-        insertBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertBtnActionPerformed(evt);
-            }
-        });
 
         clearBtn.setText("Clear");
-        clearBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearBtnActionPerformed(evt);
-            }
-        });
 
         deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
         deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -244,60 +246,7 @@ public class SubjectManagementScreen extends Screen {
         
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http:
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SubjectManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SubjectManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SubjectManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SubjectManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SubjectManagementScreen().setVisible(true);
-            }
-        });
-    }
 
 
-    @BackButton
-    private javax.swing.JButton backBtn;
-    private javax.swing.JButton clearBtn;
-    private javax.swing.JTextField creditTextField;
-    private javax.swing.JButton deleteBtn;
-    private javax.swing.JButton editBtn;
-    private javax.swing.JButton insertBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JTextField subjectIDTextField;
-    private javax.swing.JTable subjectListTable;
-    private javax.swing.JTextField subjectNameTextField;
     
 }

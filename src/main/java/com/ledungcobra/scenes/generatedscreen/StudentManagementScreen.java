@@ -14,6 +14,34 @@ import com.ledungcobra.scenes.Screen;
  */
 public class StudentManagementScreen extends Screen {
 
+    @BackButton
+    private javax.swing.JButton backBtn;
+    private javax.swing.JComboBox<String> classNameCombobox;
+    private javax.swing.JTextField classRoomNameTextField;
+    private javax.swing.JComboBox<String> classSearchCombobox;
+    private javax.swing.JButton clearBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton editBtn;
+    private javax.swing.JTextField fullNameTextField;
+    private javax.swing.JButton insertBtn;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton resetPasswordBtn;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchStudentTextField;
+    private javax.swing.JComboBox<String> shiftToStudyInDay;
+    private javax.swing.JTextField studentIdTextField;
+    private javax.swing.JTable studentListTable;
+
 
     private void initComponents() {
 
@@ -81,53 +109,24 @@ public class StudentManagementScreen extends Screen {
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); 
         jLabel3.setText("Add new student");
 
-        studentIdTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentIdTextFieldActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Full name");
 
         jLabel5.setText("Class name");
 
-        fullNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fullNameTextFieldActionPerformed(evt);
-            }
-        });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 3, 14)); 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 3, 14));
         jLabel6.setText("Manage student in class");
 
         editBtn.setText("Edit");
-        editBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBtnActionPerformed(evt);
-            }
-        });
 
         insertBtn.setText("Insert");
-        insertBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertBtnActionPerformed(evt);
-            }
-        });
 
         clearBtn.setText("Clear");
-        clearBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearBtnActionPerformed(evt);
-            }
-        });
+
 
         deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
         deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 3, 14)); 
         jLabel7.setText("Find all student in class");
@@ -297,80 +296,21 @@ public class StudentManagementScreen extends Screen {
         
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http:
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StudentManagementScreen().setVisible(true);
-            }
-        });
-    }
-
-
     @Override
     public void onCreateView() {
         initComponents();
     }
 
+    @Override
+    public void addEventListener() {
+        studentIdTextField.addActionListener(evt -> studentIdTextFieldActionPerformed(evt));
+        fullNameTextField.addActionListener(evt -> fullNameTextFieldActionPerformed(evt));
+        editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
+        insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
+        clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
+        deleteBtn.addActionListener(evt -> deleteBtnActionPerformed(evt));
 
-    @BackButton
-    private javax.swing.JButton backBtn;
-    private javax.swing.JComboBox<String> classNameCombobox;
-    private javax.swing.JTextField classRoomNameTextField;
-    private javax.swing.JComboBox<String> classSearchCombobox;
-    private javax.swing.JButton clearBtn;
-    private javax.swing.JButton deleteBtn;
-    private javax.swing.JButton editBtn;
-    private javax.swing.JTextField fullNameTextField;
-    private javax.swing.JButton insertBtn;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton resetPasswordBtn;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JTextField searchStudentTextField;
-    private javax.swing.JComboBox<String> shiftToStudyInDay;
-    private javax.swing.JTextField studentIdTextField;
-    private javax.swing.JTable studentListTable;
+    }
+
+
 }

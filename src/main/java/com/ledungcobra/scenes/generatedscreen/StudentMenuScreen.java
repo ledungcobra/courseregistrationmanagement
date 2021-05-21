@@ -18,6 +18,12 @@ public class StudentMenuScreen extends Screen {
 
 
     private JButton logoutBtn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton listAllRegisteredCourses;
+    private javax.swing.JButton registerCoursesBtn;
+    private javax.swing.JLabel usernameLbl;
+
 
     @Override
     public void onCreateView() {
@@ -26,6 +32,13 @@ public class StudentMenuScreen extends Screen {
         if (this.data != null) {
             usernameLbl.setText(((User) data.get(USER_KEY)).getFullName());
         }
+    }
+
+    @Override
+    public void addEventListener() {
+        registerCoursesBtn.addActionListener(evt -> registerCoursesBtnActionPerformed(evt));
+        listAllRegisteredCourses.addActionListener(evt -> listAllRegisteredCoursesActionPerformed(evt));
+        logoutBtn.addActionListener(evt->logout());
     }
 
 
@@ -46,15 +59,9 @@ public class StudentMenuScreen extends Screen {
         jLabel1.setText("Menu");
 
         registerCoursesBtn.setText("Register courses");
-        registerCoursesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerCoursesBtnActionPerformed(evt);
-            }
-        });
 
         listAllRegisteredCourses.setText("List all registered courses");
-        listAllRegisteredCourses.addActionListener(evt -> listAllRegisteredCoursesActionPerformed(evt));
-        logoutBtn.addActionListener(evt->logout());
+
 
         usernameLbl.setText("jLabel2");
 
@@ -106,20 +113,12 @@ public class StudentMenuScreen extends Screen {
     private void logout() {
         ScreenStackManager.getInstance().popTopScreen();
     }
-
     private void listAllRegisteredCoursesActionPerformed(java.awt.event.ActionEvent evt) {
-
     }
-
     private void registerCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {
 
     }
 
 
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton listAllRegisteredCourses;
-    private javax.swing.JButton registerCoursesBtn;
-    private javax.swing.JLabel usernameLbl;
 
 }

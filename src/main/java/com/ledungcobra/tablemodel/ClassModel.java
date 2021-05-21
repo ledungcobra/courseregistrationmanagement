@@ -36,6 +36,6 @@ public class ClassModel extends AbstractModel<com.ledungcobra.entites.Class> {
 
     private long countBoys(List<StudentAccount> studentAccounts) {
         if (studentAccounts == null) return 0;
-        return studentAccounts.stream().filter(s -> "BOY".equalsIgnoreCase(s.getStudentAccountId().getStudentInfo().getGender())).count();
+        return studentAccounts.stream().filter(s -> "BOY".equalsIgnoreCase(s.getStudentInfo().getGender())).count();
     }
 }

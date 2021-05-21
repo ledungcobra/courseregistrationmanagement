@@ -16,6 +16,30 @@ public class SemesterManagementScreen extends Screen {
 
 
 
+    @BackButton
+    private javax.swing.JButton backBtn;
+    private javax.swing.JCheckBox activeCheckBox;
+    private javax.swing.JButton clearBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton editBtn;
+    private javax.swing.JTextField endDateTextField;
+    private javax.swing.JButton insertBtn;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchTextField;
+    private javax.swing.JTable semesterListTable;
+    private javax.swing.JTextField semesterNameTExtField;
+    private javax.swing.JTextField startDateTextField;
+    private javax.swing.JTextField yearTextField;
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -52,11 +76,6 @@ public class SemesterManagementScreen extends Screen {
         jLabel1.setText("Keyword");
 
         searchBtn.setText("Search");
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
-            }
-        });
 
         semesterListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,6 +104,7 @@ public class SemesterManagementScreen extends Screen {
             }
         });
         jScrollPane1.setViewportView(semesterListTable);
+
         if (semesterListTable.getColumnModel().getColumnCount() > 0) {
             semesterListTable.getColumnModel().getColumn(5).setResizable(false);
         }
@@ -94,11 +114,6 @@ public class SemesterManagementScreen extends Screen {
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel3.setText("Add new semester");
 
-        semesterNameTExtField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                semesterNameTExtFieldActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Subject name");
 
@@ -108,33 +123,15 @@ public class SemesterManagementScreen extends Screen {
         jLabel6.setText("Manage semester");
 
         editBtn.setText("Edit");
-        editBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBtnActionPerformed(evt);
-            }
-        });
 
         insertBtn.setText("Insert");
-        insertBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertBtnActionPerformed(evt);
-            }
-        });
 
         clearBtn.setText("Clear");
-        clearBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearBtnActionPerformed(evt);
-            }
-        });
 
         deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
         deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
-            }
-        });
+
+
 
         jButton1.setText("Set Active");
 
@@ -268,34 +265,20 @@ public class SemesterManagementScreen extends Screen {
 
     }
 
-    private javax.swing.JCheckBox activeCheckBox;
 
-    @BackButton
-    private javax.swing.JButton backBtn;
-    private javax.swing.JButton clearBtn;
-    private javax.swing.JButton deleteBtn;
-    private javax.swing.JButton editBtn;
-    private javax.swing.JTextField endDateTextField;
-    private javax.swing.JButton insertBtn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JTextField searchTextField;
-    private javax.swing.JTable semesterListTable;
-    private javax.swing.JTextField semesterNameTExtField;
-    private javax.swing.JTextField startDateTextField;
-    private javax.swing.JTextField yearTextField;
 
     @Override
     public void onCreateView() {
         initComponents();
+    }
+
+    @Override
+    public void addEventListener() {
+        searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
+        semesterNameTExtField.addActionListener(evt -> semesterNameTExtFieldActionPerformed(evt));
+        editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
+        insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
+        clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
+        deleteBtn.addActionListener(evt -> deleteBtnActionPerformed(evt));
     }
 }

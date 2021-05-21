@@ -42,6 +42,8 @@ public abstract class Screen extends JFrame {
 
     public abstract void onCreateView();
 
+    public abstract void addEventListener();
+
     public void setData(Map<String, Object> data) {
         this.data = data;
     }

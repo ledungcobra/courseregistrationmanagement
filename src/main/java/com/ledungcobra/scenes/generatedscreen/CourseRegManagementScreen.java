@@ -10,11 +10,34 @@ import com.ledungcobra.scenes.Screen;
 
 public class CourseRegManagementScreen extends Screen {
 
-
+    @BackButton
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton clearBtn;
+    private javax.swing.JFormattedTextField endDateFormatedTextField;
+    private javax.swing.JButton insertBtn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JComboBox<String> semeterNameCombobox;
+    private javax.swing.JFormattedTextField startDateFormatedTextField;
+    private javax.swing.JTable subjectListTable;
 
     @Override
     public void onCreateView() {
         initComponents();
+    }
+
+    @Override
+    public void addEventListener() {
+        clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
+        searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
+        insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
+        startDateFormatedTextField.addActionListener(evt -> startDateFormatedTextFieldActionPerformed(evt));
     }
 
 
@@ -44,11 +67,7 @@ public class CourseRegManagementScreen extends Screen {
         jLabel1.setText("Keyword");
 
         searchBtn.setText("Search");
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
-            }
-        });
+
 
         subjectListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,26 +110,13 @@ public class CourseRegManagementScreen extends Screen {
         jLabel5.setText("Semester");
 
         insertBtn.setText("Insert");
-        insertBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertBtnActionPerformed(evt);
-            }
-        });
+
 
         clearBtn.setText("Clear");
-        clearBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearBtnActionPerformed(evt);
-            }
-        });
+
 
         semeterNameCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        startDateFormatedTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startDateFormatedTextFieldActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,20 +236,5 @@ public class CourseRegManagementScreen extends Screen {
         });
     }
 
-    @BackButton
-    private javax.swing.JButton backBtn;
-    private javax.swing.JButton clearBtn;
-    private javax.swing.JFormattedTextField endDateFormatedTextField;
-    private javax.swing.JButton insertBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JComboBox<String> semeterNameCombobox;
-    private javax.swing.JFormattedTextField startDateFormatedTextField;
-    private javax.swing.JTable subjectListTable;
+
 }

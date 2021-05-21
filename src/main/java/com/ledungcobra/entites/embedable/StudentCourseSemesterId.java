@@ -16,10 +16,7 @@ import java.util.Objects;
 public class StudentCourseSemesterId implements Serializable {
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
-    @JoinColumns(value = {
-            @JoinColumn(name = "STUDENT_INFO_ID"),
-            @JoinColumn(name = "EDUCATION_TYPE_ID")},
-            foreignKey = @ForeignKey(name = "FK_STUDENT_COURSE_SEMESTER_To_STUDENT"))
+    @JoinColumn(name = "STUDENT_ID")
     private StudentAccount student;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})

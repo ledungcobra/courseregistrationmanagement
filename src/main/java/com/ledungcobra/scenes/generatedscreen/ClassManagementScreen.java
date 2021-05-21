@@ -14,6 +14,21 @@ import com.ledungcobra.scenes.Screen;
  */
 public class ClassManagementScreen extends Screen {
 
+    @BackButton
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton clearBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton editBtn;
+    private javax.swing.JButton insertBtn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField subjectIDTextField;
+    private javax.swing.JTable subjectListTable;
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
@@ -38,7 +53,6 @@ public class ClassManagementScreen extends Screen {
         backBtn.setText("Back");
         jLabel1.setText("Keyword");
         searchBtn.setText("Search");
-        searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
 
         subjectListTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -73,26 +87,26 @@ public class ClassManagementScreen extends Screen {
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel3.setText("Add new class");
 
-        subjectIDTextField.addActionListener(evt -> subjectIDTextFieldActionPerformed(evt));
+
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel6.setText("Manage class");
 
         editBtn.setText("Edit");
-        editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
+
 
         insertBtn.setText("Insert");
-        insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
 
         clearBtn.setText("Clear");
-        clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
+
 
         deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
         deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(evt -> deleteBtnActionPerformed(evt));
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -164,7 +178,6 @@ public class ClassManagementScreen extends Screen {
     }
 
     private void subjectIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,33 +196,18 @@ public class ClassManagementScreen extends Screen {
     }
 
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClassManagementScreen().setVisible(true);
-            }
-        });
-    }
-
-    @BackButton
-    private javax.swing.JButton backBtn;
-    private javax.swing.JButton clearBtn;
-    private javax.swing.JButton deleteBtn;
-    private javax.swing.JButton editBtn;
-    private javax.swing.JButton insertBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JTextField subjectIDTextField;
-    private javax.swing.JTable subjectListTable;
-
     @Override
     public void onCreateView() {
         initComponents();
+    }
+
+    @Override
+    public void addEventListener() {
+        searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
+        subjectIDTextField.addActionListener(evt -> subjectIDTextFieldActionPerformed(evt));
+        editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
+        insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
+        clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
+        deleteBtn.addActionListener(evt -> deleteBtnActionPerformed(evt));
     }
 }

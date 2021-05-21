@@ -49,6 +49,10 @@ public class Course extends BaseEntity {
 
     private List<Semester> semesters;
 
+    public String getSubjectName(){
+        return this.subject.getName();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

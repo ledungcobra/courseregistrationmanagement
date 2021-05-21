@@ -12,7 +12,8 @@ import javax.persistence.NoResultException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -29,8 +30,8 @@ public class LoginScreen extends Screen {
     }
 
 
-    private JTextField username;
-    private JPasswordField password;
+    private JTextField usernameTextField;
+    private JPasswordField passwordTextField;
     private ROLE role = ROLE.STUDENT;
 
     private JRadioButton studentRoleRadioBtn;
@@ -55,15 +56,15 @@ public class LoginScreen extends Screen {
         val passwordPanel = new JPanel(new GridLayout(1, 2));
 
 
-        username = new JTextField(USERNAME);
+        usernameTextField = new JTextField(USERNAME);
         val usernamePane = new JPanel(new GridLayout(1, 2));
         usernamePane.add(userNameLabel);
-        usernamePane.add(username);
+        usernamePane.add(usernameTextField);
 
         val passwordText = new JLabel("Password");
-        password = new JPasswordField(USERNAME);
+        passwordTextField = new JPasswordField(USERNAME);
         passwordPanel.add(passwordText);
-        passwordPanel.add(password);
+        passwordPanel.add(passwordTextField);
 
         val loginBtnPanel = new JPanel(new GridLayout(1, 3));
         loginButton = new JButton("Login");
@@ -109,17 +110,41 @@ public class LoginScreen extends Screen {
         loginPane.add(new JPanel());
         loginPane.add(new JPanel());
         loginPane.add(new JPanel());
-
-        registerEventListener();
-
         this.setContentPane(loginPane);
     }
 
-    private void registerEventListener() {
+    @Override
+    public void addEventListener() {
         studentRoleRadioBtn.addActionListener(e -> role = ROLE.STUDENT);
         teachingManagerRoleRadioBtn.addActionListener(e -> role = ROLE.TEACHING_MANAGER);
         loginButton.addActionListener(e -> login());
+
+        loginButton.setMnemonic(KeyEvent.VK_L);
+
+        val onEnterEvent = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    login();
+                }
+            }
+        };
+
+        usernameTextField.addKeyListener(onEnterEvent);
+        passwordTextField.addKeyListener(onEnterEvent);
+
     }
+
 
     private void login() {
         try {
@@ -133,18 +158,18 @@ public class LoginScreen extends Screen {
             }
 
             if (Objects.nonNull(userService)) {
-                if (userService.login(username.getText(), password.getText())) {
+                if (userService.login(usernameTextField.getText(), passwordTextField.getText())) {
                     Intent intent = null;
 
                     if (role.equals(ROLE.TEACHING_MANAGER)) {
                         intent = new Intent<TeachingManagerMenuScreen>();
-                    }else if(role.equals(ROLE.STUDENT)){
+                    } else if (role.equals(ROLE.STUDENT)) {
                         intent = new Intent<StudentMenuScreen>();
                     }
 
                     val data = new HashMap<String, Object>();
 
-                    data.put(USER_KEY, userService.findById(username.getText()));
+                    data.put(USER_KEY, userService.findById(usernameTextField.getText()));
                     data.put(ROLE_KEY, role);
 
                     intent.navigate(data);
@@ -161,7 +186,7 @@ public class LoginScreen extends Screen {
             JOptionPane.showMessageDialog(this, "User not found");
         } catch (IllegalStateException illegalStateException) {
             JOptionPane.showMessageDialog(this, illegalStateException.getMessage());
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             JOptionPane.showMessageDialog(this, "User not found");
         }
 

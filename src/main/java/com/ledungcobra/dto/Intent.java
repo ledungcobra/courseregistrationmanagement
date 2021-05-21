@@ -49,6 +49,7 @@ public class Intent<T extends Screen> implements Backable {
         screen.setSize(width, height);
         screen.setData(data);
         screen.onCreateView();
+        screen.addEventListener();
         addGoBackListener();
 
         ScreenStackManager.getInstance().pushScreen(screen);
@@ -57,6 +58,7 @@ public class Intent<T extends Screen> implements Backable {
     public void navigate(Map<String, Object> data) {
         screen.setData(data);
         screen.onCreateView();
+        screen.addEventListener();
         addGoBackListener();
 
         ScreenStackManager.getInstance().pushScreen(screen);
@@ -64,8 +66,9 @@ public class Intent<T extends Screen> implements Backable {
 
     public void navigate() {
         screen.onCreateView();
-
+        screen.addEventListener();
         addGoBackListener();
+
         ScreenStackManager.getInstance().pushScreen(screen);
     }
 

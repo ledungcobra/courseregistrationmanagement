@@ -27,4 +27,8 @@ public class Constants {
 
     public static final String USERNAME = "18120331";
 
+    public static final String SHOW = "Show";
+    public static final String HIDE = "Hide";
+
+
 }
