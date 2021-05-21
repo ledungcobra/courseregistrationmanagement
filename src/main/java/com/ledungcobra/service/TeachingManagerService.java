@@ -2,17 +2,19 @@ package com.ledungcobra.service;
 
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.dao.*;
-import com.ledungcobra.entites.*;
 import com.ledungcobra.entites.Class;
+import com.ledungcobra.entites.*;
 import lombok.NonNull;
 import lombok.val;
-import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+@FunctionalInterface
+interface DoWork {
+    void run();
+}
 
 public class TeachingManagerService extends UserService<TeachingManager> {
 
@@ -23,6 +25,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     private CourseRegistrationSessionDao courseRegistrationSessionDao;
     private ClassDao classDao;
     private StudentCourseDao studentCourseDao;
+    private SubjectDao subjectDao;
 
     public TeachingManagerService() {
         courseDao = AppContext.courseDao;
@@ -32,42 +35,30 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         courseRegistrationSessionDao = AppContext.courseRegistrationDao;
         classDao = AppContext.classDao;
         studentCourseDao = AppContext.studentCourseDao;
+        subjectDao = AppContext.subjectDao;
     }
 
     // Course Manager
-
     public List<Course> getCourseList() {
         return courseDao.findAll();
     }
 
     public Course addNewCourse(Course course) {
-
-        val transaction = beginTransaction();
-        courseDao.save(course);
-        transaction.commit();
-
+        doTransaction(() -> courseDao.save(course));
         return course;
     }
 
     public Course updateCourse(Course course) {
 
-        val transaction = beginTransaction();
-        courseDao.update(course);
-        transaction.commit();
-
+        doTransaction(() -> courseDao.update(course));
         return course;
     }
 
     public void deleteCourse(Course course) {
-
-        val transaction = beginTransaction();
-        courseDao.deleteByObject(course);
-        transaction.commit();
-
+        doTransaction(() -> courseDao.deleteByObject(course));
     }
 
     // Teaching Manager
-
     public List<TeachingManager> getTeachingManagerList() {
         return teachingManagerDao.findAll();
     }
@@ -77,110 +68,73 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     }
 
     public TeachingManager addNewTeachingManager(TeachingManager teachingManager) {
-
-        val transaction = beginTransaction();
-        teachingManagerDao.save(teachingManager);
-        transaction.commit();
-
+        doTransaction(() -> teachingManagerDao.save(teachingManager));
         return teachingManager;
     }
 
     public TeachingManager updateTeachingManager(TeachingManager teachingManager) {
-
-        val transaction = beginTransaction();
-        teachingManagerDao.update(teachingManager);
-        transaction.commit();
-
+        doTransaction(() -> teachingManagerDao.update(teachingManager));
         return teachingManager;
     }
 
     public TeachingManager updateTeachingManagerPassword(@NonNull String id) {
-
-        val transaction = beginTransaction();
         val teachingManager = teachingManagerDao.findById(id);
         teachingManager.setPassword(teachingManager.getId());
-        teachingManagerDao.update(teachingManager);
-        transaction.commit();
+        doTransaction(() -> teachingManagerDao.update(teachingManager));
         return teachingManager;
     }
 
     public void deleteTeachingManager(String... ids) {
-
-        val transaction = beginTransaction();
-
-        for (String id : ids) {
-            teachingManagerDao.deleteById(id);
-        }
-
-        transaction.commit();
+        doTransaction(() -> {
+            for (String id : ids) {
+                teachingManagerDao.deleteById(id);
+            }
+        });
     }
 
     // Semester
-
     public List<Semester> getSemesterList() {
         return semesterDao.findAll();
     }
 
     public Semester addNewSemester(Semester semester) {
-        val transaction = beginTransaction();
-        semesterDao.save(semester);
-        transaction.commit();
+        doTransaction(() -> semesterDao.save(semester));
         return semester;
     }
 
     public void deleteSemester(Semester semester) {
-        val transaction = beginTransaction();
-        semesterDao.deleteByObject(semester);
-        transaction.commit();
+        doTransaction(() -> semesterDao.deleteByObject(semester));
     }
 
     public void setSemesterAsActive(@NonNull Semester semester) {
+
         semester.setActive(true);
-        semesterDao.setSemesterActive(semester);
+        doTransaction(() -> semesterDao.setSemesterActive(semester));
     }
 
     // Student management
-
     public List<StudentAccount> getListStudentInClass(@NonNull Class classEntity) {
-
-        Transaction transaction = beginTransaction();
-        val students = classEntity.getStudents();
-        transaction.commit();
-
-        return students;
+        return classEntity.getStudents();
     }
 
     public List<StudentAccount> searchStudent(@NonNull Class classEntity, @NonNull String keyword) {
-
-        val transaction = beginTransaction();
-        val students = studentDao.searchStudent(classEntity, keyword);
-        transaction.commit();
-
-        return students;
+        return studentDao.searchStudent(classEntity, keyword);
     }
 
     public void addStudentToClass(@NonNull StudentAccount student, @NonNull Class classEntity) {
-        val transaction = beginTransaction();
-        studentDao.addStudentToClass(student, classEntity);
-        transaction.commit();
+        doTransaction(() -> studentDao.addStudentToClass(student, classEntity));
     }
 
     public StudentAccount updateStudentInfo(@NonNull StudentAccount student) {
 
-        val transaction = beginTransaction();
-        studentDao.update(student);
-        transaction.commit();
-
+        doTransaction(() -> studentDao.update(student));
         return student;
     }
 
     public StudentAccount resetStudentPassword(@NonNull StudentAccount student) {
-
         val transaction = beginTransaction();
         student.setPassword(student.getUserName());
-        studentDao.update(student);
-        transaction.commit();
-
+        doTransaction(() -> studentDao.update(student));
         return student;
     }
 
@@ -189,15 +143,9 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     }
 
     public CourseRegistrationSession addCourseRegistrationSession(@NonNull CourseRegistrationSession courseRegistrationSession) {
-
-        //TODO
-        val transaction = beginTransaction();
         val semester = semesterDao.getActiveSemester();
-
         courseRegistrationSession.setSemester(semester);
-        courseRegistrationSessionDao.save(courseRegistrationSession);
-
-        transaction.commit();
+        doTransaction(() -> courseRegistrationSessionDao.save(courseRegistrationSession));
         return courseRegistrationSession;
     }
 
@@ -218,61 +166,42 @@ public class TeachingManagerService extends UserService<TeachingManager> {
 
 
     public Class addNewClass(Class newClass) {
-        Transaction trans = null;
-        try {
-            trans = beginTransaction();
-            classDao.save(newClass);
-            trans.commit();
-        } finally {
-            if (trans != null && trans.isActive()) {
-                trans.rollback();
-            }
-        }
-
+        doTransaction(() -> classDao.save(newClass));
         return newClass;
     }
 
     public void deleteAnClass(Class clazz) {
-
-        Transaction transaction = null;
-
-        try {
-            transaction = beginTransaction();
-            classDao.deleteByObject(clazz);
-            transaction.commit();
-        } finally {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-        }
-
+        doTransaction(() -> classDao.deleteByObject(clazz));
     }
 
     // Course Student
-
     public List<StudentCourseSemester> getListStudentCourse() {
         return studentCourseDao.findAll();
     }
 
-    //
     public List<Subject> getSubjectList() {
         return AppContext.subjectDao.findAll();
     }
 
 
     public void updateClass(Class currentRow) {
+        doTransaction(() -> classDao.update(currentRow));
+    }
 
-        Transaction trans = null;
+    public void deleteSubject(Subject subject) {
+        doTransaction(() -> subjectDao.deleteByObject(subject));
 
-        try {
-            trans = beginTransaction();
-            classDao.update(currentRow);
-            trans.commit();
-        } finally {
-            if (trans != null && trans.isActive()) {
-                trans.rollback();
-            }
-        }
+    }
 
+    public void addNewSubject(Subject subject) {
+        doTransaction(() -> subjectDao.save(subject));
+    }
+
+    public void updateSubject(Subject currentEditingSubject) {
+        doTransaction(() -> subjectDao.update(currentEditingSubject));
+    }
+
+    public List<Subject> searchSubject(String keyword) {
+        return subjectDao.search(keyword);
     }
 }

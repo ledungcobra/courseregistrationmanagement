@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Subject extends BaseEntity{
 
     @Id
-    @Column(name = "SUBJECT_ID",nullable = false)
+    @Column(name = "SUBJECT_ID")
     private String id;
 
     @Column(name = "SUBJECT_NAME",unique = true)
@@ -24,6 +24,16 @@ public class Subject extends BaseEntity{
 
     @Column(name = "SUBJECT_CREDIT", nullable = false)
     private Integer credit;
+
+    public Subject(String id, String name, Integer credit) {
+        this.id = id;
+        this.name = name;
+        this.credit = credit;
+    }
+
+    public Subject() {
+
+    }
 
 
     @Override

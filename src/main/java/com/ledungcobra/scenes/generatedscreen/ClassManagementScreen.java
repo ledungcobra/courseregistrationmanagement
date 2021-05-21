@@ -31,7 +31,7 @@ public class ClassManagementScreen extends Screen {
     private javax.swing.JButton insertBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel addAClassLbl;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
@@ -41,7 +41,7 @@ public class ClassManagementScreen extends Screen {
     private TeachingManagerService service = AppContext.teachingManagerService;
     private List<Class> classList;
 
-    private Class currentRow;
+    private Class currentEditingClass;
 
 
     private void initComponents() {
@@ -53,7 +53,7 @@ public class ClassManagementScreen extends Screen {
         jScrollPane1 = new javax.swing.JScrollPane();
         classListTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        addAClassLbl = new javax.swing.JLabel();
         classNameTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         editBtn = new javax.swing.JButton();
@@ -72,8 +72,8 @@ public class ClassManagementScreen extends Screen {
 
         jLabel2.setText("Class name");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jLabel3.setText("Add new class");
+        addAClassLbl.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        addAClassLbl.setText("Add new class");
 
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
@@ -93,31 +93,24 @@ public class ClassManagementScreen extends Screen {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(backBtn)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(backBtn)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(68, 68, 68)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(jLabel1)
-                                                                .addGap(19, 19, 19)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(jLabel2)
-                                                                                        .addComponent(jLabel3))
-                                                                                .addGap(14, 14, 14)
-                                                                                .addComponent(classNameTextField))))
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jLabel2)
+                                                                        .addComponent(addAClassLbl))
+                                                                .addGap(14, 14, 14)
+                                                                .addComponent(classNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(jLabel6)
-                                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(768, 768, 768))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(29, 29, 29)
@@ -125,23 +118,17 @@ public class ClassManagementScreen extends Screen {
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(30, 30, 30)
-                                                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                                                .addComponent(searchBtn)))
-                                .addContainerGap())
+                                                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(backBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(searchBtn))
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel3)
+                                .addGap(54, 54, 54)
+                                .addComponent(addAClassLbl)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel2)
@@ -150,7 +137,7 @@ public class ClassManagementScreen extends Screen {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(clearBtn)
                                         .addComponent(insertBtn))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel6)
@@ -161,6 +148,7 @@ public class ClassManagementScreen extends Screen {
                                 .addGap(18, 18, 18))
         );
 
+
         pack();
     }
 
@@ -170,6 +158,10 @@ public class ClassManagementScreen extends Screen {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
         val selectedRowIndex = classListTable.getSelectedRow();
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "You must select a row to delete");
+            return;
+        }
         val row = this.classList.get(selectedRowIndex);
         service.deleteAnClass(row);
         updateTableData();
@@ -183,15 +175,17 @@ public class ClassManagementScreen extends Screen {
             JOptionPane.showMessageDialog(this, "You must choose a record to edit");
             return;
         }
-        currentRow = this.classList.get(selectedRowIndex);
+        currentEditingClass = this.classList.get(selectedRowIndex);
 
-        this.classNameTextField.setText(currentRow.getClassName());
+        this.classNameTextField.setText(currentEditingClass.getClassName());
         this.insertBtn.setText("Update");
+        addAClassLbl.setText("Edit a class");
 
     }
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
         classNameTextField.setText("");
+        this.currentEditingClass = null;
     }
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,10 +197,10 @@ public class ClassManagementScreen extends Screen {
                 JOptionPane.showMessageDialog(this, "Class name should not be empty");
             } else {
 
-                if (currentRow != null) {
-                    currentRow.setClassName(className);
-                    service.updateClass(currentRow);
-                    currentRow = null;
+                if (currentEditingClass != null) {
+                    currentEditingClass.setClassName(className);
+                    service.updateClass(currentEditingClass);
+                    currentEditingClass = null;
                 } else {
                     val clazz = new Class();
                     clazz.setClassName(className);
@@ -218,12 +212,11 @@ public class ClassManagementScreen extends Screen {
             }
         } catch (ConstraintViolationException e) {
             JOptionPane.showMessageDialog(this, "Class name already exists");
-        }
-        catch (PersistenceException e){
+        } catch (PersistenceException e) {
             JOptionPane.showMessageDialog(this, "Class name already exists");
-        }
-        finally {
+        } finally {
             this.insertBtn.setText("Insert");
+            this.addAClassLbl.setText("Add new class");
             this.classNameTextField.setText("");
         }
 
@@ -231,7 +224,6 @@ public class ClassManagementScreen extends Screen {
     }
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        service.
     }
 
 
@@ -245,16 +237,8 @@ public class ClassManagementScreen extends Screen {
         this.classList = AppContext.teachingManagerService.getClasses();
         classListTable
                 .setModel(new ClassTableModel(this.classList));
+
     }
-
-
-
-    public void updateTableData(List<Class> classes) {
-        this.classList = classes;
-        classListTable
-                .setModel(new ClassTableModel(this.classList));
-    }
-
 
     @Override
     public void addEventListener() {

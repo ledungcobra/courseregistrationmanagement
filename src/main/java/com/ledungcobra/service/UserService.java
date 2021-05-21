@@ -95,4 +95,17 @@ public abstract class UserService<E extends User> {
 
         return value;
     }
+
+    protected void doTransaction(DoWork work){
+        Transaction trans = null;
+        try {
+            trans = beginTransaction();
+            work.run();
+            trans.commit();
+        } finally {
+            if (trans != null && trans.isActive()) {
+                trans.rollback();
+            }
+        }
+    }
 }
