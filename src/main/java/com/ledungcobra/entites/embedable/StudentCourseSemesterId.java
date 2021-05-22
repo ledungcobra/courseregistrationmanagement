@@ -24,8 +24,7 @@ public class StudentCourseSemesterId implements Serializable {
     private Course course;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
-    @JoinColumns({@JoinColumn(name = "SEMESTER_NAME"),
-            @JoinColumn(name = "YEAR")})
+    @JoinColumn(name = "SEMESTER_ID")
     private Semester studentCourseSemester;
 
 

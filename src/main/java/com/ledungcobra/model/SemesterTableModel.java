@@ -1,5 +1,6 @@
 package com.ledungcobra.model;
 
+import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.Semester;
 import lombok.val;
 
@@ -35,10 +36,10 @@ public class SemesterTableModel extends AbsTableModel<Semester> {
         for (int i = 0; i < semesters.size(); i++) {
             val semester = semesters.get(i);
             records[i][0] = semester.getId().toString();
-            records[i][1] = semester.getId().getSemesterName();
-            records[i][2] = semester.getStartDate().toString();
-            records[i][3] = semester.getEndDate().toString();
-            records[i][4] = semester.getId().getYear();
+            records[i][1] = semester.getSemesterName();
+            records[i][2] = AppContext.dateFormat.format(semester.getStartDate());
+            records[i][3] = AppContext.dateFormat.format(semester.getEndDate());
+            records[i][4] = semester.getYear();
             records[i][5] = semester.getActive();
 
         }

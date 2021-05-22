@@ -17,12 +17,11 @@ import java.io.Serializable;
 public class CourseSemesterId implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name="COURSE_ID")
+    @JoinColumn(name = "COURSE_ID")
     private Course course;
 
     @ManyToOne
-    @JoinColumns(value = {@JoinColumn(name = "SEMESTER_NAME"), @JoinColumn(name = "YEAR")})
+    @JoinColumn(name = "SEMESTER_ID")
     private Semester semester;
-
 
 }

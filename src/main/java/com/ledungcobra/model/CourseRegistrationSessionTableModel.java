@@ -39,8 +39,8 @@ public class CourseRegistrationSessionTableModel extends AbsTableModel<CourseReg
             records[i][0] = String.valueOf(courseRegistrationSession.getId());
             records[i][1] = courseRegistrationSession.getStartDate().toString();
             records[i][2] = courseRegistrationSession.getEndDate().toString();
-            records[i][3] = courseRegistrationSession.getSemester().getId().getSemesterName() +
-                    courseRegistrationSession.getSemester().getId().getYear();
+            records[i][3] = courseRegistrationSession.getSemester().getSemesterName() +
+                    courseRegistrationSession.getSemester().getYear();
         }
 
         return records;

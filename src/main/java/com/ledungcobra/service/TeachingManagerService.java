@@ -197,11 +197,19 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         doTransaction(() -> subjectDao.save(subject));
     }
 
-    public void updateSubject(Subject currentEditingSubject) {
-        doTransaction(() -> subjectDao.update(currentEditingSubject));
+    public void updateSubject(Subject semester) {
+        doTransaction(() -> subjectDao.update(semester));
     }
 
     public List<Subject> searchSubject(String keyword) {
         return subjectDao.search(keyword);
+    }
+
+    public void updateSemester(Semester semester) {
+        doTransaction(()->semesterDao.update(semester));
+    }
+
+    public List<Semester> searchSemester(String text) {
+        return semesterDao.searchSemester(text);
     }
 }

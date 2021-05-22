@@ -52,8 +52,7 @@ public class StudentAccount extends User {
             joinColumns = @JoinColumn(name = "STUDENT_ID"),
             inverseJoinColumns = {
                     @JoinColumn(name = "COURSE_ID"),
-                    @JoinColumn(name = "SEMESTER_NAME"),
-                    @JoinColumn(name = "YEAR")
+                    @JoinColumn(name = "SEMESTER_ID"),
             }
     )
     private List<CourseSemester> courseSemesters;

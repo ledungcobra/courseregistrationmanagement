@@ -20,36 +20,36 @@ public class Course extends BaseEntity {
     @Column(name = "COURSE_ID")
     private String id;
 
-    @JoinColumn(name = "SUBJECT_ID",nullable = false)
+    @JoinColumn(name = "SUBJECT_ID", nullable = false)
     @ManyToOne
-    private  Subject subject;
+    private Subject subject;
 
-    @Column(name = "COURSE_CREDIT",nullable = false)
+    @Column(name = "COURSE_CREDIT", nullable = false)
     private Integer credit;
 
-    @Column(name = "THEORY_TEACHER_NAME",nullable = false)
+    @Column(name = "THEORY_TEACHER_NAME", nullable = false)
     private String teacherName;
 
-    @Column(name = "DAY_TO_STUDY_IN_WEEK", columnDefinition = "VARCHAR(255) CHARSET utf8 "+COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK,nullable = false)
+    @Column(name = "DAY_TO_STUDY_IN_WEEK", columnDefinition = "VARCHAR(255) CHARSET utf8 " + COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK, nullable = false)
     private String dayToStudyInWeek;
 
-    @Column(name = "CLASSROOM_NAME",nullable = false)
+    @Column(name = "CLASSROOM_NAME", nullable = false)
     private String classroomName;
 
-    @Column(name = "SHIFT_TO_STUDY_IN_DAY",nullable = false)
+    @Column(name = "SHIFT_TO_STUDY_IN_DAY", nullable = false)
     private String shiftToStudyInDay;
 
     @Column(name = "NUMBER_OF_SLOT", nullable = false)
     private Integer numberOfSlot;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinTable(name = "COURSE_SEMESTER",joinColumns = @JoinColumn(name = "COURSE_ID"),
-            inverseJoinColumns = { @JoinColumn(name = "SEMESTER_NAME"), @JoinColumn(name = "YEAR")}
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "COURSE_SEMESTER", joinColumns = @JoinColumn(name = "COURSE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "SEMESTER_ID")
     )
 
     private List<Semester> semesters;
 
-    public String getSubjectName(){
+    public String getSubjectName() {
         return this.subject.getName();
     }
 

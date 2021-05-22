@@ -26,10 +26,8 @@ public class CourseRegistrationSession extends BaseEntity {
     private Date endDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
-    @JoinColumns(value = {
-            @JoinColumn(name = "SEMESTER_NAME"),
-            @JoinColumn(name = "YEAR")
-    }, foreignKey = @ForeignKey(name = "FK_COURSE_REGISTRATION_SESSION_SEMESTER"))
+    @JoinColumn(name = "SEMESTER_ID",
+            foreignKey = @ForeignKey(name = "FK_COURSE_REGISTRATION_SESSION_SEMESTER"))
     private Semester semester;
 
     @Override

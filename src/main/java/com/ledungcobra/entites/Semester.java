@@ -1,6 +1,5 @@
 package com.ledungcobra.entites;
 
-import com.ledungcobra.entites.embedable.SemesterId;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,13 +12,31 @@ import java.util.Objects;
 import static com.ledungcobra.utils.Constants.SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME;
 
 @Entity
-@Table(name = "Semester")
+@Table(name = "Semester",
+        uniqueConstraints = @UniqueConstraint(columnNames = {
+                "SEMESTER_NAME",
+                "YEAR"
+        })
+)
 @Getter
 @Setter
 public class Semester extends BaseEntity {
 
-    @EmbeddedId
-    private SemesterId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SEMESTER_ID")
+    private Long id;
+
+
+    @Column(name = "SEMESTER_NAME",
+            columnDefinition = "VARCHAR(255) CHARSET utf8 " + SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME,
+            nullable = false
+    )
+    private String semesterName;
+
+    @Column(name = "YEAR", nullable = false)
+    private Integer year;
+
 
     @Column(name = "START_DATE")
     private Date startDate;
@@ -30,8 +47,20 @@ public class Semester extends BaseEntity {
     @Column(name = "ACTIVE")
     private Boolean active;
 
-    @ManyToMany(mappedBy = "semesters", fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "semesters", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Course> courses;
+
+    public Semester(String semesterName, Integer year, Date startDate, Date endDate, Boolean active) {
+        this.semesterName = semesterName;
+        this.year = year;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.active = active;
+    }
+
+    public Semester() {
+
+    }
 
     @Override
     public boolean equals(Object o) {

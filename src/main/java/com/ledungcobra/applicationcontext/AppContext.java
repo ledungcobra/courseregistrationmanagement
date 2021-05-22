@@ -7,6 +7,9 @@ import com.ledungcobra.service.TeachingManagerService;
 import com.ledungcobra.utils.HibernateUtils;
 import org.hibernate.Session;
 
+import java.text.DateFormat;
+import java.util.Locale;
+
 public class AppContext {
 
     public static Session session;
@@ -21,6 +24,7 @@ public class AppContext {
     public static final EducationTypeDao educationTypeDao;
     public static final StudentService studentService;
     public static final TeachingManagerService teachingManagerService;
+    public static final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, new Locale("vi","VN"));
 
     static {
 

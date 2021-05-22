@@ -14,21 +14,27 @@ public class Constants {
     public static final String CHU_NHAT = "Chủ nhật";
     public static final String HK1 = "HK1";
     public static final String HK2 = "HK2";
-    public static final String  HK3 = "HK3";
+    public static final String HK3 = "HK3";
 
-    public static final String COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK= "CONSTRAINT COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK CHECK (DAY_TO_STUDY_IN_WEEK IN ('" + THU_2 + "'," +
+    public static final String COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK = "CONSTRAINT COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK CHECK (DAY_TO_STUDY_IN_WEEK IN ('" + THU_2 + "'," +
             "'" + THU_3 + "'," +
             "'" + THU_4 + "'," +
             "'" + THU_5 + "'," +
             "'" + THU_6 + "'," +
             "'" + THU_7 + "'," +
             "'" + CHU_NHAT + "'))";
-    public static final String SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME  = "CONSTRAINT CHECK (SEMESTER_NAME IN ( '"+HK1+"','"+HK2+"','"+HK3+"'))";;
+    public static final String SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME = "CONSTRAINT CHECK (SEMESTER_NAME IN ( '" + HK1 + "','" + HK2 + "','" + HK3 + "'))";
+    ;
 
     public static final String USERNAME = "18120331";
 
     public static final String SHOW = "Show";
     public static final String HIDE = "Hide";
+    public static final String[] SEMESTER = new String[]{
+            "HK1",
+            "HK2",
+            "HK3"
+    };
 
 
 }
