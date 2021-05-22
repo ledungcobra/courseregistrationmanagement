@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -47,8 +48,13 @@ public class Semester extends BaseEntity {
     @Column(name = "ACTIVE")
     private Boolean active;
 
-    @ManyToMany(mappedBy = "semesters", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "semesters", cascade = CascadeType.PERSIST)
     private List<Course> courses;
+
+    public List<Course> getCourses() {
+        if (courses == null) courses = new ArrayList<>();
+        return courses;
+    }
 
     public Semester(String semesterName, Integer year, Date startDate, Date endDate, Boolean active) {
         this.semesterName = semesterName;

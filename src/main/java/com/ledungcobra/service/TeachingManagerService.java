@@ -147,6 +147,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
 
     // Course
     public List<Course> getCourseListInActiveSemester() {
+        AppContext.session.clear();
         val activeSemester = semesterDao.getActiveSemester();
         if (Objects.nonNull(activeSemester)) {
             return activeSemester.getCourses();
@@ -224,5 +225,9 @@ public class TeachingManagerService extends UserService<TeachingManager> {
 
     public Semester getActiveSemester() {
         return semesterDao.getActiveSemester();
+    }
+
+    public List<Course> searchCourse(String text) {
+        return courseDao.search(text);
     }
 }

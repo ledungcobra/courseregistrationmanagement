@@ -8,7 +8,6 @@ package com.ledungcobra.scenes;
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.anotations.SearchTextField;
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.entites.Semester;
 import com.ledungcobra.entites.TeachingManager;
 import com.ledungcobra.interfaces.Searchable;
 import com.ledungcobra.model.TeachingManagerTableModel;
@@ -39,7 +38,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
     private javax.swing.JButton editBtn;
     private javax.swing.JTextField idTextField;
     private javax.swing.JButton insertBtn;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton resetPasswordBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -49,7 +48,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
     private javax.swing.JScrollPane jScrollPane1;
 
     @SearchTextField
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField searchTextField;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTable teachingManagerTableList;
     private javax.swing.JTextField fullnameTextField;
@@ -65,7 +64,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
         backBtn = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        searchTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -82,7 +81,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
         insertBtn = new javax.swing.JButton();
         clearBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        resetPasswordBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,7 +116,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
         deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
         deleteBtn.setText("Delete");
 
-        jButton1.setText("Reset password");
+        resetPasswordBtn.setText("Reset password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,13 +135,13 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(resetPasswordBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                                                 .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGap(18, 18, 18)
                                                                                 .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                                                 .addComponent(jLabel2)
@@ -175,7 +174,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
                                 .addComponent(backBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel1)
                                         .addComponent(searchBtn))
                                 .addGap(20, 20, 20)
@@ -202,7 +201,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jButton1)
+                                        .addComponent(resetPasswordBtn)
                                         .addComponent(editBtn)
                                         .addComponent(deleteBtn))
                                 .addContainerGap())
@@ -353,7 +352,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
     }
 
     public void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        val keyword = jTextField1.getText();
+        val keyword = searchTextField.getText();
         System.out.println(keyword);
 
         List<TeachingManager> teachingManagerList = service.searchTeachingManager(keyword);
@@ -380,7 +379,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
         clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
         insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
         deleteBtn.addActionListener(evt -> deleteBtnActionPerformed(evt));
-        jButton1.addActionListener(e -> resetPassword());
+        resetPasswordBtn.addActionListener(e -> resetPassword());
 
         idTextField.addKeyListener(new KeyListener() {
 

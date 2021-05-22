@@ -13,13 +13,13 @@ import java.util.Objects;
 @Table(name = "Subject")
 @Getter
 @Setter
-public class Subject extends BaseEntity{
+public class Subject extends BaseEntity {
 
     @Id
     @Column(name = "SUBJECT_ID")
     private String id;
 
-    @Column(name = "SUBJECT_NAME",unique = true)
+    @Column(name = "SUBJECT_NAME", unique = true)
     private String name;
 
     @Column(name = "SUBJECT_CREDIT", nullable = false)
@@ -48,5 +48,10 @@ public class Subject extends BaseEntity{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), id, name, credit);
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " - " + this.credit + (this.credit.equals(1) ? " credit" : " credits");
     }
 }

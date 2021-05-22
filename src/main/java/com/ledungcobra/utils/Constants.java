@@ -16,6 +16,16 @@ public class Constants {
     public static final String HK2 = "HK2";
     public static final String HK3 = "HK3";
 
+    public static final String[] DAY_IN_WEEK = new String[]{
+            THU_2,
+            THU_3,
+            THU_4,
+            THU_5,
+            THU_6,
+            THU_7,
+            CHU_NHAT
+    };
+
     public static final String COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK = "CONSTRAINT COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK CHECK (DAY_TO_STUDY_IN_WEEK IN ('" + THU_2 + "'," +
             "'" + THU_3 + "'," +
             "'" + THU_4 + "'," +
@@ -34,6 +44,13 @@ public class Constants {
             "HK1",
             "HK2",
             "HK3"
+    };
+
+    public static final String[] SHIFTS_IN_DAY = new String[]{
+            "7:30 - 9:30",
+            "9:30 - 11:30",
+            "13:30 - 15-30",
+            "15:30 - 17-30"
     };
 
 

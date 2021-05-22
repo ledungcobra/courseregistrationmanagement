@@ -289,7 +289,6 @@ public class StudentManagementScreen extends Screen {
     @Override
     public void addEventListener() {
         studentIdTextField.addActionListener(evt -> studentIdTextFieldActionPerformed(evt));
-        fullNameTextField.addActionListener(evt -> fullNameTextFieldActionPerformed(evt));
         editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
         insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
         clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));

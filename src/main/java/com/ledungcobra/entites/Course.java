@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,12 +42,31 @@ public class Course extends BaseEntity {
     @Column(name = "NUMBER_OF_SLOT", nullable = false)
     private Integer numberOfSlot;
 
+    public Course(String id, Subject subject, Integer credit, String teacherName, String dayToStudyInWeek, String classroomName, String shiftToStudyInDay, Integer numberOfSlot, Semester semester) {
+        this.id = id;
+        this.subject = subject;
+        this.credit = credit;
+        this.teacherName = teacherName;
+        this.dayToStudyInWeek = dayToStudyInWeek;
+        this.classroomName = classroomName;
+        this.shiftToStudyInDay = shiftToStudyInDay;
+        this.numberOfSlot = numberOfSlot;
+
+        if (this.semesters == null) {
+            this.semesters = new ArrayList<>();
+            this.semesters.add(semester);
+        }
+    }
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "COURSE_SEMESTER", joinColumns = @JoinColumn(name = "COURSE_ID"),
             inverseJoinColumns = @JoinColumn(name = "SEMESTER_ID")
     )
-
     private List<Semester> semesters;
+
+    public Course() {
+
+    }
 
     public String getSubjectName() {
         return this.subject.getName();
