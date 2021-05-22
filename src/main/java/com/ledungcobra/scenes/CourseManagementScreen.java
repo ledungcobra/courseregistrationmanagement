@@ -3,18 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.scenes.Screen;
+import com.ledungcobra.entites.Course;
+import com.ledungcobra.entites.Semester;
 import com.ledungcobra.model.CourseTableModel;
+import com.ledungcobra.service.TeachingManagerService;
+
+import java.util.List;
 
 /**
  * @author ledun
  */
 public class CourseManagementScreen extends Screen {
 
+    // <editor-fold defaultstate="collapsed>
     @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JTextField classRoomNameTextField;
@@ -42,6 +47,14 @@ public class CourseManagementScreen extends Screen {
     private javax.swing.JComboBox<String> subjectCombobox;
     private javax.swing.JTable subjectListTable;
     private javax.swing.JTextField theoryTeacherNameTextField;
+
+    private List<Course> courseList;
+    private Course editingCourse;
+    private Semester activeSemester;
+
+    private TeachingManagerService service = AppContext.teachingManagerService;
+
+    // </editor-fold>
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
@@ -237,6 +250,7 @@ public class CourseManagementScreen extends Screen {
 
         pack();
     }
+    // </editor-fold>
 
     private void courseIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
     }
@@ -253,35 +267,23 @@ public class CourseManagementScreen extends Screen {
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
-
-    public static void main(String args[]) {
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CourseManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CourseManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CourseManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CourseManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        java.awt.EventQueue.invokeLater(() -> new CourseManagementScreen().setVisible(true));
-    }
-
     @Override
     public void onCreateView() {
         initComponents();
+        updateTableData();
+        activeSemester = service.getActiveSemester();
+    }
+
+    private void updateTableData() {
+        this.courseList = service.getCourseListInActiveSemester();
         subjectListTable
-                .setModel(new CourseTableModel(AppContext.teachingManagerService
-                        .getCourseListInActiveSemester()));
+                .setModel(new CourseTableModel(this.courseList));
+    }
+
+    private void updateTableData(List<Course> courses) {
+        this.courseList = courses;
+        subjectListTable
+                .setModel(new CourseTableModel(this.courseList));
     }
 
     @Override

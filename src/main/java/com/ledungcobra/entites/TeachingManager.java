@@ -19,8 +19,8 @@ public class TeachingManager extends User {
     @Column(name = "TEACHING_MANAGER_ID")
     private String id;
 
-    public TeachingManager(String fullName,String id) {
-        super(fullName, id);
+    public TeachingManager(String id, String fullName, String password) {
+        super(fullName, password);
         this.id = id;
     }
 
@@ -31,12 +31,6 @@ public class TeachingManager extends User {
     @Override
     public String getUserName() {
         return this.id;
-    }
-
-    @Override
-    public void create(){
-        super.create();
-        this.password = this.id;
     }
 
     @Override

@@ -63,10 +63,6 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         return teachingManagerDao.findAll();
     }
 
-    public List<TeachingManager> findTeachingManager(String keyword) {
-        return teachingManagerDao.findTeachingManager(keyword);
-    }
-
     public TeachingManager addNewTeachingManager(TeachingManager teachingManager) {
         doTransaction(() -> teachingManagerDao.save(teachingManager));
         return teachingManager;
@@ -84,7 +80,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         return teachingManager;
     }
 
-    public void deleteTeachingManager(String... ids) {
+    public void deleteTeachingManagers(String... ids) {
         doTransaction(() -> {
             for (String id : ids) {
                 teachingManagerDao.deleteById(id);
@@ -206,10 +202,27 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     }
 
     public void updateSemester(Semester semester) {
-        doTransaction(()->semesterDao.update(semester));
+        doTransaction(() -> semesterDao.update(semester));
     }
 
     public List<Semester> searchSemester(String text) {
         return semesterDao.searchSemester(text);
+    }
+
+    public void deleteTeachingManager(TeachingManager teachingManager) {
+        doTransaction(() -> teachingManagerDao.deleteByObject(teachingManager));
+    }
+
+    public void resetTeachingManagerPassword(TeachingManager teachingManager) {
+        teachingManager.setPassword(teachingManager.getId());
+        doTransaction(() -> teachingManagerDao.update(teachingManager));
+    }
+
+    public List<TeachingManager> searchTeachingManager(String keyword) {
+        return teachingManagerDao.search(keyword);
+    }
+
+    public Semester getActiveSemester() {
+        return semesterDao.getActiveSemester();
     }
 }

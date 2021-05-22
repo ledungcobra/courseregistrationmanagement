@@ -1,5 +1,6 @@
-package com.ledungcobra.scenes;
+package com.ledungcobra.utils;
 
+import com.ledungcobra.scenes.Screen;
 import lombok.NonNull;
 import lombok.val;
 

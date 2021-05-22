@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
 
@@ -11,20 +11,18 @@ import com.ledungcobra.anotations.BackButton;
  *
  * @author ledun
  */
-public class StudentRegisteredACourse extends javax.swing.JFrame {
+public class StudentRegisteredACourse extends Screen {
 
 
+    // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel courseName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable studentInCourseTable;
-
-    public StudentRegisteredACourse() {
-        initComponents();
-    }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed desc="UI builder method">
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -99,6 +97,17 @@ public class StudentRegisteredACourse extends javax.swing.JFrame {
         );
 
         pack();
+    }
+    // </editor-fold>
+
+    @Override
+    public void onCreateView() {
+        initComponents();
+    }
+
+    @Override
+    public void addEventListener() {
+
     }
 
 }

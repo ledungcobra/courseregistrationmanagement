@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.scenes.Screen;
 import com.ledungcobra.model.CourseRegistrationSessionTableModel;
 import lombok.val;
 
 public class CourseRegSessionManagementScreen extends Screen {
-
+    // <editor-fold defaultstate="collapsed>
     @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JButton clearBtn;
@@ -29,7 +28,7 @@ public class CourseRegSessionManagementScreen extends Screen {
     private javax.swing.JComboBox<String> semeterNameCombobox;
     private javax.swing.JFormattedTextField startDateFormatedTextField;
     private javax.swing.JTable courseRegSessionListTable;
-
+    // </editor-fold>
     @Override
     public void onCreateView() {
         initComponents();
@@ -49,6 +48,7 @@ public class CourseRegSessionManagementScreen extends Screen {
 
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed>
     private void initComponents() {
 
         backBtn = new javax.swing.JButton();
@@ -173,6 +173,7 @@ public class CourseRegSessionManagementScreen extends Screen {
 
         pack();
     }
+    // </editor-fold>
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
     }
@@ -185,37 +186,4 @@ public class CourseRegSessionManagementScreen extends Screen {
 
     private void startDateFormatedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
     }
-
-
-    public static void main(String args[]) {
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CourseRegSessionManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CourseRegSessionManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CourseRegSessionManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CourseRegSessionManagementScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CourseRegSessionManagementScreen().setVisible(true);
-            }
-        });
-    }
-
-
 }

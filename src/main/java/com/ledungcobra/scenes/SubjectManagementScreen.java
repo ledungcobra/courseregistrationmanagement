@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
@@ -23,6 +23,7 @@ import java.util.List;
  */
 public class SubjectManagementScreen extends Screen {
 
+    // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JButton clearBtn;
@@ -45,7 +46,7 @@ public class SubjectManagementScreen extends Screen {
     private TeachingManagerService service = AppContext.teachingManagerService;
     private List<Subject> listSubjects;
     private Subject currentEditingSubject;
-
+    // </editor-fold>
 
     @Override
     public void onCreateView() {
@@ -75,7 +76,7 @@ public class SubjectManagementScreen extends Screen {
 
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="UI builder method">
     private void initComponents() {
 
         backBtn = new javax.swing.JButton();

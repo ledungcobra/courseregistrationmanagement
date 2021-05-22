@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
@@ -23,6 +23,7 @@ import static com.ledungcobra.utils.Constants.*;
  */
 public class ChangePasswordScreen extends Screen {
 
+    // <editor-fold defaultstate="collapsed>
     @BackButton
     private javax.swing.JButton backBtn;
     @BackButton
@@ -44,7 +45,7 @@ public class ChangePasswordScreen extends Screen {
         if (this.data == null) throw new IllegalStateException();
         initComponents();
     }
-
+    // </editor-fold>
     @Override
     public void addEventListener() {
 
@@ -154,7 +155,7 @@ public class ChangePasswordScreen extends Screen {
         );
 
         pack();
-    }
+    } // </editor-fold>
 
     private void processChangePassword() {
         val oldPassword = oldPasswordTextField.getText();

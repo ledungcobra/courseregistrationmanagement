@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
+import com.ledungcobra.anotations.SearchTextField;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.Semester;
+import com.ledungcobra.interfaces.Searchable;
 import com.ledungcobra.scenes.Screen;
 import com.ledungcobra.model.SemesterTableModel;
 import com.ledungcobra.service.TeachingManagerService;
@@ -25,9 +27,9 @@ import static com.ledungcobra.utils.Constants.SEMESTER;
 /**
  * @author ledun
  */
-public class SemesterManagementScreen extends Screen {
+public class SemesterManagementScreen extends Screen implements Searchable {
 
-
+    // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JCheckBox activeCheckBox;
@@ -48,6 +50,8 @@ public class SemesterManagementScreen extends Screen {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton searchBtn;
+
+    @SearchTextField
     private javax.swing.JTextField searchTextField;
     private javax.swing.JTable semesterListTable;
     private javax.swing.JComboBox<String> semesterNameComboBox;
@@ -56,7 +60,7 @@ public class SemesterManagementScreen extends Screen {
     private TeachingManagerService service = AppContext.teachingManagerService;
     private List<Semester> semesterList;
     private Semester currentEditingSemester;
-    private boolean processingDatabase = false;
+    // </editor-fold>
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
@@ -308,8 +312,6 @@ public class SemesterManagementScreen extends Screen {
                 updateTableData();
             }
         }
-
-
     }
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,7 +347,6 @@ public class SemesterManagementScreen extends Screen {
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
 
-        processingDatabase = true;
         val startDate = this.startDatePicker.getDate();
         val endDate = this.endDatePicker.getDate();
         val year = this.yearPicker.getYear();
@@ -390,11 +391,11 @@ public class SemesterManagementScreen extends Screen {
             this.currentEditingSemester = null;
             this.jLabel3.setText("Add new semester");
             this.insertBtn.setText("Insert");
-
         }
     }
 
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    @Override
+    public void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
         val keyword = searchTextField.getText();
         if ("".equals(keyword)) {
             JOptionPane.showMessageDialog(this, "You must enter some thing to search");

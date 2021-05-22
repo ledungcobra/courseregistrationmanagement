@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.dto.Intent;
 import com.ledungcobra.entites.User;
-import com.ledungcobra.scenes.Screen;
-import com.ledungcobra.scenes.ScreenStackManager;
+import com.ledungcobra.utils.ScreenStackManager;
 
 import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 
 public class TeachingManagerMenuScreen extends Screen {
 
+    // <editor-fold defaultstate="collapsed>
     private javax.swing.JButton changePasswordBtn;
     private javax.swing.JButton classMngBtn;
     private javax.swing.JButton courseMngBtn;
@@ -27,7 +27,7 @@ public class TeachingManagerMenuScreen extends Screen {
     private javax.swing.JButton subjectMngBtn;
     private javax.swing.JButton teachingMngBtn;
     private javax.swing.JButton userIfoMngBtn;
-
+    // </editor-fold>
 
     @Override
     public void onCreateView() {
@@ -37,7 +37,7 @@ public class TeachingManagerMenuScreen extends Screen {
         }
     }
 
-
+    // <editor-fold defaultstate="collapsed>
     private void initComponents() {
 
         classMngBtn = new javax.swing.JButton();
@@ -155,13 +155,11 @@ public class TeachingManagerMenuScreen extends Screen {
         );
 
         pack();
-    }
+    }// </editor-fold>
 
     private void logout() {
         ScreenStackManager.getInstance().popTopScreen();
     }
-
-
     @Override
     public void addEventListener() {
         classMngBtn.addActionListener(evt -> {

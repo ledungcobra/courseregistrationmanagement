@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.entites.User;
-import com.ledungcobra.scenes.Screen;
-import com.ledungcobra.scenes.ScreenStackManager;
+import com.ledungcobra.utils.ScreenStackManager;
 
 import javax.swing.*;
 
@@ -16,13 +15,14 @@ import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 
 public class StudentMenuScreen extends Screen {
 
-
+    // <editor-fold defaultstate="collapsed desc="Class fields">
     private JButton logoutBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton listAllRegisteredCourses;
     private javax.swing.JButton registerCoursesBtn;
     private javax.swing.JLabel usernameLbl;
+    // </editor-fold>
 
 
     @Override
@@ -43,7 +43,7 @@ public class StudentMenuScreen extends Screen {
 
 
     @SuppressWarnings("unchecked")
-
+    // <editor-fold defaultstate="collapsed desc="UI builder method">
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -109,6 +109,7 @@ public class StudentMenuScreen extends Screen {
 
         pack();
     }
+    // </editor-fold>
 
     private void logout() {
         ScreenStackManager.getInstance().popTopScreen();

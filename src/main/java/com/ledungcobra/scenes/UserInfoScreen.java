@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.scenes.Screen;
@@ -14,7 +14,22 @@ import javax.swing.*;
  * @author ledun
  */
 public class UserInfoScreen extends Screen {
-
+    // <editor-fold defaultstate="collapsed desc="Class fields">
+    @BackButton
+    private JButton backBtn;
+    private javax.swing.JComboBox<String> genderComboBox;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JTextField passwordTextField;
+    private javax.swing.JTextField userIdTextField;
+    private javax.swing.JTextField usernameTextField;
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
@@ -128,21 +143,6 @@ public class UserInfoScreen extends Screen {
     }
 
 
-    @BackButton
-    private JButton backBtn;
-
-    private javax.swing.JComboBox<String> genderComboBox;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JTextField passwordTextField;
-    private javax.swing.JTextField userIdTextField;
-    private javax.swing.JTextField usernameTextField;
 
     @Override
     public void onCreateView() {

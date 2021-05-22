@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
@@ -18,6 +18,7 @@ import lombok.val;
  */
 public class StudentManagementScreen extends Screen {
 
+    // <editor-fold defaultstate="collapsed desc="Class Fields">
     @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JComboBox<Class> classNameCombobox;
@@ -45,8 +46,9 @@ public class StudentManagementScreen extends Screen {
     private javax.swing.JComboBox<String> shiftToStudyInDay;
     private javax.swing.JTextField studentIdTextField;
     private javax.swing.JTable studentListTable;
+   // </editor-fold>
 
-
+    // <editor-fold defaultstate="collapsed desc="UI builder method">
     private void initComponents() {
 
         backBtn = new javax.swing.JButton();
@@ -247,6 +249,7 @@ public class StudentManagementScreen extends Screen {
 
         pack();
     }
+    // </editor-fold>
 
     private void studentIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -291,7 +294,6 @@ public class StudentManagementScreen extends Screen {
         insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
         clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
         deleteBtn.addActionListener(evt -> deleteBtnActionPerformed(evt));
-
     }
 
 

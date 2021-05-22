@@ -26,7 +26,7 @@ public class DataBoostrap {
 
         try {
             val teachingService = AppContext.teachingManagerService;
-            val teachingManager = new TeachingManager("Nguyễn Văn A", "18120331");
+            val teachingManager = new TeachingManager( "18120331","Nguyễn Văn A","18120331");
             teachingService.save(teachingManager);
         } catch (Exception e) {
             System.out.println("OK");

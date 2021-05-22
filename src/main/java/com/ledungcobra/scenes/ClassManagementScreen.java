@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ledungcobra.scenes.generatedscreen;
+package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
@@ -43,7 +43,7 @@ public class ClassManagementScreen extends Screen {
 
     private Class currentEditingClass;
 
-
+    // <editor-fold defaultstate="collapsed>
     private void initComponents() {
 
         backBtn = new javax.swing.JButton();
@@ -151,6 +151,7 @@ public class ClassManagementScreen extends Screen {
 
         pack();
     }
+    // </editor-fold>
 
     private void subjectIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -237,7 +238,6 @@ public class ClassManagementScreen extends Screen {
         this.classList = AppContext.teachingManagerService.getClasses();
         classListTable
                 .setModel(new ClassTableModel(this.classList));
-
     }
 
     @Override

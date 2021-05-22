@@ -3,8 +3,6 @@ package com.ledungcobra.scenes;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.dto.Intent;
 import com.ledungcobra.exception.UserNotFound;
-import com.ledungcobra.scenes.generatedscreen.StudentMenuScreen;
-import com.ledungcobra.scenes.generatedscreen.TeachingManagerMenuScreen;
 import com.ledungcobra.service.UserService;
 import lombok.val;
 
@@ -124,7 +122,6 @@ public class LoginScreen extends Screen {
         val onEnterEvent = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
             }
 
             @Override
@@ -190,8 +187,5 @@ public class LoginScreen extends Screen {
             JOptionPane.showMessageDialog(this, "User not found");
         }
 
-
     }
-
-
 }
