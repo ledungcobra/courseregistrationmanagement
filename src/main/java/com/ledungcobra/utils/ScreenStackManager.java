@@ -49,6 +49,7 @@ public class ScreenStackManager {
     }
 
     public void popTopScreen() {
+
         if (screensStack.size() > 1) {
             val currentScreen = screensStack.pop();
             hideScreen(currentScreen);

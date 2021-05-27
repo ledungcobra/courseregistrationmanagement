@@ -13,7 +13,7 @@ public class HibernateUtils {
 
 
     public static void buildSessionFactory() {
-     sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     public static Session getCurrentSession() {
@@ -25,6 +25,7 @@ public class HibernateUtils {
         if (Objects.isNull(session)) {
             session = sessionFactory.openSession();
         }
+
         return session;
     }
 

@@ -16,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 public class CourseSemester extends BaseEntity {
+
     @EmbeddedId
     private CourseSemesterId courseSemesterId;
 

@@ -34,7 +34,7 @@ public class StudentInfo extends BaseEntity {
     @Column(name = "IDENTITY_CARD_NUMBER", unique = true, nullable = false)
     private String identityCardNumber;
 
-    @OneToMany
+    @OneToMany(mappedBy = "studentInfo")
     private List<StudentAccount> studentAccount;
 
     public StudentInfo() {

@@ -50,7 +50,6 @@ public class Semester extends BaseEntity {
 
     @ManyToMany(mappedBy = "semesters", cascade = CascadeType.PERSIST)
     private List<Course> courses;
-
     public List<Course> getCourses() {
         if (courses == null) courses = new ArrayList<>();
         return courses;

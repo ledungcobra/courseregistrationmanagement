@@ -28,6 +28,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     private SubjectDao subjectDao;
 
     public TeachingManagerService() {
+
         courseDao = AppContext.courseDao;
         teachingManagerDao = AppContext.teachingManagerDao;
         semesterDao = AppContext.semesterDao;

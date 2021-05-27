@@ -29,7 +29,6 @@ public class Course extends BaseEntity {
 
     @Column(name = "THEORY_TEACHER_NAME", nullable = false)
     private String teacherName;
-
     @Column(name = "DAY_TO_STUDY_IN_WEEK", columnDefinition = "VARCHAR(255) CHARSET utf8 " + COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK, nullable = false)
     private String dayToStudyInWeek;
 

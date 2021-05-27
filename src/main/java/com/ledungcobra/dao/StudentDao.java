@@ -28,6 +28,7 @@ public class StudentDao extends BaseDao<StudentAccount, String> implements UserD
 
         query.setParameter("className", classEntity);
         query.setParameter("k", keyword);
+
         return (List<StudentAccount>) query.getResultList();
     }
 
