@@ -142,8 +142,11 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         return courseRegistrationSessionDao.findAll();
     }
 
-    public CourseRegistrationSession addCourseRegistrationSession(@NonNull CourseRegistrationSession courseRegistrationSession) {
+    public CourseRegistrationSession addCourseRegistrationSession(@NonNull CourseRegistrationSession courseRegistrationSession) throws Exception {
         val semester = semesterDao.getActiveSemester();
+        if (semester == null) {
+            throw new Exception("Active semester haven't set");
+        }
         courseRegistrationSession.setSemester(semester);
         doTransaction(() -> courseRegistrationSessionDao.save(courseRegistrationSession));
         return courseRegistrationSession;
@@ -260,5 +263,10 @@ public class TeachingManagerService extends UserService<TeachingManager> {
 
     public void updateStudentInfo(StudentInfo studentInfo) {
         doTransaction(() -> AppContext.studentInfoDao.update(studentInfo));
+    }
+
+
+    public List<StudentAccount> searchStudentRegACourse(String keyword, Course course) {
+        return studentDao.searchStudentRegACourse(keyword, course);
     }
 }

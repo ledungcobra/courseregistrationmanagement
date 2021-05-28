@@ -5,10 +5,13 @@
  */
 package com.ledungcobra.scenes;
 
+import com.ledungcobra.dto.Intent;
 import com.ledungcobra.entites.User;
 import com.ledungcobra.utils.ScreenStackManager;
 
 import javax.swing.*;
+
+import java.awt.event.ActionEvent;
 
 import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 
@@ -16,11 +19,13 @@ import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 public class StudentMenuScreen extends Screen {
 
     // <editor-fold defaultstate="collapsed desc="Class fields">
-    private JButton logoutBtn;
+    private javax.swing.JButton changePasswordBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton listAllRegisteredCourses;
+    private javax.swing.JButton logoutBtn;
     private javax.swing.JButton registerCoursesBtn;
+    private javax.swing.JButton userInfoBtn;
     private javax.swing.JLabel usernameLbl;
     // </editor-fold>
 
@@ -38,12 +43,22 @@ public class StudentMenuScreen extends Screen {
     public void addEventListener() {
         registerCoursesBtn.addActionListener(evt -> registerCoursesBtnActionPerformed(evt));
         listAllRegisteredCourses.addActionListener(evt -> listAllRegisteredCoursesActionPerformed(evt));
-        logoutBtn.addActionListener(evt->logout());
+        logoutBtn.addActionListener(evt -> logout());
+        changePasswordBtn.addActionListener(e -> changePasswordBtnPerformed(e));
+        userInfoBtn.addActionListener(e -> userInfoBtnPerformed(e));
+    }
+
+    private void userInfoBtnPerformed(ActionEvent e) {
+        new Intent<UserInfoScreen>().navigate(this.data);
+    }
+
+    private void changePasswordBtnPerformed(ActionEvent e) {
+        new Intent<ChangePasswordScreen>().navigate(this.data);
     }
 
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed desc="UI builder method">
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -52,6 +67,8 @@ public class StudentMenuScreen extends Screen {
         usernameLbl = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
+        changePasswordBtn = new javax.swing.JButton();
+        userInfoBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,9 +76,18 @@ public class StudentMenuScreen extends Screen {
         jLabel1.setText("Menu");
 
         registerCoursesBtn.setText("Register courses");
+        registerCoursesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerCoursesBtnActionPerformed(evt);
+            }
+        });
 
         listAllRegisteredCourses.setText("List all registered courses");
-
+        listAllRegisteredCourses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listAllRegisteredCoursesActionPerformed(evt);
+            }
+        });
 
         usernameLbl.setText("jLabel2");
 
@@ -70,56 +96,67 @@ public class StudentMenuScreen extends Screen {
 
         logoutBtn.setText("Logout");
 
+        changePasswordBtn.setText("Change password");
+
+        userInfoBtn.setText("User Info");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
+                                .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel1)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(usernameLbl)
                                                 .addGap(25, 25, 25)
                                                 .addComponent(logoutBtn))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(registerCoursesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-                                                .addComponent(listAllRegisteredCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(78, 78, 78))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(registerCoursesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(listAllRegisteredCourses)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(changePasswordBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(userInfoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
+                                .addGap(75, 75, 75)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel1)
                                         .addComponent(usernameLbl)
                                         .addComponent(jLabel3)
                                         .addComponent(logoutBtn))
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(registerCoursesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(listAllRegisteredCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(122, Short.MAX_VALUE))
+                                .addGap(61, 61, 61)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(userInfoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(registerCoursesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(listAllRegisteredCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(changePasswordBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
-    }
-    // </editor-fold>
+    }// </editor-fold>
 
     private void logout() {
         ScreenStackManager.getInstance().popTopScreen();
     }
+
     private void listAllRegisteredCoursesActionPerformed(java.awt.event.ActionEvent evt) {
     }
+
     private void registerCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {
 
     }
-
 
 
 }

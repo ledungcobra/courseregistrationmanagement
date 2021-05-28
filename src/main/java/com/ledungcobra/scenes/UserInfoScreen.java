@@ -61,8 +61,8 @@ public class UserInfoScreen extends Screen {
 
         jLabel3.setText("Gender");
 
-        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
-
+        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Boy", "Girl"}));
+        genderComboBox.setEditable(false);
         userIdTextField.setEditable(false);
         userIdTextField.setText("ID");
 

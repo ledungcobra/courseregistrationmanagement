@@ -10,7 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "STUDENT_COURSE_SEMESTER")
+@Table(name = "STUDENT_COURSE")
 @Getter
 @Setter
 @NoArgsConstructor

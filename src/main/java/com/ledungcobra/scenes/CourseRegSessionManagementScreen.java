@@ -16,6 +16,7 @@ import com.toedter.calendar.JDateChooser;
 import jdk.nashorn.internal.scripts.JO;
 import lombok.val;
 
+import javax.persistence.criteria.Join;
 import javax.swing.*;
 import java.util.List;
 
@@ -211,7 +212,11 @@ public class CourseRegSessionManagementScreen extends Screen {
             service.addCourseRegistrationSession(new CourseRegistrationSession(startDate, endDate));
             updateTableData();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getCause().toString());
+            if (e.getCause() != null) {
+                JOptionPane.showMessageDialog(this, e.getCause().getMessage());
+            } else {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
         }
     }
 

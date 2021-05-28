@@ -164,7 +164,12 @@ public class ClassManagementScreen extends Screen {
             return;
         }
         val row = this.classList.get(selectedRowIndex);
-        service.deleteAnClass(row);
+        try {
+            service.deleteAnClass(row);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "A class have students in it you have to delete students first then perform this action latter");
+            return;
+        }
         updateTableData();
     }
 

@@ -34,7 +34,6 @@ public class SemesterDao extends BaseDao<Semester, Long> {
         Semester semester = null;
         try {
             semester = (Semester) session.createQuery("from Semester where active = true").getSingleResult();
-
         } catch (NoResultException e) {
             semester = null;
         }

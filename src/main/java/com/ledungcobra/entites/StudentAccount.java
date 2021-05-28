@@ -49,6 +49,9 @@ public class StudentAccount extends User {
             referencedColumnName = "COURSE_ID"))
     private List<Course> courses;
 
+    @OneToMany
+    private List<StudentCourse> listStudentCourses;
+
     public StudentAccount(String studentCardId,
                           StudentInfo studentInfo, EducationType educationType) {
         super(studentCardId);

@@ -6,39 +6,33 @@
 package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
+import com.ledungcobra.anotations.SearchTextField;
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.dao.StudentCourseDao;
-import com.ledungcobra.dto.Intent;
 import com.ledungcobra.entites.Class;
 import com.ledungcobra.entites.EducationType;
 import com.ledungcobra.entites.StudentAccount;
-import com.ledungcobra.entites.StudentInfo;
+import com.ledungcobra.interfaces.Searchable;
 import com.ledungcobra.model.AbsComboModel;
 import com.ledungcobra.model.ClassComboModel;
 import com.ledungcobra.model.StudentTableModel;
 import com.ledungcobra.service.TeachingManagerService;
 import lombok.SneakyThrows;
 import lombok.val;
-import org.hibernate.exception.ConstraintViolationException;
 
-import javax.persistence.PersistenceException;
-import javax.persistence.criteria.Join;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Future;
-import java.util.concurrent.locks.ReentrantLock;
 
 import static com.ledungcobra.scenes.StudentInfoDialog.STUDENT_INFO;
 
 /**
  * @author ledun
  */
-public class StudentManagementScreen extends Screen {
+public class StudentManagementScreen extends Screen implements Searchable {
 
     // <editor-fold defaultstate="collapsed desc="Class Fields">
     @BackButton
@@ -63,6 +57,8 @@ public class StudentManagementScreen extends Screen {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton resetPasswordBtn;
     private javax.swing.JButton searchBtn;
+
+    @SearchTextField
     private javax.swing.JTextField searchStudentTextField;
     private javax.swing.JTextField studentIdTextField;
     private javax.swing.JTable studentListTable;
@@ -270,11 +266,11 @@ public class StudentManagementScreen extends Screen {
         val selectedIndex = this.studentListTable.getSelectedRow();
 
         if (selectedIndex == -1) {
-            JOptionPane.showMessageDialog(this, "You must select a row to delete a subject");
+            JOptionPane.showMessageDialog(this, "You must select a row to delete a student");
             return;
         }
 
-        int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this subject", "Confirm", JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this student account", "Confirm", JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
             service.deleteStudent(this.studentAccounts.get(selectedIndex));
@@ -298,6 +294,7 @@ public class StudentManagementScreen extends Screen {
 
     private void updateTableData(List<StudentAccount> studentAccounts) {
         this.studentAccounts = studentAccounts;
+        this.studentListTable.setModel(new StudentTableModel(studentAccounts));
     }
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {
@@ -475,9 +472,6 @@ public class StudentManagementScreen extends Screen {
 
     }
 
-    private void searchBtnActionPerformed() {
-
-    }
 
     @Override
     public void addEventListener() {
@@ -489,7 +483,7 @@ public class StudentManagementScreen extends Screen {
             this.selectedClass = (Class) classSearchCombobox.getSelectedItem();
             updateTableData();
         });
-        searchBtn.addActionListener(e -> searchBtnActionPerformed());
+        searchBtn.addActionListener(e -> searchBtnActionPerformed(e));
         resetPasswordBtn.addActionListener(e -> resetPasswordBtnPerformed());
         studentIdTextField.addKeyListener(new KeyListener() {
             @Override
@@ -514,4 +508,14 @@ public class StudentManagementScreen extends Screen {
         if (this.data == null) data = new HashMap<String, Object>();
         return this.data;
     }
+
+    @Override
+    public void searchBtnActionPerformed(ActionEvent evt) {
+        val keyword = searchStudentTextField.getText();
+
+        Class selectedSearchClass = (Class) classSearchCombobox.getSelectedItem();
+        this.studentAccounts = service.searchStudent(selectedSearchClass, keyword);
+        updateTableData(this.studentAccounts);
+    }
+
 }
