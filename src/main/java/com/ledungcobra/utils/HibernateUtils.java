@@ -1,5 +1,6 @@
 package com.ledungcobra.utils;
 
+import lombok.val;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -16,12 +17,25 @@ public class HibernateUtils {
         sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
-    public static Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
+    public static void sql(String sql) {
+        val session = openSession();
+
+        val trans = session.beginTransaction();
+        try {
+            val query = session.createSQLQuery(sql);
+            query.executeUpdate();
+            session.clear();
+            trans.commit();
+        } finally {
+            if (trans != null && trans.isActive()) {
+                trans.rollback();
+            }
+        }
     }
 
-    public static Session openSession() {
 
+    public static Session openSession() {
+        if (sessionFactory == null) buildSessionFactory();
         if (Objects.isNull(session)) {
             session = sessionFactory.openSession();
         }

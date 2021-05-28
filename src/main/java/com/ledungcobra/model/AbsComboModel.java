@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.lang.reflect.Array;
 import java.util.List;
 
-public class AbsComboModel<T extends BaseEntity> extends DefaultComboBoxModel<T> {
+public abstract class AbsComboModel<T extends BaseEntity> extends DefaultComboBoxModel<T> {
 
     @SneakyThrows
     public AbsComboModel(List<T> items, T... t) {

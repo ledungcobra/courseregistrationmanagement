@@ -1,6 +1,8 @@
 package com.ledungcobra.entites;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,11 +14,14 @@ import java.util.Objects;
 @Table(name = "COURSE_REGISTRATION_SESSION")
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class CourseRegistrationSession extends BaseEntity {
 
     @Id
     @Column(name = "CSR_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "START_DATE", nullable = false)
@@ -30,17 +35,8 @@ public class CourseRegistrationSession extends BaseEntity {
             foreignKey = @ForeignKey(name = "FK_COURSE_REGISTRATION_SESSION_SEMESTER"))
     private Semester semester;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        CourseRegistrationSession that = (CourseRegistrationSession) o;
-        return Objects.equals(id, that.id) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) && Objects.equals(semester, that.semester);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id, startDate, endDate, semester);
+    public CourseRegistrationSession(Date startDate, Date endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 }

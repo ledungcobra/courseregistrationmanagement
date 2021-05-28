@@ -21,26 +21,19 @@ public abstract class BaseEntity {
     @Column(name = "UPDATED_DATE")
     private Date updatedDate;
 
+    @Column(name = "isDeleted", columnDefinition = "TINYINT(1)")
+    private Boolean isDeleted;
+
+
     @PrePersist
-    public void create(){
+    public void create() {
         this.createdDate = new Date();
+        this.isDeleted = false;
     }
 
     @PreUpdate
-    public void update(){
+    public void update() {
         this.updatedDate = new Date();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BaseEntity that = (BaseEntity) o;
-        return Objects.equals(createdDate, that.createdDate) && Objects.equals(updatedDate, that.updatedDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(createdDate, updatedDate);
-    }
 }

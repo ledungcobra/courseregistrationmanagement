@@ -7,15 +7,23 @@ package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
+import com.ledungcobra.entites.CourseRegistrationSession;
+import com.ledungcobra.entites.Semester;
+import com.ledungcobra.model.AbsComboModel;
 import com.ledungcobra.model.CourseRegistrationSessionTableModel;
+import com.ledungcobra.service.TeachingManagerService;
+import com.toedter.calendar.JDateChooser;
+import jdk.nashorn.internal.scripts.JO;
 import lombok.val;
+
+import javax.swing.*;
+import java.util.List;
 
 public class CourseRegSessionManagementScreen extends Screen {
     // <editor-fold defaultstate="collapsed>
     @BackButton
     private javax.swing.JButton backBtn;
     private javax.swing.JButton clearBtn;
-    private javax.swing.JFormattedTextField endDateFormatedTextField;
     private javax.swing.JButton insertBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -25,9 +33,13 @@ public class CourseRegSessionManagementScreen extends Screen {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton searchBtn;
-    private javax.swing.JComboBox<String> semeterNameCombobox;
-    private javax.swing.JFormattedTextField startDateFormatedTextField;
     private javax.swing.JTable courseRegSessionListTable;
+    private JDateChooser startDateChooser;
+    private JDateChooser endDateChooser;
+
+    private TeachingManagerService service = AppContext.teachingManagerService;
+    private List<CourseRegistrationSession> sessionList;
+
     // </editor-fold>
     @Override
     public void onCreateView() {
@@ -36,6 +48,8 @@ public class CourseRegSessionManagementScreen extends Screen {
         courseRegSessionListTable.setModel(new CourseRegistrationSessionTableModel(
                 teachingManagerService.getCourseRegistrationSessionList()
         ));
+
+        updateTableData();
     }
 
     @Override
@@ -43,14 +57,15 @@ public class CourseRegSessionManagementScreen extends Screen {
         clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
         searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
         insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
-        startDateFormatedTextField.addActionListener(evt -> startDateFormatedTextFieldActionPerformed(evt));
     }
 
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed>
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
+        JScrollPane jScrollPane2 = new JScrollPane();
+        JTextArea jTextArea1 = new JTextArea();
         backBtn = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -60,12 +75,14 @@ public class CourseRegSessionManagementScreen extends Screen {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         insertBtn = new javax.swing.JButton();
         clearBtn = new javax.swing.JButton();
-        semeterNameCombobox = new javax.swing.JComboBox<>();
-        startDateFormatedTextField = new javax.swing.JFormattedTextField();
-        endDateFormatedTextField = new javax.swing.JFormattedTextField();
+        startDateChooser = new com.toedter.calendar.JDateChooser();
+        endDateChooser = new com.toedter.calendar.JDateChooser();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,9 +92,11 @@ public class CourseRegSessionManagementScreen extends Screen {
 
         searchBtn.setText("Search");
 
-
         jScrollPane1.setViewportView(courseRegSessionListTable);
         if (courseRegSessionListTable.getColumnModel().getColumnCount() > 0) {
+            courseRegSessionListTable.getColumnModel().getColumn(0).setHeaderValue("ID");
+            courseRegSessionListTable.getColumnModel().getColumn(1).setHeaderValue("Start Date");
+            courseRegSessionListTable.getColumnModel().getColumn(2).setHeaderValue("End Date");
             courseRegSessionListTable.getColumnModel().getColumn(3).setHeaderValue("Semester");
         }
 
@@ -88,15 +107,10 @@ public class CourseRegSessionManagementScreen extends Screen {
 
         jLabel4.setText("End Date");
 
-        jLabel5.setText("Semester");
-
         insertBtn.setText("Insert");
 
 
         clearBtn.setText("Clear");
-
-
-        semeterNameCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,26 +126,24 @@ public class CourseRegSessionManagementScreen extends Screen {
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                                                .addGap(97, 97, 97))
+                                                                .addGap(85, 85, 85))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                                         .addComponent(jLabel2)
-                                                                                        .addComponent(jLabel4)
-                                                                                        .addComponent(jLabel5))
-                                                                                .addGap(152, 152, 152)
+                                                                                        .addComponent(jLabel4))
+                                                                                .addGap(134, 134, 134)
                                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(semeterNameCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                        .addComponent(startDateFormatedTextField)
-                                                                                        .addComponent(endDateFormatedTextField)))
+                                                                                        .addComponent(startDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+                                                                                        .addComponent(endDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGap(18, 18, 18)
                                                                                 .addComponent(insertBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                                                                 .addComponent(searchBtn))))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(backBtn)
@@ -144,46 +156,73 @@ public class CourseRegSessionManagementScreen extends Screen {
                                 .addContainerGap()
                                 .addComponent(backBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(searchBtn))
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
-                                        .addComponent(startDateFormatedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel4)
-                                        .addComponent(endDateFormatedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel5)
-                                        .addComponent(semeterNameCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jLabel1)
+                                                                        .addComponent(searchBtn))
+                                                                .addGap(20, 20, 20)
+                                                                .addComponent(jLabel3)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(jLabel2))
+                                                        .addComponent(startDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel4))
+                                        .addComponent(endDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(insertBtn)
                                         .addComponent(clearBtn))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(31, Short.MAX_VALUE))
+                                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
-    }
-    // </editor-fold>
+    }// </editor-fold>
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
+        this.startDateChooser.setDate(null);
+        this.endDateChooser.setDate(null);
     }
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
+        val startDate = startDateChooser.getDate();
+        val endDate = endDateChooser.getDate();
+
+        if (startDate == null) {
+            JOptionPane.showMessageDialog(this, "You have to choose start date to continue");
+            return;
+        }
+        if (endDate == null) {
+            JOptionPane.showMessageDialog(this, "You have to choose end date to continue");
+            return;
+        }
+
+        if (startDate.after(endDate)) {
+            JOptionPane.showMessageDialog(this, "The start date can not after the end date");
+            return;
+        }
+
+        try {
+            service.addCourseRegistrationSession(new CourseRegistrationSession(startDate, endDate));
+            updateTableData();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getCause().toString());
+        }
     }
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
+
     }
 
-    private void startDateFormatedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
+    public void updateTableData() {
+        this.sessionList = service.getCourseRegistrationSessionList();
+        this.courseRegSessionListTable.setModel(new CourseRegistrationSessionTableModel(sessionList));
     }
+
+
 }

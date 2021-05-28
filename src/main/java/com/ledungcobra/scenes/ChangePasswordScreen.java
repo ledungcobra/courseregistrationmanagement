@@ -9,7 +9,6 @@ import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.StudentAccount;
 import com.ledungcobra.entites.User;
-import com.ledungcobra.scenes.Screen;
 import com.ledungcobra.service.UserService;
 import lombok.val;
 
@@ -169,7 +168,7 @@ public class ChangePasswordScreen extends Screen {
                 UserService userService = user instanceof StudentAccount ? AppContext.studentService : AppContext.teachingManagerService;
 
                 try {
-                    userService.changePassword(user.getUserName(), oldPassword, newPassword, confirmPassword);
+                    userService.changePassword(user.getUserId(), oldPassword, newPassword, confirmPassword);
                     JOptionPane.showMessageDialog(this, "Change Password Successfully");
                 } catch (Exception exception) {
                     JOptionPane.showMessageDialog(this, exception.getMessage());

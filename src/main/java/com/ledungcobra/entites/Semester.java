@@ -1,6 +1,8 @@
 package com.ledungcobra.entites;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -21,18 +23,19 @@ import static com.ledungcobra.utils.Constants.SEMESTER_CHECK_CONSTRAINT_SEMESTER
 )
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class Semester extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SEMESTER_ID")
+    @EqualsAndHashCode.Include
     private Long id;
-
 
     @Column(name = "SEMESTER_NAME",
             columnDefinition = "VARCHAR(255) CHARSET utf8 " + SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME,
-            nullable = false
-    )
+            nullable = false)
     private String semesterName;
 
     @Column(name = "YEAR", nullable = false)
@@ -45,11 +48,12 @@ public class Semester extends BaseEntity {
     @Column(name = "END_DATE")
     private Date endDate;
 
-    @Column(name = "ACTIVE")
+    @Column(name = "ACTIVE", nullable = false)
     private Boolean active;
 
-    @ManyToMany(mappedBy = "semesters", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "semester", cascade = CascadeType.PERSIST)
     private List<Course> courses;
+
     public List<Course> getCourses() {
         if (courses == null) courses = new ArrayList<>();
         return courses;
@@ -63,22 +67,9 @@ public class Semester extends BaseEntity {
         this.active = active;
     }
 
-    public Semester() {
-
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Semester semester = (Semester) o;
-        return Objects.equals(id, semester.id) && Objects.equals(startDate, semester.startDate) && Objects.equals(endDate, semester.endDate) && Objects.equals(active, semester.active) && Objects.equals(courses, semester.courses);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id, startDate, endDate, active, courses);
+    public String toString() {
+        return this.semesterName + " - " + this.year;
     }
 }
 

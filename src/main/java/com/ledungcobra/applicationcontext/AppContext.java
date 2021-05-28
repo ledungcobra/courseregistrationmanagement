@@ -9,6 +9,9 @@ import org.hibernate.Session;
 
 import java.text.DateFormat;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class AppContext {
 
@@ -18,13 +21,16 @@ public class AppContext {
     public static final CourseRegistrationSessionDao courseRegistrationDao;
     public static final SemesterDao semesterDao;
     public static final StudentCourseDao studentCourseDao;
-    public static final StudentDao studentDao;
+    public static final StudentDao studentAccountDao;
     public static final SubjectDao subjectDao;
     public static final TeachingManagerDao teachingManagerDao;
     public static final EducationTypeDao educationTypeDao;
     public static final StudentService studentService;
     public static final TeachingManagerService teachingManagerService;
-    public static final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, new Locale("vi","VN"));
+    public static final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, new Locale("vi", "VN"));
+    public static final StudentInfoDao studentInfoDao;
+    public static final ExecutorService executorService;
+
 
     static {
 
@@ -34,15 +40,17 @@ public class AppContext {
         classDao = new ClassDao(session);
         courseDao = new CourseDao(session);
         courseRegistrationDao = new CourseRegistrationSessionDao(session);
-        semesterDao= new SemesterDao(session);
+        semesterDao = new SemesterDao(session);
         studentCourseDao = new StudentCourseDao(session);
-        studentDao = new StudentDao(session);
+        studentAccountDao = new StudentDao(session);
         subjectDao = new SubjectDao(session);
         teachingManagerDao = new TeachingManagerDao(session);
         educationTypeDao = new EducationTypeDao(session);
+        studentInfoDao = new StudentInfoDao(session);
 
         studentService = new StudentService();
         teachingManagerService = new TeachingManagerService();
+        executorService = Executors.newFixedThreadPool(3);
 
         new DataBoostrap().run();
 

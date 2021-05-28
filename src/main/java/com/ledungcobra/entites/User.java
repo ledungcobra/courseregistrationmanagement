@@ -1,6 +1,7 @@
 package com.ledungcobra.entites;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,22 +9,18 @@ import javax.persistence.*;
 @MappedSuperclass
 @Getter
 @Setter
+@NoArgsConstructor
 public abstract class User extends BaseEntity {
 
-    @Column(name = "FULL_NAME",columnDefinition = "VARCHAR(255) CHARSET utf8")
-    protected String fullName;
-
-    @Column(name = "PASSWORD",nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     protected String password;
 
-    public User(String fullName, String password) {
-        this.fullName = fullName;
+    public User(String password) {
         this.password = password;
     }
 
-    public User() {
-    }
+    public abstract String getUserId();
+    public abstract String getFullName();
 
-    public abstract String getUserName();
 
 }

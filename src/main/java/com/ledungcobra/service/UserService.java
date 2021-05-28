@@ -23,7 +23,7 @@ public abstract class UserService<E extends User> {
         Class<E> typeClass = (Class<E>) e.getClass().getComponentType();
         if (typeClass.getSimpleName()
                 .equals(StudentAccount.class.getSimpleName())) {
-            userDao = AppContext.studentDao;
+            userDao = AppContext.studentAccountDao;
         } else if (typeClass.getSimpleName().equals(TeachingManager.class.getSimpleName())) {
             userDao = AppContext.teachingManagerDao;
         }
@@ -36,7 +36,7 @@ public abstract class UserService<E extends User> {
 
     public boolean login(@NonNull String username, @NonNull String password) throws UserNotFound, NoResultException {
 
-        User user = userDao.findUserByUserId(username);
+        User user = userDao.findByUserName(username);
 
         if (Objects.nonNull(user)) {
             if (password.equals(user.getPassword())) {
@@ -56,7 +56,7 @@ public abstract class UserService<E extends User> {
                                @NonNull String confirmPassword)
             throws AccountNotFound, PasswordDoesNotChange, ConfirmPasswordFail, CannotUpdatePassword {
 
-        User user = userDao.findUserByUserId(id);
+        User user = userDao.findByUserName(id);
 
         if (Objects.isNull(user)) {
             throw new AccountNotFound("The id " + id + " is match with no rows");
@@ -84,7 +84,7 @@ public abstract class UserService<E extends User> {
     }
 
     public E findById(String id) {
-        return (E) userDao.findUserByUserId(id);
+        return (E) userDao.findByUserName(id);
     }
 
     public E save(E e) {

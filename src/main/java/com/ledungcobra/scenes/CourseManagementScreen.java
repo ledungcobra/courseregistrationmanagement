@@ -37,8 +37,6 @@ public class CourseManagementScreen extends Screen implements Searchable {
     private javax.swing.JButton backBtn;
     private javax.swing.JTextField classRoomNameTextField;
     private javax.swing.JButton clearBtn;
-    private javax.swing.JTextField courseIdTextField;
-    private javax.swing.JTextField creditTextField;
     private javax.swing.JComboBox<String> dayToStudyInWeekCombobox;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton editBtn;
@@ -47,10 +45,8 @@ public class CourseManagementScreen extends Screen implements Searchable {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -81,12 +77,8 @@ public class CourseManagementScreen extends Screen implements Searchable {
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         courseListTable = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        courseIdTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        creditTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         editBtn = new javax.swing.JButton();
         insertBtn = new javax.swing.JButton();
@@ -112,23 +104,43 @@ public class CourseManagementScreen extends Screen implements Searchable {
 
         backBtn.setText("Back");
 
-        jScrollPane1.setViewportView(courseListTable);
+        courseListTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null}
+                },
+                new String [] {
+                        "ID", "Full name", "Password"
+                }
+        ) {
+            Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                    false, true, false
+            };
 
-        jLabel2.setText("Course ID");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(courseListTable);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel3.setText("Add new course");
 
-
         jLabel4.setText("Subject");
-
-        jLabel5.setText("Course Credit");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel6.setText("Manage course");
 
         editBtn.setText("Edit");
-
 
         insertBtn.setText("Insert");
 
@@ -140,17 +152,17 @@ public class CourseManagementScreen extends Screen implements Searchable {
         jLabel7.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel7.setText("Opened courses in this season");
 
-
         jLabel1.setText("Theory teacher name");
 
         jLabel8.setText("Day to study in week");
 
+        dayToStudyInWeekCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel9.setText("Class room name");
 
         jLabel10.setText("Shift to study in day");
 
-        shiftToStudyInDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        shiftToStudyInDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel11.setText("Number of slot");
 
@@ -186,9 +198,7 @@ public class CourseManagementScreen extends Screen implements Searchable {
                                                                                         .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                                 .addGroup(layout.createSequentialGroup()
                                                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                .addComponent(jLabel2)
                                                                                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                .addComponent(jLabel5)
                                                                                                 .addComponent(jLabel4)
                                                                                                 .addComponent(jLabel8)
                                                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -198,8 +208,6 @@ public class CourseManagementScreen extends Screen implements Searchable {
                                                                                                 .addComponent(jLabel11))
                                                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                                .addComponent(courseIdTextField)
-                                                                                                .addComponent(creditTextField)
                                                                                                 .addComponent(subjectCombobox, 0, 653, Short.MAX_VALUE)
                                                                                                 .addComponent(theoryTeacherNameTextField)
                                                                                                 .addComponent(dayToStudyInWeekCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,22 +238,12 @@ public class CourseManagementScreen extends Screen implements Searchable {
                                         .addComponent(jLabel12)
                                         .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(searchBtn))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
-                                        .addComponent(courseIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel5))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(subjectCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(creditTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabel4)
+                                        .addComponent(subjectCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel1)
@@ -266,7 +264,7 @@ public class CourseManagementScreen extends Screen implements Searchable {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel11)
                                         .addComponent(numberOfSlotTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(clearBtn)
                                         .addComponent(insertBtn))
@@ -326,9 +324,7 @@ public class CourseManagementScreen extends Screen implements Searchable {
         }
         this.editingCourse = this.courseList.get(selectedIndex);
 
-        this.courseIdTextField.setText(this.editingCourse.getId());
         this.subjectCombobox.setSelectedItem(this.editingCourse.getSubject());
-        this.creditTextField.setText(this.editingCourse.getCredit().toString());
         this.theoryTeacherNameTextField.setText(this.editingCourse.getTeacherName());
         this.dayToStudyInWeekCombobox.setSelectedItem(this.editingCourse.getDayToStudyInWeek());
         this.classRoomNameTextField.setText(this.editingCourse.getClassroomName());
@@ -341,9 +337,7 @@ public class CourseManagementScreen extends Screen implements Searchable {
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
 
-        this.courseIdTextField.setText("");
         this.subjectCombobox.setSelectedItem(null);
-        this.creditTextField.setText("");
         this.theoryTeacherNameTextField.setText("");
         this.dayToStudyInWeekCombobox.setSelectedItem(null);
         this.classRoomNameTextField.setText("");
@@ -360,9 +354,7 @@ public class CourseManagementScreen extends Screen implements Searchable {
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
 
-        val courseId = courseIdTextField.getText();
         Subject subject = (Subject) subjectCombobox.getSelectedItem();
-        val courseCredit = creditTextField.getText();
         val theoryTeacherName = theoryTeacherNameTextField.getText();
         String dayToStudyInWeek = (String) dayToStudyInWeekCombobox.getSelectedItem();
         val classRoomName = classRoomNameTextField.getText();
@@ -374,18 +366,9 @@ public class CourseManagementScreen extends Screen implements Searchable {
             return;
         }
 
-        if ("".equals(courseId)) {
-            JOptionPane.showMessageDialog(this, "You have to enter course id to continue");
-            return;
-        }
 
         if (subject == null) {
             JOptionPane.showMessageDialog(this, "You have to select a subject to continue");
-            return;
-        }
-
-        if (!courseCredit.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "Credit must be a number");
             return;
         }
 
@@ -417,7 +400,7 @@ public class CourseManagementScreen extends Screen implements Searchable {
         try {
 
             if (this.editingCourse == null) {
-                val course = new Course(courseId, subject, Integer.parseInt(courseCredit), theoryTeacherName, dayToStudyInWeek, classRoomName, shiftToStudyInDay,
+                val course = new Course(subject,  theoryTeacherName, dayToStudyInWeek, classRoomName, shiftToStudyInDay,
                         Integer.parseInt(numberOfSlot), activeSemester);
                 activeSemester.getCourses().add(course);
                 service.addNewCourse(course);
@@ -425,7 +408,6 @@ public class CourseManagementScreen extends Screen implements Searchable {
             } else {
 
                 this.editingCourse.setSubject(subject);
-                this.editingCourse.setCredit(Integer.parseInt(courseCredit));
                 this.editingCourse.setTeacherName(theoryTeacherName);
                 this.editingCourse.setDayToStudyInWeek(dayToStudyInWeek);
                 this.editingCourse.setShiftToStudyInDay(shiftToStudyInDay);
@@ -483,13 +465,14 @@ public class CourseManagementScreen extends Screen implements Searchable {
     @Override
     public void searchBtnActionPerformed(ActionEvent evt) {
         val keyword = searchTextField.getText();
+
         if ("".equals(keyword)) {
             JOptionPane.showMessageDialog(this, "You must enter some thing to search");
             return;
         }
+
         val courses = service.searchCourse(keyword);
         updateTableData(courses);
-
     }
 
 }

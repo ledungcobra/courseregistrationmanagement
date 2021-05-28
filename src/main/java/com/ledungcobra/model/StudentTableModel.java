@@ -40,7 +40,7 @@ public class StudentTableModel extends AbsTableModel<StudentAccount> {
         for (int i = 0; i < l.size(); i++) {
             val studentAccount = l.get(i);
             records[i][0] = studentAccount.getStudentCardId();
-            records[i][1] = studentAccount.getFullName();
+            records[i][1] = studentAccount.getStudentInfo().getFullName();
             records[i][2] = studentAccount.getStudiedClass().getClassName();
             records[i][3] = studentAccount.getPassword();
             records[i][4] = studentAccount.getStudentInfo().getGender();

@@ -1,6 +1,8 @@
 package com.ledungcobra.entites;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -13,10 +15,13 @@ import java.util.Objects;
 @Table(name = "Subject")
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true,callSuper = false)
 public class Subject extends BaseEntity {
 
     @Id
     @Column(name = "SUBJECT_ID")
+    @EqualsAndHashCode.Include
     private String id;
 
     @Column(name = "SUBJECT_NAME", unique = true)
@@ -31,24 +36,6 @@ public class Subject extends BaseEntity {
         this.credit = credit;
     }
 
-    public Subject() {
-
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Subject subject = (Subject) o;
-        return Objects.equals(id, subject.id) && Objects.equals(name, subject.name) && Objects.equals(credit, subject.credit);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id, name, credit);
-    }
 
     @Override
     public String toString() {

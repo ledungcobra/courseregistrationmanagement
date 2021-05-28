@@ -32,7 +32,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         courseDao = AppContext.courseDao;
         teachingManagerDao = AppContext.teachingManagerDao;
         semesterDao = AppContext.semesterDao;
-        studentDao = AppContext.studentDao;
+        studentDao = AppContext.studentAccountDao;
         courseRegistrationSessionDao = AppContext.courseRegistrationDao;
         classDao = AppContext.classDao;
         studentCourseDao = AppContext.studentCourseDao;
@@ -111,6 +111,9 @@ public class TeachingManagerService extends UserService<TeachingManager> {
 
     // Student management
     public List<StudentAccount> getListStudentInClass(@NonNull Class classEntity) {
+        if (AppContext.session != null) {
+            AppContext.session.refresh(classEntity);
+        }
         return classEntity.getStudents();
     }
 
@@ -122,7 +125,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         doTransaction(() -> studentDao.addStudentToClass(student, classEntity));
     }
 
-    public StudentAccount updateStudentInfo(@NonNull StudentAccount student) {
+    public StudentAccount updateStudentAccount(@NonNull StudentAccount student) {
 
         doTransaction(() -> studentDao.update(student));
         return student;
@@ -130,7 +133,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
 
     public StudentAccount resetStudentPassword(@NonNull StudentAccount student) {
         val transaction = beginTransaction();
-        student.setPassword(student.getUserName());
+        student.setPassword(student.getUserId());
         doTransaction(() -> studentDao.update(student));
         return student;
     }
@@ -173,7 +176,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     }
 
     // Course Student
-    public List<StudentCourseSemester> getListStudentCourse() {
+    public List<StudentCourse> getListStudentCourse() {
         return studentCourseDao.findAll();
     }
 
@@ -230,5 +233,32 @@ public class TeachingManagerService extends UserService<TeachingManager> {
 
     public List<Course> searchCourse(String text) {
         return courseDao.search(text);
+    }
+
+    public void deleteStudent(StudentAccount studentAccount) {
+        doTransaction(() -> studentDao.deleteByObject(studentAccount));
+    }
+
+    public StudentInfo findStudentInfoByIdentityNo(String identityCardNumber) {
+        return AppContext.studentInfoDao.findStudentInfoByIdentityNo(identityCardNumber);
+    }
+
+    public void addStudentInfo(StudentInfo studentInfo) {
+        doTransaction(() -> AppContext.studentInfoDao.save(studentInfo));
+    }
+
+    public void updateStudent(StudentAccount student) {
+        doTransaction(() -> {
+            AppContext.studentInfoDao.saveOrUpdate(student.getStudentInfo());
+            AppContext.studentAccountDao.update(student);
+        });
+    }
+
+    public List<EducationType> getEducationTypes() {
+        return AppContext.educationTypeDao.findAll();
+    }
+
+    public void updateStudentInfo(StudentInfo studentInfo) {
+        doTransaction(() -> AppContext.studentInfoDao.update(studentInfo));
     }
 }

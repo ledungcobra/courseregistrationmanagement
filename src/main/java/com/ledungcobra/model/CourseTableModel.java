@@ -44,7 +44,7 @@ public class CourseTableModel extends AbsTableModel<Course> {
         for (int i = 0; i < records.length; i++) {
             val course = courseList.get(i);
             if(course == null) continue;
-            records[i][0] =course.getId();
+            records[i][0] =course.getId().toString();
             val subject = course.getSubject();
             records[i][1] = subject.getName();
             records[i][2] = String.valueOf(course.getCredit());

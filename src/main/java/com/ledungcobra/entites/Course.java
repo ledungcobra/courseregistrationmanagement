@@ -1,9 +1,12 @@
 package com.ledungcobra.entites;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.beans.ConstructorProperties;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,22 +17,25 @@ import static com.ledungcobra.utils.Constants.COURSE_CHECK_CONSTRAINT_DAY_IN_WEE
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class Course extends BaseEntity {
 
     @Id
     @Column(name = "COURSE_ID")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private Long id;
 
     @JoinColumn(name = "SUBJECT_ID", nullable = false)
     @ManyToOne
     private Subject subject;
 
-    @Column(name = "COURSE_CREDIT", nullable = false)
-    private Integer credit;
-
     @Column(name = "THEORY_TEACHER_NAME", nullable = false)
     private String teacherName;
-    @Column(name = "DAY_TO_STUDY_IN_WEEK", columnDefinition = "VARCHAR(255) CHARSET utf8 " + COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK, nullable = false)
+
+    @Column(name = "DAY_TO_STUDY_IN_WEEK")
+    //, columnDefinition = "VARCHAR(255) CHARSET utf8 " + COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK, nullable = false)
     private String dayToStudyInWeek;
 
     @Column(name = "CLASSROOM_NAME", nullable = false)
@@ -41,47 +47,36 @@ public class Course extends BaseEntity {
     @Column(name = "NUMBER_OF_SLOT", nullable = false)
     private Integer numberOfSlot;
 
-    public Course(String id, Subject subject, Integer credit, String teacherName, String dayToStudyInWeek, String classroomName, String shiftToStudyInDay, Integer numberOfSlot, Semester semester) {
-        this.id = id;
+
+    @ManyToOne
+    @JoinColumn(name = "SEMESTER_ID", nullable = false)
+    private Semester semester;
+
+    @ManyToMany
+    @JoinTable(name = "STUDENT_SESSION_COURSE", joinColumns = @JoinColumn(name = "COURSE_ID",
+            referencedColumnName = "COURSE_ID"), inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"))
+    private List<StudentAccount> studentAccounts;
+
+
+    public Course(Subject subject, String teacherName, String dayToStudyInWeek, String classroomName, String shiftToStudyInDay, Integer numberOfSlot, Semester semester) {
         this.subject = subject;
-        this.credit = credit;
         this.teacherName = teacherName;
         this.dayToStudyInWeek = dayToStudyInWeek;
         this.classroomName = classroomName;
         this.shiftToStudyInDay = shiftToStudyInDay;
         this.numberOfSlot = numberOfSlot;
-
-        if (this.semesters == null) {
-            this.semesters = new ArrayList<>();
-            this.semesters.add(semester);
-        }
+        this.semester = semester;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "COURSE_SEMESTER", joinColumns = @JoinColumn(name = "COURSE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "SEMESTER_ID")
-    )
-    private List<Semester> semesters;
-
-    public Course() {
-
+    public Integer getCredit() {
+        if (subject != null) {
+            return subject.getCredit();
+        }
+        return null;
     }
 
     public String getSubjectName() {
         return this.subject.getName();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Course course = (Course) o;
-        return Objects.equals(id, course.id) && Objects.equals(subject, course.subject) && Objects.equals(credit, course.credit) && Objects.equals(teacherName, course.teacherName) && Objects.equals(dayToStudyInWeek, course.dayToStudyInWeek) && Objects.equals(classroomName, course.classroomName) && Objects.equals(shiftToStudyInDay, course.shiftToStudyInDay) && Objects.equals(numberOfSlot, course.numberOfSlot) && Objects.equals(semesters, course.semesters);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id, subject, credit, teacherName, dayToStudyInWeek, classroomName, shiftToStudyInDay, numberOfSlot, semesters);
-    }
 }

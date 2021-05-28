@@ -1,6 +1,9 @@
 package com.ledungcobra.entites;
 
+import com.ledungcobra.dao.CourseDao;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -15,11 +18,14 @@ import java.util.Objects;
 })
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class StudentAccount extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "STUDENT_ID")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "STUDENT_CARD_ID", nullable = false, unique = true)
@@ -34,32 +40,34 @@ public class StudentAccount extends User {
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private EducationType educationType;
 
-    public StudentAccount(String studentCardId, String fullName,
+    @JoinColumn(name = "CLASS_ID")
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    private Class studiedClass;
+
+    @ManyToMany
+    @JoinTable(name = "STUDENT_SESSION_COURSE", joinColumns = @JoinColumn(name = "STUDENT_ID"), inverseJoinColumns = @JoinColumn(name = "COURSE_ID",
+            referencedColumnName = "COURSE_ID"))
+    private List<Course> courses;
+
+    public StudentAccount(String studentCardId,
                           StudentInfo studentInfo, EducationType educationType) {
-        super(fullName, studentCardId);
+        super(studentCardId);
         this.studentCardId = studentCardId;
         this.password = studentCardId;
         this.studentInfo = studentInfo;
         this.educationType = educationType;
     }
 
-    @JoinColumn(name = "CLASS_ID")
-    @ManyToOne(cascade = {CascadeType.PERSIST})
-    private Class studiedClass;
-
-    @ManyToMany
-    @JoinTable(name = "STUDENT_COURSE_SEMESTER",
-            joinColumns = @JoinColumn(name = "STUDENT_ID"),
-            inverseJoinColumns = {
-                    @JoinColumn(name = "COURSE_ID"),
-                    @JoinColumn(name = "SEMESTER_ID"),
-            }
-    )
-    private List<CourseSemester> courseSemesters;
-
-
-    public StudentAccount() {
+    public StudentAccount(String password, String studentCardId,
+                          StudentInfo studentInfo,
+                          EducationType educationType, Class studiedClass) {
+        super(password);
+        this.studentCardId = studentCardId;
+        this.studentInfo = studentInfo;
+        this.educationType = educationType;
+        this.studiedClass = studiedClass;
     }
+
 
     @Override
     public void create() {
@@ -68,39 +76,31 @@ public class StudentAccount extends User {
     }
 
     @Override
-    public String getUserName() {
+    public String getUserId() {
         return studentCardId;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        StudentAccount that = (StudentAccount) o;
-        return Objects.equals(id, that.id) && Objects.equals(studentCardId, that.studentCardId) && Objects.equals(studentInfo, that.studentInfo) && Objects.equals(educationType, that.educationType) && Objects.equals(studiedClass, that.studiedClass);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id, studentCardId, studentInfo, educationType, studiedClass);
+    public String getFullName() {
+        return this.studentInfo == null ? null : this.studentInfo.getFullName();
     }
 
     public String getStudyingCourses() {
-        StringBuilder courses = new StringBuilder();
-        int length = this.courseSemesters.size();
+        StringBuilder coursesStringBuilder = new StringBuilder();
+        if (this.courses == null) return "";
+        int length = this.courses.size();
         for (int i = 0; i < length; i++) {
-            CourseSemester currentCourseSemester = this.courseSemesters.get(i);
+            Course currentCourse = this.courses.get(i);
 
-            if (currentCourseSemester.getSemester().getActive()) {
-                courses.append(currentCourseSemester.getCourse().getSubjectName());
+            if (currentCourse.getSemester().getActive()) {
+                coursesStringBuilder.append(currentCourse.getSubjectName());
                 if (i < length - 1) {
-                    courses.append(", ");
+                    coursesStringBuilder.append(", ");
                 }
             }
 
         }
-        return courses.toString();
+        return coursesStringBuilder.toString();
 
     }
 }

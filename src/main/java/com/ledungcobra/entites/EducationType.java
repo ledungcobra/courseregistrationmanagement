@@ -1,6 +1,8 @@
 package com.ledungcobra.entites;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,11 +12,14 @@ import java.util.Objects;
 @Table(name = "EDUCATION_TYPE")
 @Getter
 @Setter
-public class EducationType extends BaseEntity{
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+public class EducationType extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EDUCATION_TYPE_ID")
+    @EqualsAndHashCode.Include
     private Long id;
 
 
@@ -25,22 +30,8 @@ public class EducationType extends BaseEntity{
     @Column(name = "NAME")
     private String name;
 
-    public EducationType() {
-
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        EducationType that = (EducationType) o;
-        return Objects.equals(id, that.id);
+    public String toString() {
+        return name;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id);
-    }
-
 }

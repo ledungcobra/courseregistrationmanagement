@@ -18,12 +18,20 @@ public class Intent<T extends Screen> {
 
     private Class<T> clazz;
     private T screen;
+    private T parentScreen;
+
 
     @SneakyThrows
     public Intent(T... t) {
         clazz = (Class<T>) t.getClass().getComponentType();
         screen = clazz.newInstance();
     }
+
+//    public Intent(T parentScreen) {
+//        this();
+//        this.parentScreen = parentScreen;
+//    }
+//
 
     @SneakyThrows
     private void addGoBackListener() {
@@ -40,7 +48,6 @@ public class Intent<T extends Screen> {
                     }
                 }
             }
-
 
         } catch (Exception e) {
         }

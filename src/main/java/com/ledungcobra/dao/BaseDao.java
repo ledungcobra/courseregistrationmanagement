@@ -67,4 +67,7 @@ public abstract class BaseDao<E extends BaseEntity, ID extends Serializable> {
         return obj;
     }
 
+    public void saveOrUpdate(E obj) {
+        session.saveOrUpdate(obj);
+    }
 }

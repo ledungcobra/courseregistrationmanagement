@@ -1,6 +1,8 @@
 package com.ledungcobra.entites;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,18 +14,15 @@ import java.util.Objects;
 @Table(name = "Student_Info")
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true,callSuper = false)
 public class StudentInfo extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "STUDENT_INFO_ID")
+    @EqualsAndHashCode.Include
     private Long id;
-
-    public StudentInfo(String gender, Date date, String identityCardNumber) {
-        this.gender = gender;
-        this.birthdate = date;
-        this.identityCardNumber = identityCardNumber;
-    }
 
     @Column(name = "GENDER", columnDefinition = "varchar(255) CHECK(GENDER IN('Boy','Girl'))")
     private String gender;
@@ -37,21 +36,13 @@ public class StudentInfo extends BaseEntity {
     @OneToMany(mappedBy = "studentInfo")
     private List<StudentAccount> studentAccount;
 
-    public StudentInfo() {
+    @Column(name = "FULL_NAME", columnDefinition = "VARCHAR(255) CHARSET utf8")
+    protected String fullName;
 
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        StudentInfo that = (StudentInfo) o;
-        return Objects.equals(id, that.id) && Objects.equals(gender, that.gender) && Objects.equals(birthdate, that.birthdate) && Objects.equals(identityCardNumber, that.identityCardNumber) && Objects.equals(studentAccount, that.studentAccount);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id, gender, birthdate, identityCardNumber, studentAccount);
+    public StudentInfo(String gender, Date birthdate, String identityCardNumber, String fullName) {
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.identityCardNumber = identityCardNumber;
+        this.fullName = fullName;
     }
 }

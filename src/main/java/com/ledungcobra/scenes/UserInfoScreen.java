@@ -6,9 +6,13 @@
 package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
-import com.ledungcobra.scenes.Screen;
+import com.ledungcobra.entites.StudentAccount;
+import com.ledungcobra.entites.User;
+import lombok.val;
 
 import javax.swing.*;
+
+import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 
 /**
  * @author ledun
@@ -31,6 +35,7 @@ public class UserInfoScreen extends Screen {
     private javax.swing.JTextField usernameTextField;
     // </editor-fold>
 
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
@@ -50,10 +55,9 @@ public class UserInfoScreen extends Screen {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Username");
+        jLabel1.setText("Full name");
 
         jLabel2.setText("Password");
-
 
         jLabel3.setText("Gender");
 
@@ -72,6 +76,7 @@ public class UserInfoScreen extends Screen {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Logout");
+
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -91,7 +96,7 @@ public class UserInfoScreen extends Screen {
                                                         .addComponent(jLabel2)
                                                         .addComponent(jLabel3)
                                                         .addComponent(jLabel4))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -108,7 +113,7 @@ public class UserInfoScreen extends Screen {
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(backBtn)
-                                .addGap(141, 141, 141)
+                                .addGap(114, 114, 114)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(userIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel4))
@@ -124,35 +129,37 @@ public class UserInfoScreen extends Screen {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel3)
                                         .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(212, Short.MAX_VALUE))
+                                .addContainerGap(158, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void usernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void genderComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-
 
     @Override
     public void onCreateView() {
         initComponents();
+        val user = (User) this.data.get(USER_KEY);
+        if (user != null) {
+            this.usernameTextField.setText(user.getFullName());
+            this.userIdTextField.setText(user.getUserId());
+            this.passwordTextField.setText(user.getPassword());
+            if (user instanceof StudentAccount) {
+                this.genderComboBox.setVisible(true);
+                jLabel3.setVisible(true);
+                this.genderComboBox.setSelectedItem(((StudentAccount) user).getStudentInfo().getGender());
+            } else {
+                this.genderComboBox.setVisible(false);
+                jLabel3.setVisible(false);
+            }
+
+        }
+
+
     }
 
     @Override
     public void addEventListener() {
-        usernameTextField.addActionListener(evt -> usernameTextFieldActionPerformed(evt));
-        genderComboBox.addActionListener(evt -> genderComboBoxActionPerformed(evt));
-        jMenuItem2.addActionListener(evt -> jMenuItem2ActionPerformed(evt));
+
     }
 }

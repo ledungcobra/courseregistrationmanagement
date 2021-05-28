@@ -15,7 +15,7 @@ public class StudentDao extends BaseDao<StudentAccount, String> implements UserD
     }
 
     @Override
-    public StudentAccount findUserByUserId(String studentCardId) {
+    public StudentAccount findByUserName(String studentCardId) {
         return (StudentAccount) session
                 .createQuery("from StudentAccount sa where sa.studentCardId=:val")
                 .setParameter("val", studentCardId).getSingleResult();
@@ -34,11 +34,7 @@ public class StudentDao extends BaseDao<StudentAccount, String> implements UserD
 
     public void addStudentToClass(StudentAccount student, Class classEntity) {
         student.setStudiedClass(classEntity);
-        session.update(student);
+        session.saveOrUpdate(student);
     }
 
-    public StudentInfo saveStudentInfo(StudentInfo info){
-        session.save(info);
-        return info;
-    }
 }

@@ -319,6 +319,7 @@ public class SemesterManagementScreen extends Screen implements Searchable {
 
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
+            return;
         }
         this.currentEditingSemester = this.semesterList.get(selectedIndex);
 

@@ -269,10 +269,12 @@ public class SubjectManagementScreen extends Screen {
 
         if ("".equals(subjectID)) {
             JOptionPane.showMessageDialog(this, "You must fill in subject id");
+            return;
         }
 
         if ("".equals(subjectName)) {
             JOptionPane.showMessageDialog(this, "Subject name cannot be empty");
+            return;
         }
 
         try {
