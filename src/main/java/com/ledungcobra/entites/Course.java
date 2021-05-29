@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sun.plugin2.message.WindowActivationEventMessage;
 
 import javax.persistence.*;
 import java.beans.ConstructorProperties;
@@ -13,7 +14,7 @@ import java.util.Objects;
 
 import static com.ledungcobra.utils.Constants.COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK;
 
-@Table(name = "course")
+@Table(name = "COURSE")
 @Entity
 @Getter
 @Setter
@@ -27,9 +28,6 @@ public class Course extends BaseEntity {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @JoinColumn(name = "SUBJECT_ID", nullable = false)
-    @ManyToOne
-    private Subject subject;
 
     @Column(name = "THEORY_TEACHER_NAME", nullable = false)
     private String teacherName;
@@ -48,35 +46,55 @@ public class Course extends BaseEntity {
     private Integer numberOfSlot;
 
 
-    @ManyToOne
-    @JoinColumn(name = "SEMESTER_ID", nullable = false)
-    private Semester semester;
-
     @ManyToMany
-    @JoinTable(name = "STUDENT_SESSION_COURSE", joinColumns = @JoinColumn(name = "COURSE_ID",
+    @JoinTable(name = "STUDENT_COURSE", joinColumns = @JoinColumn(name = "COURSE_ID",
             referencedColumnName = "COURSE_ID"), inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"))
     private List<StudentAccount> studentAccounts;
 
+    @ManyToOne
+    @JoinColumn(name = "COURSE_INFO_ID")
+    private CourseInfo courseInfo;
 
-    public Course(Subject subject, String teacherName, String dayToStudyInWeek, String classroomName, String shiftToStudyInDay, Integer numberOfSlot, Semester semester) {
-        this.subject = subject;
+    public Course(CourseInfo courseInfo, String teacherName, String dayToStudyInWeek, String classroomName, String shiftToStudyInDay, Integer numberOfSlot) {
+        this.courseInfo = courseInfo;
         this.teacherName = teacherName;
         this.dayToStudyInWeek = dayToStudyInWeek;
         this.classroomName = classroomName;
         this.shiftToStudyInDay = shiftToStudyInDay;
         this.numberOfSlot = numberOfSlot;
-        this.semester = semester;
     }
 
     public Integer getCredit() {
-        if (subject != null) {
-            return subject.getCredit();
+        if (courseInfo != null && courseInfo.getSubject() != null) {
+            return courseInfo.getSubject().getCredit();
         }
         return null;
     }
 
     public String getSubjectName() {
-        return this.subject.getName();
+        if (courseInfo != null && courseInfo.getSubject() != null) {
+            return courseInfo.getSubject().getName();
+        }
+        return null;
     }
 
+    public Subject getSubject() {
+        return courseInfo != null ? courseInfo.getSubject() : null;
+    }
+
+    public void setSubject(Subject subject) {
+        if (courseInfo != null) courseInfo.setSubject(subject);
+    }
+
+    public Semester getSemester() {
+        if (courseInfo != null) {
+            return courseInfo.getSemester();
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Id: " + this.id + ", " + "Subject name: " + this.getSubjectName();
+    }
 }

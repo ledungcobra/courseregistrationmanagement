@@ -8,8 +8,10 @@ import lombok.NonNull;
 import lombok.val;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @FunctionalInterface
 interface DoWork {
@@ -26,6 +28,8 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     private ClassDao classDao;
     private StudentCourseDao studentCourseDao;
     private SubjectDao subjectDao;
+    private CourseInfoDao courseInfoDao;
+
 
     public TeachingManagerService() {
 
@@ -37,6 +41,7 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         classDao = AppContext.classDao;
         studentCourseDao = AppContext.studentCourseDao;
         subjectDao = AppContext.subjectDao;
+        courseInfoDao = AppContext.courseInfoDao;
     }
 
     // Course Manager
@@ -126,13 +131,11 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     }
 
     public StudentAccount updateStudentAccount(@NonNull StudentAccount student) {
-
         doTransaction(() -> studentDao.update(student));
         return student;
     }
 
     public StudentAccount resetStudentPassword(@NonNull StudentAccount student) {
-        val transaction = beginTransaction();
         student.setPassword(student.getUserId());
         doTransaction(() -> studentDao.update(student));
         return student;
@@ -157,7 +160,10 @@ public class TeachingManagerService extends UserService<TeachingManager> {
         AppContext.session.clear();
         val activeSemester = semesterDao.getActiveSemester();
         if (Objects.nonNull(activeSemester)) {
-            return activeSemester.getCourses();
+            return activeSemester.getCourseInfos()
+                    .stream().map(CourseInfo::getCourses)
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toList());
         } else {
             return new ArrayList<>();
         }
@@ -266,7 +272,25 @@ public class TeachingManagerService extends UserService<TeachingManager> {
     }
 
 
-    public List<StudentAccount> searchStudentRegACourse(String keyword, Course course) {
-        return studentDao.searchStudentRegACourse(keyword, course);
+    public List<StudentAccount> searchStudentRegACourse(String keyword, CourseInfo courseInfo, Semester activeSemester) {
+        return studentDao.searchStudentRegACourse(keyword, courseInfo, activeSemester);
+    }
+
+    public void addNewCourseInfo(CourseInfo courseInfo) {
+        doTransaction(() -> courseInfoDao.save(courseInfo));
+    }
+
+    public List<CourseInfo> getCourseInfos() {
+        Semester semester = this.getActiveSemester();
+        AppContext.session.refresh(semester);
+        return semester.getCourseInfos();
+    }
+
+    public void deleteCourseInfo(CourseInfo selectedCourseInfo) {
+        doTransaction(() -> courseInfoDao.deleteByObject(selectedCourseInfo));
+    }
+
+    public List<StudentCourse> getStudentCourseListRegisteredACourseInfo(CourseInfo courseInfo, Semester activeSemester) {
+        return studentCourseDao.getListStudentRegisterACourse(courseInfo, activeSemester);
     }
 }

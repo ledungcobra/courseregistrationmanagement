@@ -1,6 +1,9 @@
 package com.ledungcobra.utils;
 
 import com.ledungcobra.applicationcontext.AppContext;
+import lombok.SneakyThrows;
+
+import java.util.Date;
 
 public class DatetimeUtil {
 
@@ -11,5 +14,10 @@ public class DatetimeUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @SneakyThrows
+    public static Date getCurrentDate(){
+            return AppContext.dateFormat.parse("29-05-2021");
     }
 }

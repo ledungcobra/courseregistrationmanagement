@@ -2,7 +2,8 @@ package com.ledungcobra.dao;
 
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.Class;
-import com.ledungcobra.entites.Course;
+import com.ledungcobra.entites.CourseInfo;
+import com.ledungcobra.entites.Semester;
 import com.ledungcobra.entites.StudentAccount;
 import com.ledungcobra.utils.DatetimeUtil;
 import lombok.val;
@@ -60,16 +61,25 @@ public class StudentDao extends BaseDao<StudentAccount, String> implements UserD
         session.saveOrUpdate(student);
     }
 
-    public List<StudentAccount> searchStudentRegACourse(String keyword, Course course) {
+    public List<StudentAccount> searchStudentRegACourse(String keyword, CourseInfo courseInfo, Semester semester) {
         try {
             val query = this.session.createQuery(
-                    "select distinct  s from StudentAccount s " +
-                            " left join fetch s.studentInfo si where" +
-                            "( si.fullName like :k or " +
-                            "s.studentCardId  like :k or " +
-                            "si.gender like :k )");
-
+                    "select distinct sc from StudentCourse  sc" +
+                            " join fetch sc.studentCourseId.studentAccount st " +
+                            " join fetch sc.id.course c " +
+                            " join  fetch  sc.id.semester se " +
+                            "where c.courseInfo=:courseInfo and " +
+                            "se=:semester and " +
+                            " ( c.dayToStudyInWeek like :k or " +
+                            "c.shiftToStudyInDay like :k or " +
+                            " c.teacherName like :k or " +
+                            "   st.studentCardId like :k or " +
+                            "   st.studentInfo.gender like :k or " +
+                            "   st.studentInfo.fullName like :k  or " +
+                            "   st.studentInfo.identityCardNumber like :k  )");
             query.setParameter("k", "%" + keyword + "%");
+            query.setParameter("courseInfo", courseInfo);
+            query.setParameter("semester", semester);
             return (List<StudentAccount>) query.getResultList();
 
         } catch (Exception e) {

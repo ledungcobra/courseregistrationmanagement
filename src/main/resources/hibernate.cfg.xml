@@ -18,7 +18,7 @@
         </property>
         <property name="hibernate.connection.autocommit">false</property>
         <!--        Method to auto generate database-->
-<!--        <property name="hbm2ddl.auto">create-drop</property>-->
+<!--        <property name="hbm2ddl.auto">update</property>-->
         <property name="format_sql">true</property>
 
         <!--        Entity Mapping-->
@@ -30,6 +30,7 @@
         <mapping class="com.ledungcobra.entites.StudentAccount"/>
         <mapping class="com.ledungcobra.entites.Subject"/>
         <mapping class="com.ledungcobra.entites.Course"/>
+        <mapping class="com.ledungcobra.entites.CourseInfo"/>
         <mapping class="com.ledungcobra.entites.StudentCourse"/>
         <mapping class="com.ledungcobra.entites.CourseRegistrationSession"/>
 

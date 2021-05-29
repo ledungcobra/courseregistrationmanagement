@@ -131,7 +131,7 @@ public class ChangePasswordScreen extends Screen {
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(backBtn)
-                                .addGap(238, 238, 238)
+                                .addGap(160, 160, 160)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel1)
                                         .addComponent(showOldPasswordBtn)

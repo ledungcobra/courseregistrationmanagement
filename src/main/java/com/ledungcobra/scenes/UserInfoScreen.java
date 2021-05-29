@@ -14,9 +14,7 @@ import javax.swing.*;
 
 import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 
-/**
- * @author ledun
- */
+
 public class UserInfoScreen extends Screen {
     // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
@@ -26,10 +24,7 @@ public class UserInfoScreen extends Screen {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+
     private javax.swing.JTextField passwordTextField;
     private javax.swing.JTextField userIdTextField;
     private javax.swing.JTextField usernameTextField;
@@ -48,10 +43,7 @@ public class UserInfoScreen extends Screen {
         userIdTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,19 +61,6 @@ public class UserInfoScreen extends Screen {
         jLabel4.setText("ID");
 
         backBtn.setText("Back");
-
-        jMenu1.setText("Account");
-
-        jMenuItem1.setText("Profile");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("Logout");
-
-        jMenu1.add(jMenuItem2);
-
-        jMenuBar1.add(jMenu1);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,7 +108,7 @@ public class UserInfoScreen extends Screen {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel3)
                                         .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(158, Short.MAX_VALUE))
+                                .addContainerGap(182, Short.MAX_VALUE))
         );
 
         pack();

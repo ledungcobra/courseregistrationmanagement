@@ -76,18 +76,8 @@ public class StudentMenuScreen extends Screen {
         jLabel1.setText("Menu");
 
         registerCoursesBtn.setText("Register courses");
-        registerCoursesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerCoursesBtnActionPerformed(evt);
-            }
-        });
 
         listAllRegisteredCourses.setText("List all registered courses");
-        listAllRegisteredCourses.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listAllRegisteredCoursesActionPerformed(evt);
-            }
-        });
 
         usernameLbl.setText("jLabel2");
 
@@ -152,11 +142,11 @@ public class StudentMenuScreen extends Screen {
     }
 
     private void listAllRegisteredCoursesActionPerformed(java.awt.event.ActionEvent evt) {
+        new Intent<ListAllRegisteredCoursesScreen>().navigate(this.data);
     }
 
     private void registerCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {
-
+        new Intent<StudentRegisterCoursesScreen>().navigate(this.data);
     }
-
 
 }

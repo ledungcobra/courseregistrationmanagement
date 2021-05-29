@@ -4,7 +4,6 @@ import com.ledungcobra.entites.BaseEntity;
 import com.ledungcobra.exception.NotHaveIdException;
 import lombok.SneakyThrows;
 import org.hibernate.Session;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.Id;
 import java.io.Serializable;

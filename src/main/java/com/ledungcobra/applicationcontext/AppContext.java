@@ -2,6 +2,7 @@ package com.ledungcobra.applicationcontext;
 
 import com.ledungcobra.dao.*;
 import com.ledungcobra.databoostrap.DataBoostrap;
+import com.ledungcobra.entites.CourseInfo;
 import com.ledungcobra.service.StudentService;
 import com.ledungcobra.service.TeachingManagerService;
 import com.ledungcobra.utils.HibernateUtils;
@@ -29,6 +30,8 @@ public class AppContext {
     public static final TeachingManagerService teachingManagerService;
     public static final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, new Locale("vi", "VN"));
     public static final StudentInfoDao studentInfoDao;
+    public static final CourseInfoDao courseInfoDao;
+
     public static final ExecutorService executorService;
 
 
@@ -47,6 +50,7 @@ public class AppContext {
         teachingManagerDao = new TeachingManagerDao(session);
         educationTypeDao = new EducationTypeDao(session);
         studentInfoDao = new StudentInfoDao(session);
+        courseInfoDao = new CourseInfoDao(session);
 
         studentService = new StudentService();
         teachingManagerService = new TeachingManagerService();

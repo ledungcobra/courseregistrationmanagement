@@ -8,9 +8,7 @@ package com.ledungcobra.scenes;
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.anotations.SearchTextField;
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.entites.Course;
-import com.ledungcobra.entites.Semester;
-import com.ledungcobra.entites.StudentAccount;
+import com.ledungcobra.entites.*;
 import com.ledungcobra.interfaces.Searchable;
 import com.ledungcobra.model.AbsComboModel;
 import com.ledungcobra.model.StudentRegCourseTableModel;
@@ -19,18 +17,19 @@ import lombok.val;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.lang.Class;
 import java.util.List;
 
 /**
  * @author ledun
  */
-public class StudentRegisteredACourse extends Screen implements Searchable {
+public class StudentRegisteredACourseScreen extends Screen implements Searchable {
 
 
     // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
     private javax.swing.JButton backBtn;
-    private javax.swing.JComboBox<Course> courseComboBox;
+    private javax.swing.JComboBox<CourseInfo> courseComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -42,7 +41,6 @@ public class StudentRegisteredACourse extends Screen implements Searchable {
 
     private TeachingManagerService service = AppContext.teachingManagerService;
     private List<StudentAccount> students;
-
     // End of variables declaration
 
     @SuppressWarnings("unchecked")
@@ -148,35 +146,39 @@ public class StudentRegisteredACourse extends Screen implements Searchable {
     @Override
     public void addEventListener() {
         searchBtn.addActionListener(e -> searchBtnActionPerformed(e));
+        courseComboBox.addItemListener(e -> {
+            updateTableData();
+        });
+
     }
 
     private void setUpComboBoxes() {
-        val courses = service.getCourseList();
-        this.courseComboBox.setModel(new AbsComboModel<Course>(courses) {
+        val courses = service.getCourseInfos();
+        this.courseComboBox.setModel(new AbsComboModel<CourseInfo>(courses) {
         });
     }
 
     private void updateTableData() {
-        Course course = (Course) this.courseComboBox.getSelectedItem();
-        if (course == null) return;
-
-        this.students = course.getStudentAccounts();
+        CourseInfo courseInfo = (CourseInfo) this.courseComboBox.getSelectedItem();
+        if (courseInfo == null) return;
         Semester activeSemester = service.getActiveSemester();
-        this.studentInCourseTable.setModel(new StudentRegCourseTableModel(students, course, activeSemester));
+        List<StudentCourse> studentCourseList = service.getStudentCourseListRegisteredACourseInfo(courseInfo, activeSemester);
+        this.studentInCourseTable.setModel(new StudentRegCourseTableModel(studentCourseList));
     }
 
     @Override
     public void searchBtnActionPerformed(ActionEvent evt) {
 
         val keyword = searchTextField.getText();
-        Course course = (Course) this.courseComboBox.getSelectedItem();
+        CourseInfo courseInfo = (CourseInfo) this.courseComboBox.getSelectedItem();
 
-        if (course == null) {
+        if (courseInfo == null) {
             JOptionPane.showMessageDialog(this, "There are no course selected");
             return;
         }
-
-        this.students = service.searchStudentRegACourse(keyword, course);
+        val activeSemester = service.getActiveSemester();
+        this.students = service.searchStudentRegACourse(keyword, courseInfo, activeSemester);
         updateTableData();
+        
     }
 }

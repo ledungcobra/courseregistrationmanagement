@@ -177,7 +177,7 @@ public class TeachingManagerMenuScreen extends Screen {
         changePasswordBtn.addActionListener(e -> new Intent<ChangePasswordScreen>().navigate(this.data));
         subjectMngBtn.addActionListener(e -> new Intent<SubjectManagementScreen>().navigate(this.data));
         logoutBtn.addActionListener(e -> logout());
-        studentRegCourse.addActionListener((e)->new Intent<StudentRegisteredACourse>().navigate());
+        studentRegCourse.addActionListener((e)->new Intent<StudentRegisteredACourseScreen>().navigate());
     }
 
 }

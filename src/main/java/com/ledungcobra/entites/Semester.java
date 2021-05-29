@@ -52,11 +52,11 @@ public class Semester extends BaseEntity {
     private Boolean active;
 
     @OneToMany(mappedBy = "semester", cascade = CascadeType.PERSIST)
-    private List<Course> courses;
+    private List<CourseInfo> courseInfos;
 
-    public List<Course> getCourses() {
-        if (courses == null) courses = new ArrayList<>();
-        return courses;
+    public List<CourseInfo> getCourseInfos() {
+        if (courseInfos == null) courseInfos = new ArrayList<>();
+        return courseInfos;
     }
 
     public Semester(String semesterName, Integer year, Date startDate, Date endDate, Boolean active) {

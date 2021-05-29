@@ -6,8 +6,10 @@
 package com.ledungcobra.scenes;
 
 import com.ledungcobra.anotations.BackButton;
+import com.ledungcobra.anotations.SearchTextField;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.Subject;
+import com.ledungcobra.interfaces.Searchable;
 import com.ledungcobra.model.SubjectTableModel;
 import com.ledungcobra.scenes.Screen;
 import com.ledungcobra.service.TeachingManagerService;
@@ -21,7 +23,7 @@ import java.util.List;
 /**
  * @author ledun
  */
-public class SubjectManagementScreen extends Screen {
+public class SubjectManagementScreen extends Screen implements Searchable {
 
     // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
@@ -38,6 +40,8 @@ public class SubjectManagementScreen extends Screen {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+
+    @SearchTextField
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField subjectIDTextField;
@@ -309,7 +313,7 @@ public class SubjectManagementScreen extends Screen {
 
     }
 
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    public void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
         val keyword = jTextField1.getText();
         if ("".equals(keyword)) {
             JOptionPane.showMessageDialog(this, "Please input subject name for searching");

@@ -45,7 +45,7 @@ public class StudentAccount extends User {
     private Class studiedClass;
 
     @ManyToMany
-    @JoinTable(name = "STUDENT_SESSION_COURSE", joinColumns = @JoinColumn(name = "STUDENT_ID"), inverseJoinColumns = @JoinColumn(name = "COURSE_ID",
+    @JoinTable(name = "STUDENT_COURSE", joinColumns = @JoinColumn(name = "STUDENT_ID"), inverseJoinColumns = @JoinColumn(name = "COURSE_ID",
             referencedColumnName = "COURSE_ID"))
     private List<Course> courses;
 
@@ -95,7 +95,8 @@ public class StudentAccount extends User {
         for (int i = 0; i < length; i++) {
             Course currentCourse = this.courses.get(i);
 
-            if (currentCourse.getSemester().getActive()) {
+            if (currentCourse.getSemester() != null &&
+                    currentCourse.getSemester().getActive()) {
                 coursesStringBuilder.append(currentCourse.getSubjectName());
                 if (i < length - 1) {
                     coursesStringBuilder.append(", ");

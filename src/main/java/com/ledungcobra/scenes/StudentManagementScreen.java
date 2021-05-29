@@ -437,11 +437,11 @@ public class StudentManagementScreen extends Screen implements Searchable {
         this.classSearchCombobox.setModel(new ClassComboModel(classes));
         this.classNameCombobox.setModel(new ClassComboModel(classes));
 
-        setDataComboBoxes();
+        loadDataForComboBoxes();
         updateTableData();
     }
 
-    private void setDataComboBoxes() {
+    private void loadDataForComboBoxes() {
 
         val educationTypes = service.getEducationTypes();
         val classes = service.getClasses();
