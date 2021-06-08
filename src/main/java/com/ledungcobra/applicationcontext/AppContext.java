@@ -2,7 +2,6 @@ package com.ledungcobra.applicationcontext;
 
 import com.ledungcobra.dao.*;
 import com.ledungcobra.databoostrap.DataBoostrap;
-import com.ledungcobra.entites.CourseInfo;
 import com.ledungcobra.service.StudentService;
 import com.ledungcobra.service.TeachingManagerService;
 import com.ledungcobra.utils.HibernateUtils;
@@ -12,9 +11,9 @@ import java.text.DateFormat;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
-public class AppContext {
+public class AppContext
+{
 
     public static Session session;
     public static final ClassDao classDao;
@@ -35,7 +34,8 @@ public class AppContext {
     public static final ExecutorService executorService;
 
 
-    static {
+    static
+    {
 
         HibernateUtils.buildSessionFactory();
 
@@ -60,7 +60,8 @@ public class AppContext {
 
     }
 
-    public static void closeSession() {
+    public static void closeSession()
+    {
         HibernateUtils.closeSession();
     }
 

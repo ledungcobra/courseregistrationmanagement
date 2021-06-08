@@ -14,11 +14,15 @@ import lombok.val;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 
-public class StudentRegisterCoursesScreen extends Screen {
+public class StudentRegisterCoursesScreen extends Screen
+{
 
     // <editor-fold defaultstate="collapsed desc="Field declarations">
     private javax.swing.JButton addBtn;
@@ -56,14 +60,16 @@ public class StudentRegisterCoursesScreen extends Screen {
 
     @SneakyThrows
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
 
         if (this.data == null) throw new Exception("Data should not be null");
         this.studentAccount = (StudentAccount) this.data.get(USER_KEY);
         removedCoursesSet = new HashSet<>();
 
-        try {
+        try
+        {
             this.currentSession = service.getValidCourseRegistrationSession();
             this.activeSemester = service.getActiveSemester();
 
@@ -71,75 +77,91 @@ public class StudentRegisterCoursesScreen extends Screen {
             this.startDateLbl.setText(this.currentSession.getStartDate().toString());
             this.endDateLbl.setText(this.currentSession.getEndDate().toString());
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(this, e.getMessage());
             finish();
             return;
         }
 
         loadData();
-        updateCourseList();
+        updateLoadedCourseList();
         updateTempCourseList();
     }
 
-    void loadData() {
+    void loadData()
+    {
         this.tempCourseSet = new HashSet<>(service.getRegisteredCourses(activeSemester, this.studentAccount));
     }
 
-    private void updateTempCourseList() {
+    private void updateTempCourseList()
+    {
         this.previewCourses.setModel(new CourseTableModel(new ArrayList<>(this.tempCourseSet)));
     }
 
-    private void updateCourseList() {
+    private void updateLoadedCourseList()
+    {
         this.openedCourseListTable.setModel(new CourseTableModel(new ArrayList<>()));
         this.loadedCourseList = service.getCoursesOpenedInActiveSemester();
         this.openedCourseListTable.setModel(new CourseTableModel(this.loadedCourseList));
     }
 
     @Override
-    protected void finish() {
+    protected void finish()
+    {
         AppContext.executorService.submit(() -> {
-            try {
+            try
+            {
                 Thread.sleep(400);
 
                 SwingUtilities.invokeAndWait(super::finish);
-            } catch (InterruptedException | InvocationTargetException e) {
+            } catch (InterruptedException | InvocationTargetException e)
+            {
                 e.printStackTrace();
             }
         });
     }
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         addBtn.addActionListener(this::addCourseToTempListActionPerform);
         removeBtn.addActionListener(this::removeCourseFromTempListActionPerform);
         editRegisteredCourseListBtn.addActionListener(this::onEditCourseListBtnPerform);
         registerBtn.addActionListener(this::onRegisterBtnActionPerformed);
     }
 
-    private void onRegisterBtnActionPerformed(ActionEvent e) {
-        if (checkBeforeSubmit()) {
+    private void onRegisterBtnActionPerformed(ActionEvent e)
+    {
+        if (checkBeforeSubmit())
+        {
             service.removeCourses(removedCoursesSet, studentAccount, activeSemester);
-            service
-                    .registerCourses(tempCourseSet, studentAccount, this.currentSession, activeSemester);
+            service.registerCourses(tempCourseSet, studentAccount, this.currentSession, activeSemester);
             loadData();
             updateTempCourseList();
-        } else {
+            updateLoadedCourseList();
+
+        } else
+        {
             JOptionPane.showMessageDialog(this, "You are allowed to register 8 courses or you have a conflict in time between courses in your temp list");
         }
     }
 
-    boolean checkBeforeSubmit() {
+    boolean checkBeforeSubmit()
+    {
         if (tempCourseSet.size() > 8) return false;
         val courses = new ArrayList<>(tempCourseSet);
-        for (int i = 0; i < courses.size(); i++) {
+        for (int i = 0; i < courses.size(); i++)
+        {
             val currentCourse = courses.get(i);
-            for (int j = 0; j < courses.size(); j++) {
+            for (int j = 0; j < courses.size(); j++)
+            {
                 if (i != j &&
                         currentCourse.getShiftToStudyInDay()
                                 .equals(courses.get(j).getShiftToStudyInDay()) &&
                         currentCourse.getDayToStudyInWeek().equals(courses.get(j).getDayToStudyInWeek())
-                ) {
+                )
+                {
                     return false;
                 }
             }
@@ -147,13 +169,16 @@ public class StudentRegisterCoursesScreen extends Screen {
         return true;
     }
 
-    private void onEditCourseListBtnPerform(ActionEvent e) {
+    private void onEditCourseListBtnPerform(ActionEvent e)
+    {
 
     }
 
-    private void removeCourseFromTempListActionPerform(ActionEvent e) {
+    private void removeCourseFromTempListActionPerform(ActionEvent e)
+    {
         int[] coursesIndices = previewCourses.getSelectedRows();
-        if (coursesIndices != null || coursesIndices.length > 0) {
+        if (coursesIndices != null || coursesIndices.length > 0)
+        {
             List<Course> courses = new ArrayList<>(this.tempCourseSet);
 
             Arrays.stream(coursesIndices).forEach(i -> {
@@ -162,37 +187,45 @@ public class StudentRegisterCoursesScreen extends Screen {
             });
 
             updateTempCourseList();
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "You have to choose any course to add to your temp course list");
         }
     }
 
-    private void addCourseToTempListActionPerform(ActionEvent e) {
+    private void addCourseToTempListActionPerform(ActionEvent e)
+    {
         int[] courseIndices = openedCourseListTable.getSelectedRows();
         if (!checkBeforeAddCourse()) return;
 
-        if (courseIndices != null || courseIndices.length > 0) {
+        if (courseIndices != null || courseIndices.length > 0)
+        {
             Arrays.stream(courseIndices).forEach(i -> {
                 this.tempCourseSet.add(this.loadedCourseList.get(i));
                 this.removedCoursesSet.remove(this.loadedCourseList.get(i));
             });
 
             updateTempCourseList();
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "You have to choose any course to add to your temp course list");
         }
     }
 
-    private boolean checkBeforeAddCourse() {
+    private boolean checkBeforeAddCourse()
+    {
         int[] selectedCourseIndices = openedCourseListTable.getSelectedRows();
         if (selectedCourseIndices == null || selectedCourseIndices.length == 0) return true;
         List<Course> courses = new ArrayList<>(tempCourseSet);
 
-        for (int i = 0; i < selectedCourseIndices.length; i++) {
+        for (int i = 0; i < selectedCourseIndices.length; i++)
+        {
             val currentCourse = loadedCourseList.get(selectedCourseIndices[i]);
-            for (int j = 0; j < courses.size(); j++) {
+            for (int j = 0; j < courses.size(); j++)
+            {
                 if (currentCourse.getSubject() != null &&
-                        currentCourse.getSubject().equals(courses.get(j).getSubject())) {
+                        currentCourse.getSubject().equals(courses.get(j).getSubject()))
+                {
                     return false;
                 }
             }
@@ -202,7 +235,8 @@ public class StudentRegisterCoursesScreen extends Screen {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();

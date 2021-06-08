@@ -10,7 +10,6 @@ import com.ledungcobra.anotations.SearchTextField;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.Semester;
 import com.ledungcobra.interfaces.Searchable;
-import com.ledungcobra.scenes.Screen;
 import com.ledungcobra.model.SemesterTableModel;
 import com.ledungcobra.service.TeachingManagerService;
 import lombok.val;
@@ -18,7 +17,6 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import javax.persistence.PersistenceException;
 import javax.swing.*;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +25,8 @@ import static com.ledungcobra.utils.Constants.SEMESTER;
 /**
  * @author ledun
  */
-public class SemesterManagementScreen extends Screen implements Searchable {
+public class SemesterManagementScreen extends Screen implements Searchable
+{
 
     // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
@@ -64,7 +63,8 @@ public class SemesterManagementScreen extends Screen implements Searchable {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         backBtn = new javax.swing.JButton();
         searchTextField = new javax.swing.JTextField();
@@ -99,7 +99,8 @@ public class SemesterManagementScreen extends Screen implements Searchable {
         searchBtn.setText("Search");
 
         jScrollPane1.setViewportView(semesterListTable);
-        if (semesterListTable.getColumnModel().getColumnCount() > 0) {
+        if (semesterListTable.getColumnModel().getColumnCount() > 0)
+        {
             semesterListTable.getColumnModel().getColumn(5).setResizable(false);
         }
 
@@ -245,24 +246,28 @@ public class SemesterManagementScreen extends Screen implements Searchable {
     }// </editor-fold>
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
         updateTableData();
         semesterNameComboBox.setModel(new DefaultComboBoxModel<>(SEMESTER));
     }
 
-    public void updateTableData() {
+    public void updateTableData()
+    {
         this.semesterList = service.getSemesterList();
         semesterListTable.setModel(new SemesterTableModel(this.semesterList));
     }
 
-    public void updateTableData(List<Semester> semesters) {
+    public void updateTableData(List<Semester> semesters)
+    {
         this.semesterList = semesters;
         semesterListTable.setModel(new SemesterTableModel(semesters));
     }
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
         editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
         insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
@@ -271,10 +276,12 @@ public class SemesterManagementScreen extends Screen implements Searchable {
         setActiveBtn.addActionListener(e -> setActiveSemester());
     }
 
-    private void setActiveSemester() {
+    private void setActiveSemester()
+    {
         int selectedIndex = this.semesterListTable.getSelectedRow();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
@@ -285,28 +292,35 @@ public class SemesterManagementScreen extends Screen implements Searchable {
     }
 
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         int selectedIndex = this.semesterListTable.getSelectedRow();
         val selectedIndices = this.semesterListTable.getSelectedRows();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
-        if (selectedIndices.length == 1) {
+        if (selectedIndices.length == 1)
+        {
             int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this semester", "Confirm", JOptionPane.YES_NO_OPTION);
 
-            if (result == JOptionPane.YES_OPTION) {
+            if (result == JOptionPane.YES_OPTION)
+            {
                 val semester = this.semesterList.get(selectedIndex);
                 service.deleteSemester(semester);
                 updateTableData();
             }
-        } else {
+        } else
+        {
             int result = JOptionPane.showConfirmDialog(this, "Do you want to delete these semester", "Confirm", JOptionPane.YES_NO_OPTION);
 
-            if (result == JOptionPane.YES_OPTION) {
-                for (val index : selectedIndices) {
+            if (result == JOptionPane.YES_OPTION)
+            {
+                for (val index : selectedIndices)
+                {
                     service.deleteSemester(this.semesterList.get(index));
                 }
                 updateTableData();
@@ -314,10 +328,12 @@ public class SemesterManagementScreen extends Screen implements Searchable {
         }
     }
 
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         int selectedIndex = this.semesterListTable.getSelectedRow();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
@@ -336,7 +352,8 @@ public class SemesterManagementScreen extends Screen implements Searchable {
 
     }
 
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         this.semesterNameComboBox.setSelectedIndex(0);
         this.startDatePicker.setDate(null);
         this.endDatePicker.setDate(null);
@@ -346,35 +363,43 @@ public class SemesterManagementScreen extends Screen implements Searchable {
 
     }
 
-    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         val startDate = this.startDatePicker.getDate();
         val endDate = this.endDatePicker.getDate();
         val year = this.yearPicker.getYear();
-        if (startDate == null || endDate == null) {
+        if (startDate == null || endDate == null)
+        {
             JOptionPane.showMessageDialog(this, "You must select date to continue");
             return;
         }
-        if (startDate.after(endDate)) {
+        if (startDate.after(endDate))
+        {
             JOptionPane.showMessageDialog(this, "The end date must be followed by start date");
             return;
         }
 
-        if (startDate == null) {
+        if (startDate == null)
+        {
             JOptionPane.showMessageDialog(this, "You must choose start date to continue");
             return;
         }
 
-        if (endDate == null) {
+        if (endDate == null)
+        {
             JOptionPane.showMessageDialog(this, "You must choose end date to continue");
             return;
         }
 
-        try {
+        try
+        {
 
-            if (currentEditingSemester == null) {
+            if (currentEditingSemester == null)
+            {
                 service.addNewSemester(new Semester((String) semesterNameComboBox.getSelectedItem(), year, startDate, endDate, activeCheckBox.isSelected()));
-            } else {
+            } else
+            {
                 this.currentEditingSemester.setActive(this.activeCheckBox.isSelected());
                 this.currentEditingSemester.setStartDate(startDate);
                 this.currentEditingSemester.setEndDate(endDate);
@@ -384,11 +409,14 @@ public class SemesterManagementScreen extends Screen implements Searchable {
             }
             updateTableData();
 
-        } catch (ConstraintViolationException e) {
+        } catch (ConstraintViolationException e)
+        {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        } catch (PersistenceException e) {
+        } catch (PersistenceException e)
+        {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        } finally {
+        } finally
+        {
             this.currentEditingSemester = null;
             this.jLabel3.setText("Add new semester");
             this.insertBtn.setText("Insert");
@@ -396,9 +424,11 @@ public class SemesterManagementScreen extends Screen implements Searchable {
     }
 
     @Override
-    public void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    public void searchBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         val keyword = searchTextField.getText();
-        if ("".equals(keyword)) {
+        if ("".equals(keyword))
+        {
             JOptionPane.showMessageDialog(this, "You must enter some thing to search");
             return;
         }

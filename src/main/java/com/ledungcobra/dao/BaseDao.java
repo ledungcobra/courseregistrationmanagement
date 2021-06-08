@@ -13,60 +13,74 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class BaseDao<E extends BaseEntity, ID extends Serializable> {
+public abstract class BaseDao<E extends BaseEntity, ID extends Serializable>
+{
 
+    public static final String CANNOT_FIND_ID_ANNOTATION_IN_THIS_CLASS = "Cannot find Id annotation in this class";
     protected Session session;
     final Class<E> entityClass;
 
-    protected BaseDao(Session session) {
+    protected BaseDao(Session session)
+    {
         this.session = session;
         entityClass = ((Class) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0]);
     }
 
-    public E findById(ID id) {
+    public E findById(ID id)
+    {
         return session.get(entityClass, id);
     }
 
-    public List<E> findAll() {
+    public List<E> findAll()
+    {
         return (List<E>) session.createQuery("from " + entityClass.getSimpleName()).getResultList();
     }
 
     @SneakyThrows
-    public void deleteById(ID id) {
+    public void deleteById(ID id)
+    {
         Field[] fields = entityClass.getFields();
 
         boolean foundIdAnnotation = false;
-        for (Field field : fields) {
+        for (Field field : fields)
+        {
 
             Annotation idAnnotation = field.getAnnotation(Id.class);
-            if (Objects.nonNull(idAnnotation)) {
+            field.setAccessible(true);
+            if (Objects.nonNull(idAnnotation))
+            {
                 session.createQuery("delete from " + entityClass.getSimpleName() + " where +" + field.getName() + "=?1");
                 foundIdAnnotation = true;
             }
 
         }
 
-        if (!foundIdAnnotation) {
-            throw new NotHaveIdException("Cannot find Id annotation in this class");
+        if (!foundIdAnnotation)
+        {
+            throw new NotHaveIdException(CANNOT_FIND_ID_ANNOTATION_IN_THIS_CLASS);
         }
     }
 
-    public void deleteByObject(E obj) {
+    public void deleteByObject(E obj)
+    {
         session.delete(obj);
     }
 
-    public E save(E obj) {
+    public E save(E obj)
+    {
         session.save(obj);
         return obj;
     }
 
-    public E update(E obj) {
+    public E update(E obj)
+    {
         session.update(obj);
         return obj;
     }
 
-    public void saveOrUpdate(E obj) {
+    public void saveOrUpdate(E obj)
+    {
         session.saveOrUpdate(obj);
     }
 }

@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "TEACHING_MANAGER")
@@ -17,7 +16,8 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class TeachingManager extends User {
+public class TeachingManager extends User
+{
 
     @Id
     @Column(name = "TEACHING_MANAGER_ID")
@@ -28,14 +28,16 @@ public class TeachingManager extends User {
     @Column(name = "FULL_NAME", columnDefinition = "VARCHAR(255) CHARSET utf8")
     protected String fullName;
 
-    public TeachingManager(String id, String fullName, String password) {
+    public TeachingManager(String id, String fullName, String password)
+    {
         super(password);
         this.id = id;
         this.fullName = fullName;
     }
 
     @Override
-    public String getUserId() {
+    public String getUserId()
+    {
         return this.id;
     }
 

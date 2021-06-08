@@ -1,15 +1,16 @@
 package com.ledungcobra.model;
 
-import com.ledungcobra.entites.*;
+import com.ledungcobra.entites.StudentCourse;
 import lombok.val;
 
-import java.lang.Class;
 import java.util.List;
 
-public class StudentRegCourseTableModel extends AbsTableModel<StudentCourse> {
+public class StudentRegCourseTableModel extends AbsTableModel<StudentCourse>
+{
 
 
-    public StudentRegCourseTableModel(List<StudentCourse> t) {
+    public StudentRegCourseTableModel(List<StudentCourse> t)
+    {
         super(t);
         this.types = new Class[]{
                 String.class,
@@ -33,12 +34,14 @@ public class StudentRegCourseTableModel extends AbsTableModel<StudentCourse> {
     }
 
     @Override
-    public Object[][] getRecords(List<StudentCourse> students) {
+    public Object[][] getRecords(List<StudentCourse> students)
+    {
 
         val records = new Object[students.size()][getColumns().length];
 
 
-        for (int i = 0; i < students.size(); i++) {
+        for (int i = 0; i < students.size(); i++)
+        {
 
             val studentCourse = students.get(i);
             val studentAccount = studentCourse.getStudentCourseId().getStudentAccount();
@@ -57,7 +60,8 @@ public class StudentRegCourseTableModel extends AbsTableModel<StudentCourse> {
     }
 
     @Override
-    public String[] getColumns() {
+    public String[] getColumns()
+    {
 
         return new String[]{
                 "Student ID",

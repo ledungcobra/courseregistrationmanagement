@@ -13,14 +13,14 @@ import lombok.SneakyThrows;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 
-public class ListAllRegisteredCoursesScreen extends Screen {
+public class ListAllRegisteredCoursesScreen extends Screen
+{
 
     @BackButton
     private javax.swing.JButton backBtn;
@@ -49,7 +49,8 @@ public class ListAllRegisteredCoursesScreen extends Screen {
 
     @SneakyThrows
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
 
         if (this.data == null) throw new Exception("The data should not be null");
@@ -57,7 +58,8 @@ public class ListAllRegisteredCoursesScreen extends Screen {
         if (this.studentAccount == null) throw new Exception("Student account can not be null");
         removedCourses = new HashSet<>();
 
-        try {
+        try
+        {
             this.currentSession = service.getValidCourseRegistrationSession();
             this.activeSemester = service.getActiveSemester();
 
@@ -65,7 +67,8 @@ public class ListAllRegisteredCoursesScreen extends Screen {
             this.startDateLbl.setText(this.currentSession.getStartDate().toString());
             this.endDateLbl.setText(this.currentSession.getEndDate().toString());
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
             finish();
@@ -77,54 +80,67 @@ public class ListAllRegisteredCoursesScreen extends Screen {
         updateTableData();
     }
 
-    private void loadData() {
+    private void loadData()
+    {
         this.courses = service.getRegisteredCourses(activeSemester, studentAccount);
     }
 
-    private void updateTableData() {
+    private void updateTableData()
+    {
         this.resultCourseListTable.setModel(new CourseTableModel(this.courses));
     }
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         removeBtn.addActionListener(this::removeBtnActionPerformed);
         registerBtn.addActionListener(this::registerBtnActionPerformed);
     }
 
-    private void registerBtnActionPerformed(ActionEvent actionEvent) {
-        try {
+    private void registerBtnActionPerformed(ActionEvent actionEvent)
+    {
+        try
+        {
             this.service.removeCourses(removedCourses, studentAccount, activeSemester);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
-    private void removeBtnActionPerformed(ActionEvent e) {
+    private void removeBtnActionPerformed(ActionEvent e)
+    {
         int[] coursesIndices = resultCourseListTable.getSelectedRows();
-        if (coursesIndices != null || coursesIndices.length > 0) {
+        if (coursesIndices != null || coursesIndices.length > 0)
+        {
 
             Arrays.stream(coursesIndices).forEach(i -> {
                 removedCourses.add(courses.get(i));
             });
 
-            for (Course removedCourse : removedCourses) {
+            for (Course removedCourse : removedCourses)
+            {
                 courses.remove(removedCourse);
             }
             updateTableData();
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "You have to choose any course to add to your temp course list");
         }
 
     }
 
     @Override
-    protected void finish() {
+    protected void finish()
+    {
         AppContext.executorService.submit(() -> {
-            try {
+            try
+            {
                 Thread.sleep(400);
 
                 SwingUtilities.invokeAndWait(super::finish);
-            } catch (InterruptedException | InvocationTargetException e) {
+            } catch (InterruptedException | InvocationTargetException e)
+            {
                 e.printStackTrace();
             }
         });
@@ -133,7 +149,8 @@ public class ListAllRegisteredCoursesScreen extends Screen {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();

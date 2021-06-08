@@ -14,7 +14,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class Course extends BaseEntity {
+public class Course extends BaseEntity
+{
 
     @Id
     @Column(name = "COURSE_ID")
@@ -48,7 +49,8 @@ public class Course extends BaseEntity {
     @JoinColumn(name = "COURSE_INFO_ID")
     private CourseInfo courseInfo;
 
-    public Course(CourseInfo courseInfo, String teacherName, String dayToStudyInWeek, String classroomName, String shiftToStudyInDay, Integer numberOfSlot) {
+    public Course(CourseInfo courseInfo, String teacherName, String dayToStudyInWeek, String classroomName, String shiftToStudyInDay, Integer numberOfSlot)
+    {
         this.courseInfo = courseInfo;
         this.teacherName = teacherName;
         this.dayToStudyInWeek = dayToStudyInWeek;
@@ -57,37 +59,46 @@ public class Course extends BaseEntity {
         this.numberOfSlot = numberOfSlot;
     }
 
-    public Integer getCredit() {
-        if (courseInfo != null && courseInfo.getSubject() != null) {
+    public Integer getCredit()
+    {
+        if (courseInfo != null && courseInfo.getSubject() != null)
+        {
             return courseInfo.getSubject().getCredit();
         }
         return null;
     }
 
-    public String getSubjectName() {
-        if (courseInfo != null && courseInfo.getSubject() != null) {
+    public String getSubjectName()
+    {
+        if (courseInfo != null && courseInfo.getSubject() != null)
+        {
             return courseInfo.getSubject().getName();
         }
         return null;
     }
 
-    public Subject getSubject() {
+    public Subject getSubject()
+    {
         return courseInfo != null ? courseInfo.getSubject() : null;
     }
 
-    public void setSubject(Subject subject) {
+    public void setSubject(Subject subject)
+    {
         if (courseInfo != null) courseInfo.setSubject(subject);
     }
 
-    public Semester getSemester() {
-        if (courseInfo != null) {
+    public Semester getSemester()
+    {
+        if (courseInfo != null)
+        {
             return courseInfo.getSemester();
         }
         return null;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Id: " + this.id + ", " + "Subject name: " + this.getSubjectName();
     }
 }

@@ -9,7 +9,6 @@ import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.Class;
 import com.ledungcobra.model.ClassTableModel;
-import com.ledungcobra.scenes.Screen;
 import com.ledungcobra.service.TeachingManagerService;
 import lombok.val;
 import org.hibernate.exception.ConstraintViolationException;
@@ -21,7 +20,8 @@ import java.util.List;
 /**
  * @author ledun
  */
-public class ClassManagementScreen extends Screen {
+public class ClassManagementScreen extends Screen
+{
 
     @BackButton
     private javax.swing.JButton backBtn;
@@ -44,7 +44,8 @@ public class ClassManagementScreen extends Screen {
     private Class currentEditingClass;
 
     // <editor-fold defaultstate="collapsed>
-    private void initComponents() {
+    private void initComponents()
+    {
 
         backBtn = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -153,31 +154,38 @@ public class ClassManagementScreen extends Screen {
     }
     // </editor-fold>
 
-    private void subjectIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
+    private void subjectIDTextFieldActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
     }
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         val selectedRowIndex = classListTable.getSelectedRow();
-        if (selectedRowIndex == -1) {
+        if (selectedRowIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a row to delete");
             return;
         }
         val row = this.classList.get(selectedRowIndex);
-        try {
+        try
+        {
             service.deleteAnClass(row);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(this, "A class have students in it you have to delete students first then perform this action latter");
             return;
         }
         updateTableData();
     }
 
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         val selectedRowIndex = classListTable.getSelectedRow();
 
-        if (selectedRowIndex == -1) {
+        if (selectedRowIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must choose a record to edit");
             return;
         }
@@ -189,25 +197,32 @@ public class ClassManagementScreen extends Screen {
 
     }
 
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         classNameTextField.setText("");
         this.currentEditingClass = null;
     }
 
-    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
-        try {
+        try
+        {
             val className = classNameTextField.getText();
 
-            if ("".equals(className)) {
+            if ("".equals(className))
+            {
                 JOptionPane.showMessageDialog(this, "Class name should not be empty");
-            } else {
+            } else
+            {
 
-                if (currentEditingClass != null) {
+                if (currentEditingClass != null)
+                {
                     currentEditingClass.setClassName(className);
                     service.updateClass(currentEditingClass);
                     currentEditingClass = null;
-                } else {
+                } else
+                {
                     val clazz = new Class();
                     clazz.setClassName(className);
                     service.addNewClass(clazz);
@@ -216,11 +231,14 @@ public class ClassManagementScreen extends Screen {
                 updateTableData();
 
             }
-        } catch (ConstraintViolationException e) {
+        } catch (ConstraintViolationException e)
+        {
             JOptionPane.showMessageDialog(this, "Class name already exists");
-        } catch (PersistenceException e) {
+        } catch (PersistenceException e)
+        {
             JOptionPane.showMessageDialog(this, "Class name already exists");
-        } finally {
+        } finally
+        {
             this.insertBtn.setText("Insert");
             this.addAClassLbl.setText("Add new class");
             this.classNameTextField.setText("");
@@ -229,24 +247,28 @@ public class ClassManagementScreen extends Screen {
 
     }
 
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
     }
 
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
         updateTableData();
     }
 
-    public void updateTableData() {
+    public void updateTableData()
+    {
         this.classList = AppContext.teachingManagerService.getClasses();
         classListTable
                 .setModel(new ClassTableModel(this.classList));
     }
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
         classNameTextField.addActionListener(evt -> subjectIDTextFieldActionPerformed(evt));
         editBtn.addActionListener(evt -> editBtnActionPerformed(evt));

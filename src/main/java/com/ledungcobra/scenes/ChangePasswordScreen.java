@@ -15,12 +15,14 @@ import lombok.val;
 import javax.swing.*;
 
 import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
-import static com.ledungcobra.utils.Constants.*;
+import static com.ledungcobra.utils.Constants.HIDE;
+import static com.ledungcobra.utils.Constants.SHOW;
 
 /**
  * @author ledun
  */
-public class ChangePasswordScreen extends Screen {
+public class ChangePasswordScreen extends Screen
+{
 
     // <editor-fold defaultstate="collapsed>
     @BackButton
@@ -40,13 +42,16 @@ public class ChangePasswordScreen extends Screen {
     private javax.swing.JPasswordField oldPasswordTextField;
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         if (this.data == null) throw new IllegalStateException();
         initComponents();
     }
+
     // </editor-fold>
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
 
         showConfirmPasswordBtn.addActionListener(e -> toggleConfirmPassword());
 
@@ -58,7 +63,8 @@ public class ChangePasswordScreen extends Screen {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         backBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -156,59 +162,75 @@ public class ChangePasswordScreen extends Screen {
         pack();
     } // </editor-fold>
 
-    private void processChangePassword() {
+    private void processChangePassword()
+    {
         val oldPassword = oldPasswordTextField.getText();
         val newPassword = newPasswordTextField.getText();
         val confirmPassword = confirmPasswordTextField.getText();
 
         User user = (User) this.data.get(USER_KEY);
 
-        if (user.getPassword().equals(oldPassword)) {
-            if (newPassword.equals(confirmPassword)) {
+        if (user.getPassword().equals(oldPassword))
+        {
+            if (newPassword.equals(confirmPassword))
+            {
                 UserService userService = user instanceof StudentAccount ? AppContext.studentService : AppContext.teachingManagerService;
 
-                try {
+                try
+                {
                     userService.changePassword(user.getUserId(), oldPassword, newPassword, confirmPassword);
                     JOptionPane.showMessageDialog(this, "Change Password Successfully");
-                } catch (Exception exception) {
+                } catch (Exception exception)
+                {
                     JOptionPane.showMessageDialog(this, exception.getMessage());
                 }
 
 
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(this, "New Password and Confirm Password do not match");
             }
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "Old password does not match");
         }
     }
 
-    private void toggleShowOldPassword() {
+    private void toggleShowOldPassword()
+    {
 
-        if (SHOW.equals(showOldPasswordBtn.getText())) {
+        if (SHOW.equals(showOldPasswordBtn.getText()))
+        {
             oldPasswordTextField.setEchoChar((char) 0);
             showOldPasswordBtn.setText(HIDE);
-        } else if (HIDE.equals(showOldPasswordBtn.getText())) {
+        } else if (HIDE.equals(showOldPasswordBtn.getText()))
+        {
             oldPasswordTextField.setEchoChar('*');
             showOldPasswordBtn.setText(SHOW);
         }
     }
 
-    private void toggleNewPassword() {
-        if (SHOW.equals(showNewPasswordBtn.getText())) {
+    private void toggleNewPassword()
+    {
+        if (SHOW.equals(showNewPasswordBtn.getText()))
+        {
             newPasswordTextField.setEchoChar((char) 0);
             showNewPasswordBtn.setText(HIDE);
-        } else if (HIDE.equals(showNewPasswordBtn.getText())) {
+        } else if (HIDE.equals(showNewPasswordBtn.getText()))
+        {
             newPasswordTextField.setEchoChar('*');
             showNewPasswordBtn.setText(SHOW);
         }
     }
 
-    private void toggleConfirmPassword() {
-        if (SHOW.equals(showConfirmPasswordBtn.getText())) {
+    private void toggleConfirmPassword()
+    {
+        if (SHOW.equals(showConfirmPasswordBtn.getText()))
+        {
             confirmPasswordTextField.setEchoChar((char) 0);
             showConfirmPasswordBtn.setText(HIDE);
-        } else if (HIDE.equals(showConfirmPasswordBtn.getText())) {
+        } else if (HIDE.equals(showConfirmPasswordBtn.getText()))
+        {
             confirmPasswordTextField.setEchoChar('*');
             showConfirmPasswordBtn.setText(SHOW);
         }

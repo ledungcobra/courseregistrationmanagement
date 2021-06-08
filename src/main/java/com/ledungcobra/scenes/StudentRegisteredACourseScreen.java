@@ -8,7 +8,10 @@ package com.ledungcobra.scenes;
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.anotations.SearchTextField;
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.entites.*;
+import com.ledungcobra.entites.CourseInfo;
+import com.ledungcobra.entites.Semester;
+import com.ledungcobra.entites.StudentAccount;
+import com.ledungcobra.entites.StudentCourse;
 import com.ledungcobra.interfaces.Searchable;
 import com.ledungcobra.model.AbsComboModel;
 import com.ledungcobra.model.StudentRegCourseTableModel;
@@ -17,7 +20,6 @@ import lombok.val;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.lang.Class;
 import java.util.List;
 
 /**

@@ -7,27 +7,39 @@ import lombok.val;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class StudentCourseDao extends BaseDao<StudentCourse, StudentCourseId> {
-    public StudentCourseDao(Session session) {
+public class StudentCourseDao extends BaseDao<StudentCourse, StudentCourseId>
+{
+    public StudentCourseDao(Session session)
+    {
         super(session);
     }
 
-    public List<StudentCourse> getListStudentRegisterACourse(CourseInfo courseInfo, Semester activeSemester) {
-        try {
+    public List<StudentCourse> getListStudentRegisterACourse(CourseInfo courseInfo, Semester activeSemester)
+    {
+        try
+        {
             val query = AppContext.session.createQuery("from StudentCourse sc where sc.id.course.courseInfo=:courseInfo and sc.id.semester=:activeSemester");
             query.setParameter("courseInfo", courseInfo);
             query.setParameter("activeSemester", activeSemester);
             return query.getResultList();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             return new ArrayList<>();
         }
     }
 
-    public void deleteStudentCourse(HashSet<Course> courses, StudentAccount studentAccount, Semester semester) {
+    public void deleteStudentCourse(HashSet<Course> courses, StudentAccount studentAccount, Semester semester)
+    {
+
+        val increaseSlot = session.createQuery("update Course c set  numberOfSlot=numberOfSlot+1 where c.id in (:courseIds) and " +
+                "c.id in (select s.id.course.id from StudentCourse s where s.id.studentAccount=:studentAccount)");
+        increaseSlot.setParameter("courseIds", courses.stream().map(c -> c.getId()).collect(Collectors.toList()));
+        increaseSlot.setParameter("studentAccount", studentAccount);
+        increaseSlot.executeUpdate();
 
         val query = session.createQuery("delete  from StudentCourse sc where sc.id.semester = :semester and " +
                 "sc.id.studentAccount = :studentAccount and sc.id.course in :courses");
@@ -35,12 +47,14 @@ public class StudentCourseDao extends BaseDao<StudentCourse, StudentCourseId> {
         query.setParameter("semester", semester);
         query.setParameter("studentAccount", studentAccount);
         query.setParameter("courses", courses);
-        System.out.println(query.executeUpdate() + " rows");
+        query.executeUpdate();
+
         this.session.clear();
     }
 
     @Override
-    public StudentCourse save(StudentCourse obj) {
+    public StudentCourse save(StudentCourse obj)
+    {
         saveOrUpdate(obj);
         return obj;
     }

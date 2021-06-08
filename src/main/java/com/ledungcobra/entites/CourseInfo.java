@@ -19,7 +19,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class CourseInfo extends BaseEntity {
+public class CourseInfo extends BaseEntity
+{
 
     @Id
     @Column(name = "COURSE_INFO_ID")
@@ -35,7 +36,8 @@ public class CourseInfo extends BaseEntity {
     @ManyToOne
     private Semester semester;
 
-    public CourseInfo(Subject subject, Semester semester) {
+    public CourseInfo(Subject subject, Semester semester)
+    {
         this.subject = subject;
         this.semester = semester;
     }
@@ -44,7 +46,8 @@ public class CourseInfo extends BaseEntity {
     private List<Course> courses;
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return this.subject.getName() + " - " + subject.getCredit() +
                 (subject.getCredit() > 1 ? " credits " : " credit ") + this.semester;
     }

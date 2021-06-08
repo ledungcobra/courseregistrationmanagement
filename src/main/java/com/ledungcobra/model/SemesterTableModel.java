@@ -6,10 +6,12 @@ import lombok.val;
 
 import java.util.List;
 
-public class SemesterTableModel extends AbsTableModel<Semester> {
+public class SemesterTableModel extends AbsTableModel<Semester>
+{
 
 
-    public SemesterTableModel(List<Semester> t) {
+    public SemesterTableModel(List<Semester> t)
+    {
         super(t);
         this.types = new Class[]{
                 String.class,
@@ -31,9 +33,11 @@ public class SemesterTableModel extends AbsTableModel<Semester> {
     }
 
     @Override
-    public Object[][] getRecords(List<Semester> semesters) {
+    public Object[][] getRecords(List<Semester> semesters)
+    {
         val records = new Object[semesters.size()][getColumns().length];
-        for (int i = 0; i < semesters.size(); i++) {
+        for (int i = 0; i < semesters.size(); i++)
+        {
             val semester = semesters.get(i);
             records[i][0] = semester.getId().toString();
             records[i][1] = semester.getSemesterName();
@@ -47,7 +51,8 @@ public class SemesterTableModel extends AbsTableModel<Semester> {
     }
 
     @Override
-    public String[] getColumns() {
+    public String[] getColumns()
+    {
         return new String[]{
                 "Semester ID",
                 "Name",

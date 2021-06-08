@@ -17,7 +17,6 @@ import com.ledungcobra.model.AbsComboModel;
 import com.ledungcobra.model.CourseTableModel;
 import com.ledungcobra.model.SubjectComboModel;
 import com.ledungcobra.service.TeachingManagerService;
-import jdk.nashorn.internal.scripts.JO;
 import lombok.val;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -32,7 +31,8 @@ import static com.ledungcobra.utils.Constants.SHIFTS_IN_DAY;
 /**
  * @author ledun
  */
-public class CourseManagementScreen extends Screen implements Searchable {
+public class CourseManagementScreen extends Screen implements Searchable
+{
 
     // <editor-fold defaultstate="collapsed>
 
@@ -78,7 +78,8 @@ public class CourseManagementScreen extends Screen implements Searchable {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -120,7 +121,8 @@ public class CourseManagementScreen extends Screen implements Searchable {
                 new String[]{
                         "ID", "Full name", "Password"
                 }
-        ) {
+        )
+        {
             Class[] types = new Class[]{
                     java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
@@ -128,11 +130,13 @@ public class CourseManagementScreen extends Screen implements Searchable {
                     false, true, false
             };
 
-            public Class getColumnClass(int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
                 return types[columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit[columnIndex];
             }
         });
@@ -314,28 +318,35 @@ public class CourseManagementScreen extends Screen implements Searchable {
         pack();
     }// </editor-fold>
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         int selectedIndex = this.courseListTable.getSelectedRow();
         val selectedIndices = this.courseListTable.getSelectedRows();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
-        if (selectedIndices.length == 1) {
+        if (selectedIndices.length == 1)
+        {
             int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this course", "Confirm", JOptionPane.YES_NO_OPTION);
-            if (result == JOptionPane.YES_OPTION) {
+            if (result == JOptionPane.YES_OPTION)
+            {
                 val course = this.courseList.get(selectedIndex);
                 service.deleteCourse(course);
                 updateTableData();
             }
-        } else {
+        } else
+        {
             int result = JOptionPane.showConfirmDialog(this, "Do you want to delete these courses", "Confirm", JOptionPane.YES_NO_OPTION);
 
-            if (result == JOptionPane.YES_OPTION) {
+            if (result == JOptionPane.YES_OPTION)
+            {
 
-                for (val index : selectedIndices) {
+                for (val index : selectedIndices)
+                {
                     service.deleteCourse(this.courseList.get(index));
                 }
 
@@ -344,11 +355,13 @@ public class CourseManagementScreen extends Screen implements Searchable {
         }
     }
 
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         int selectedIndex = this.courseListTable.getSelectedRow();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
         }
         this.editingCourse = this.courseList.get(selectedIndex);
@@ -364,7 +377,8 @@ public class CourseManagementScreen extends Screen implements Searchable {
         this.insertBtn.setText("Update");
     }
 
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         this.subjectCombobox.setSelectedItem(null);
         this.theoryTeacherNameTextField.setText("");
@@ -375,13 +389,16 @@ public class CourseManagementScreen extends Screen implements Searchable {
 
     }
 
-    private void loadDataForComboBoxes() {
-        try {
+    private void loadDataForComboBoxes()
+    {
+        try
+        {
             subjectCombobox.setModel(new SubjectComboModel(service.getSubjectList()));
             dayToStudyInWeekCombobox.setModel(new DefaultComboBoxModel<>(DAY_IN_WEEK));
             shiftToStudyInDay.setModel(new DefaultComboBoxModel<>(SHIFTS_IN_DAY));
             populateCourseInfoComboBox();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "You haven't set a semester as active semester yet");
             e.printStackTrace();
         }
@@ -389,14 +406,17 @@ public class CourseManagementScreen extends Screen implements Searchable {
 
     }
 
-    private void populateCourseInfoComboBox() {
+    private void populateCourseInfoComboBox()
+    {
         val courseInfos = service.getCourseInfos();
-        courseInfoComboBox.setModel(new AbsComboModel<CourseInfo>(courseInfos) {
+        courseInfoComboBox.setModel(new AbsComboModel<CourseInfo>(courseInfos)
+        {
         });
-        courseInfoComboBox.setSelectedIndex(courseInfos.size()-1);
+        courseInfoComboBox.setSelectedIndex(courseInfos.size() - 1);
     }
 
-    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         CourseInfo courseInfo = (CourseInfo) courseInfoComboBox.getSelectedItem();
         val theoryTeacherName = theoryTeacherNameTextField.getText();
@@ -406,50 +426,60 @@ public class CourseManagementScreen extends Screen implements Searchable {
         String numberOfSlot = numberOfSlotTextField.getText();
 
 
-        if (this.activeSemester == null) {
+        if (this.activeSemester == null)
+        {
             JOptionPane.showMessageDialog(this, "There is no active semester go back latter");
             return;
         }
 
 
-        if (courseInfo == null) {
+        if (courseInfo == null)
+        {
             JOptionPane.showMessageDialog(this, "You have to select a course info to continue");
             return;
         }
 
-        if ("".equals(theoryTeacherName)) {
+        if ("".equals(theoryTeacherName))
+        {
             JOptionPane.showMessageDialog(this, "You have to enter teacher name to continue");
             return;
         }
 
-        if (dayToStudyInWeek == null || "".equals(dayToStudyInWeek)) {
+        if (dayToStudyInWeek == null || "".equals(dayToStudyInWeek))
+        {
             JOptionPane.showMessageDialog(this, "You have to choose teacher name to continue");
             return;
         }
 
-        if ("".equals(classRoomName)) {
+        if ("".equals(classRoomName))
+        {
             JOptionPane.showMessageDialog(this, "You have to enter class room name to continue");
             return;
         }
 
-        if (shiftToStudyInDay == null || "".equals(shiftToStudyInDay)) {
+        if (shiftToStudyInDay == null || "".equals(shiftToStudyInDay))
+        {
             JOptionPane.showMessageDialog(this, "You have to enter class room name to continue");
             return;
         }
 
-        if (!numberOfSlot.matches("\\d+")) {
+        if (!numberOfSlot.matches("\\d+"))
+        {
             JOptionPane.showMessageDialog(this, "The number of slot must be a number");
             return;
         }
 
-        try {
+        try
+        {
 
-            if (this.editingCourse == null) {
+            if (this.editingCourse == null)
+            {
                 val course = new Course(courseInfo, theoryTeacherName, dayToStudyInWeek, classRoomName, shiftToStudyInDay,
                         Integer.parseInt(numberOfSlot));
                 service.addNewCourse(course);
 
-            } else {
+            } else
+            {
 
                 this.editingCourse.setTeacherName(theoryTeacherName);
                 this.editingCourse.setDayToStudyInWeek(dayToStudyInWeek);
@@ -460,11 +490,14 @@ public class CourseManagementScreen extends Screen implements Searchable {
             }
             updateTableData();
 
-        } catch (ConstraintViolationException e) {
+        } catch (ConstraintViolationException e)
+        {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        } catch (PersistenceException e) {
+        } catch (PersistenceException e)
+        {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        } finally {
+        } finally
+        {
             this.editingCourse = null;
             this.jLabel3.setText("Add new course");
             this.insertBtn.setText("Insert");
@@ -474,7 +507,8 @@ public class CourseManagementScreen extends Screen implements Searchable {
     }
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
         updateTableData();
         activeSemester = service.getActiveSemester();
@@ -482,13 +516,15 @@ public class CourseManagementScreen extends Screen implements Searchable {
 
     }
 
-    private void updateTableData() {
+    private void updateTableData()
+    {
         this.courseList = service.getCourseListInActiveSemester();
         courseListTable
                 .setModel(new CourseTableModel(this.courseList));
     }
 
-    private void updateTableData(List<Course> courses) {
+    private void updateTableData(List<Course> courses)
+    {
         this.courseList = courses;
         courseListTable
                 .setModel(new CourseTableModel(this.courseList));
@@ -496,7 +532,8 @@ public class CourseManagementScreen extends Screen implements Searchable {
 
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
 
         insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
         editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
@@ -507,50 +544,61 @@ public class CourseManagementScreen extends Screen implements Searchable {
         removeCourseInfoBtn.addActionListener(e -> removeCourseInfo(e));
     }
 
-    private void removeCourseInfo(ActionEvent e) {
+    private void removeCourseInfo(ActionEvent e)
+    {
         CourseInfo selectedCourseInfo = (CourseInfo) courseInfoComboBox.getSelectedItem();
-        if (selectedCourseInfo == null) {
+        if (selectedCourseInfo == null)
+        {
             JOptionPane.showMessageDialog(this, "You have to select a course info to remove");
             return;
         }
 
-        try {
+        try
+        {
             service.deleteCourseInfo(selectedCourseInfo);
             populateCourseInfoComboBox();
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             if (selectedCourseInfo.getCourses() == null) return;
             StringBuilder builder = new StringBuilder();
-            for (Course course : selectedCourseInfo.getCourses()) {
+            for (Course course : selectedCourseInfo.getCourses())
+            {
                 builder.append(course.toString());
                 builder.append(", ");
             }
             String result = builder.toString();
-            if (selectedCourseInfo.getCourses().size() > 0) {
+            if (selectedCourseInfo.getCourses().size() > 0)
+            {
                 result = result.substring(0, result.length() - 1);
             }
             JOptionPane.showMessageDialog(this, "You cannot delete this course info because it is used by " + result);
         }
     }
 
-    private void addACourseInfoBtnActionPerformed(ActionEvent event) {
+    private void addACourseInfoBtnActionPerformed(ActionEvent event)
+    {
         Subject subject = (Subject) subjectCombobox.getSelectedItem();
 
-        if (activeSemester == null) {
+        if (activeSemester == null)
+        {
             JOptionPane.showMessageDialog(this, "The active semester have not set yet");
             return;
         }
 
-        if (subject == null) {
+        if (subject == null)
+        {
             JOptionPane.showMessageDialog(this, "You have to select a subject to add info");
             return;
         }
 
         CourseInfo courseInfo = new CourseInfo(subject, activeSemester);
 
-        try {
+        try
+        {
             service.addNewCourseInfo(courseInfo);
             populateCourseInfoComboBox();
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             JOptionPane.showMessageDialog(this, "Cannot add new course info because it is already exists");
             ex.printStackTrace();
         }
@@ -558,10 +606,12 @@ public class CourseManagementScreen extends Screen implements Searchable {
     }
 
     @Override
-    public void searchBtnActionPerformed(ActionEvent evt) {
+    public void searchBtnActionPerformed(ActionEvent evt)
+    {
         val keyword = searchTextField.getText();
 
-        if ("".equals(keyword)) {
+        if ("".equals(keyword))
+        {
             JOptionPane.showMessageDialog(this, "You must enter some thing to search");
             return;
         }

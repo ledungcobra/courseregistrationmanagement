@@ -5,9 +5,11 @@ import lombok.val;
 
 import java.util.List;
 
-public class StudentTableModel extends AbsTableModel<StudentAccount> {
+public class StudentTableModel extends AbsTableModel<StudentAccount>
+{
 
-    public StudentTableModel(List<StudentAccount> t) {
+    public StudentTableModel(List<StudentAccount> t)
+    {
         super(t);
         this.types = new Class[]{
                 String.class,
@@ -34,10 +36,12 @@ public class StudentTableModel extends AbsTableModel<StudentAccount> {
 
 
     @Override
-    public Object[][] getRecords(List<StudentAccount> l) {
+    public Object[][] getRecords(List<StudentAccount> l)
+    {
         val records = new Object[l.size()][getColumns().length];
 
-        for (int i = 0; i < l.size(); i++) {
+        for (int i = 0; i < l.size(); i++)
+        {
             val studentAccount = l.get(i);
             records[i][0] = studentAccount.getStudentCardId();
             records[i][1] = studentAccount.getStudentInfo().getFullName();
@@ -52,7 +56,8 @@ public class StudentTableModel extends AbsTableModel<StudentAccount> {
     }
 
     @Override
-    public String[] getColumns() {
+    public String[] getColumns()
+    {
         return new String[]{
                 "Student ID",
                 "Full name",

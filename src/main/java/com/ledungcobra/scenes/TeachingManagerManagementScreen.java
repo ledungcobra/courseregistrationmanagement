@@ -27,7 +27,8 @@ import java.util.List;
 /**
  * @author ledun
  */
-public class TeachingManagerManagementScreen extends Screen implements Searchable {
+public class TeachingManagerManagementScreen extends Screen implements Searchable
+{
 
     // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
@@ -62,7 +63,8 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
         backBtn = new javax.swing.JButton();
         searchTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -211,28 +213,35 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed desc="Delete btn action">
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         int selectedIndex = this.teachingManagerTableList.getSelectedRow();
         val selectedIndices = this.teachingManagerTableList.getSelectedRows();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
-        if (selectedIndices.length == 1) {
+        if (selectedIndices.length == 1)
+        {
             int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this teaching manager account", "Confirm", JOptionPane.YES_NO_OPTION);
 
-            if (result == JOptionPane.YES_OPTION) {
+            if (result == JOptionPane.YES_OPTION)
+            {
                 val teachingManager = this.teachingManagerList.get(selectedIndex);
                 service.deleteTeachingManager(teachingManager);
                 updateTableData();
             }
-        } else {
+        } else
+        {
 
             int result = JOptionPane.showConfirmDialog(this, "Do you want to delete these teaching manager account", "Confirm", JOptionPane.YES_NO_OPTION);
 
-            if (result == JOptionPane.YES_OPTION) {
-                for (val index : selectedIndices) {
+            if (result == JOptionPane.YES_OPTION)
+            {
+                for (val index : selectedIndices)
+                {
                     service.deleteTeachingManager(teachingManagerList.get(index));
                 }
                 updateTableData();
@@ -241,15 +250,18 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
 
     }    // </editor-fold>
 
-    private void updateTableData() {
+    private void updateTableData()
+    {
         this.teachingManagerList = service.getTeachingManagerList();
         teachingManagerTableList.setModel(new TeachingManagerTableModel(teachingManagerList));
     }
 
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         int selectedIndex = this.teachingManagerTableList.getSelectedRow();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
@@ -264,7 +276,8 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
 
     }
 
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         this.idTextField.setText("");
         this.fullnameTextField.setText("");
         this.passwordTextField.setText("");
@@ -277,64 +290,79 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
         this.editingTeachingManager = null;
     }
 
-    private void resetPassword() {
+    private void resetPassword()
+    {
 
         int selectedIndex = this.teachingManagerTableList.getSelectedRow();
         val selectedIndices = this.teachingManagerTableList.getSelectedRows();
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
-        if (selectedIndices.length == 1) {
+        if (selectedIndices.length == 1)
+        {
             val teachingManager = this.teachingManagerList.get(selectedIndex);
             service.resetTeachingManagerPassword(teachingManager);
             updateTableData();
-        } else {
+        } else
+        {
 
-            for (val index : selectedIndices) {
+            for (val index : selectedIndices)
+            {
                 service.resetTeachingManagerPassword(teachingManagerList.get(index));
             }
             updateTableData();
         }
     }
 
-    private boolean checkIdExist(@NonNull String id) {
+    private boolean checkIdExist(@NonNull String id)
+    {
         return this.teachingManagerList.stream().anyMatch(t -> t.getId().equals(id));
     }
 
-    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         val teachingManagerId = idTextField.getText();
         val fullname = fullnameTextField.getText();
         var password = passwordTextField.getText();
 
-        if ("".equals(teachingManagerId)) {
+        if ("".equals(teachingManagerId))
+        {
             JOptionPane.showMessageDialog(this, "You have to fill id text field to continue");
             return;
         }
 
-        if ("".equals(fullname)) {
+        if ("".equals(fullname))
+        {
             JOptionPane.showMessageDialog(this, "You have to enter full name to continue");
             return;
         }
 
-        if ("".equals(password)) {
+        if ("".equals(password))
+        {
             val answer = JOptionPane.showConfirmDialog(this, "Confirm", "Do you want to use id for password", JOptionPane.YES_NO_OPTION);
 
-            if (answer == JOptionPane.YES_OPTION) {
+            if (answer == JOptionPane.YES_OPTION)
+            {
                 this.passwordTextField.setText(teachingManagerId);
                 password = teachingManagerId;
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(this, "Password must be set to continue");
                 return;
             }
         }
 
-        try {
+        try
+        {
 
-            if (this.editingTeachingManager == null) {
+            if (this.editingTeachingManager == null)
+            {
                 service.addNewTeachingManager(new TeachingManager(teachingManagerId, fullname, password));
-            } else {
+            } else
+            {
                 this.editingTeachingManager.setPassword(password);
                 this.editingTeachingManager.setFullName(fullname);
                 this.editingTeachingManager.setId(teachingManagerId);
@@ -342,16 +370,20 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
             }
             updateTableData();
 
-        } catch (ConstraintViolationException e) {
+        } catch (ConstraintViolationException e)
+        {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        } catch (PersistenceException e) {
+        } catch (PersistenceException e)
+        {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        } finally {
+        } finally
+        {
             clearBtnActionPerformed(null);
         }
     }
 
-    public void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    public void searchBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         val keyword = searchTextField.getText();
         System.out.println(keyword);
 
@@ -359,21 +391,24 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
         updateTableData(teachingManagerList);
     }
 
-    private void updateTableData(List<TeachingManager> teachingManagerList) {
-        this.teachingManagerList =teachingManagerList;
+    private void updateTableData(List<TeachingManager> teachingManagerList)
+    {
+        this.teachingManagerList = teachingManagerList;
         teachingManagerTableList.setModel(new TeachingManagerTableModel(teachingManagerList));
     }
 
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
         updateTableData();
     }
 
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
         editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
         clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
@@ -381,23 +416,30 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
         deleteBtn.addActionListener(evt -> deleteBtnActionPerformed(evt));
         resetPasswordBtn.addActionListener(e -> resetPassword());
 
-        idTextField.addKeyListener(new KeyListener() {
+        idTextField.addKeyListener(new KeyListener()
+        {
 
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void keyTyped(KeyEvent e)
+            {
             }
 
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent e)
+            {
 
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {
-                if (!editingMode) {
-                    if (checkIdExist(idTextField.getText())) {
+            public void keyReleased(KeyEvent e)
+            {
+                if (!editingMode)
+                {
+                    if (checkIdExist(idTextField.getText()))
+                    {
                         idTextField.setBackground(Color.RED);
-                    } else {
+                    } else
+                    {
                         passwordTextField.setText(idTextField.getText());
                         idTextField.setBackground(Color.WHITE);
                     }

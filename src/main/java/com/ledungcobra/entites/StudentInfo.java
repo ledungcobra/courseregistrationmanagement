@@ -8,15 +8,15 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Student_Info")
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true,callSuper = false)
-public class StudentInfo extends BaseEntity {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+public class StudentInfo extends BaseEntity
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,8 @@ public class StudentInfo extends BaseEntity {
     @Column(name = "FULL_NAME", columnDefinition = "VARCHAR(255) CHARSET utf8")
     protected String fullName;
 
-    public StudentInfo(String gender, Date birthdate, String identityCardNumber, String fullName) {
+    public StudentInfo(String gender, Date birthdate, String identityCardNumber, String fullName)
+    {
         this.gender = gender;
         this.birthdate = birthdate;
         this.identityCardNumber = identityCardNumber;

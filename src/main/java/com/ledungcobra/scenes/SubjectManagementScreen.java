@@ -11,7 +11,6 @@ import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.Subject;
 import com.ledungcobra.interfaces.Searchable;
 import com.ledungcobra.model.SubjectTableModel;
-import com.ledungcobra.scenes.Screen;
 import com.ledungcobra.service.TeachingManagerService;
 import lombok.val;
 import org.hibernate.exception.ConstraintViolationException;
@@ -23,7 +22,8 @@ import java.util.List;
 /**
  * @author ledun
  */
-public class SubjectManagementScreen extends Screen implements Searchable {
+public class SubjectManagementScreen extends Screen implements Searchable
+{
 
     // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
@@ -53,24 +53,28 @@ public class SubjectManagementScreen extends Screen implements Searchable {
     // </editor-fold>
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
         updateTableData();
     }
 
-    private void updateTableData() {
+    private void updateTableData()
+    {
         this.listSubjects = service.getSubjectList();
         subjectListTable.setModel(new SubjectTableModel(this.listSubjects));
     }
 
-    private void updateTableData(List<Subject> subjects) {
+    private void updateTableData(List<Subject> subjects)
+    {
         this.listSubjects = subjects;
         subjectListTable.setModel(new SubjectTableModel(this.listSubjects));
     }
 
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
         insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
         clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
@@ -81,7 +85,8 @@ public class SubjectManagementScreen extends Screen implements Searchable {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="UI builder method">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         backBtn = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -222,26 +227,31 @@ public class SubjectManagementScreen extends Screen implements Searchable {
     }// </editor-fold>
 
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         val selectedIndex = this.subjectListTable.getSelectedRow();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a row to delete a subject");
             return;
         }
 
         int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this subject", "Confirm", JOptionPane.YES_NO_OPTION);
 
-        if (result == JOptionPane.YES_OPTION) {
+        if (result == JOptionPane.YES_OPTION)
+        {
             service.deleteSubject(this.listSubjects.get(selectedIndex));
             updateTableData();
         }
 
     }
 
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         val selectedIndex = this.subjectListTable.getSelectedRow();
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a row to edit a subject");
             return;
         }
@@ -255,7 +265,8 @@ public class SubjectManagementScreen extends Screen implements Searchable {
 
     }
 
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         subjectIDTextField.setText("");
         subjectNameTextField.setText("");
@@ -264,47 +275,59 @@ public class SubjectManagementScreen extends Screen implements Searchable {
 
     }
 
-    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         val subjectID = subjectIDTextField.getText();
         val subjectName = subjectNameTextField.getText();
         val creditStr = creditTextField.getText();
         Integer creditInt = null;
 
-        if ("".equals(subjectID)) {
+        if ("".equals(subjectID))
+        {
             JOptionPane.showMessageDialog(this, "You must fill in subject id");
             return;
         }
 
-        if ("".equals(subjectName)) {
+        if ("".equals(subjectName))
+        {
             JOptionPane.showMessageDialog(this, "Subject name cannot be empty");
             return;
         }
 
-        try {
+        try
+        {
             creditInt = Integer.parseInt(creditStr);
 
-            if (currentEditingSubject != null) {
-                if (subjectID.equals(currentEditingSubject.getId())) {
+            if (currentEditingSubject != null)
+            {
+                if (subjectID.equals(currentEditingSubject.getId()))
+                {
                     currentEditingSubject.setName(subjectName);
                     currentEditingSubject.setCredit(creditInt);
 
                     service.updateSubject(currentEditingSubject);
                     updateTableData();
-                } else {
+                } else
+                {
                     JOptionPane.showMessageDialog(this, "The id cannot be change because it is primary key for subject");
                 }
-            } else {
+            } else
+            {
                 service.addNewSubject(new Subject(subjectID, subjectName, creditInt));
                 updateTableData();
             }
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException exception)
+        {
             JOptionPane.showMessageDialog(this, "Credit must be number");
-        } catch (ConstraintViolationException ex) {
+        } catch (ConstraintViolationException ex)
+        {
             JOptionPane.showMessageDialog(this, ex.getMessage());
-        } catch (PersistenceException ex) {
+        } catch (PersistenceException ex)
+        {
             JOptionPane.showMessageDialog(this, ex.getMessage());
-        } finally {
+        } finally
+        {
             this.addNewSubject.setText("Add new subject");
             this.currentEditingSubject = null;
             this.insertBtn.setText("Insert");
@@ -313,9 +336,11 @@ public class SubjectManagementScreen extends Screen implements Searchable {
 
     }
 
-    public void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    public void searchBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         val keyword = jTextField1.getText();
-        if ("".equals(keyword)) {
+        if ("".equals(keyword))
+        {
             JOptionPane.showMessageDialog(this, "Please input subject name for searching");
             return;
         }

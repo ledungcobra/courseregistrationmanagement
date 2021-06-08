@@ -7,8 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "COURSE_REGISTRATION_SESSION")
@@ -16,7 +14,8 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class CourseRegistrationSession extends BaseEntity {
+public class CourseRegistrationSession extends BaseEntity
+{
 
     @Id
     @Column(name = "CSR_ID")
@@ -35,7 +34,8 @@ public class CourseRegistrationSession extends BaseEntity {
             foreignKey = @ForeignKey(name = "FK_COURSE_REGISTRATION_SESSION_SEMESTER"))
     private Semester semester;
 
-    public CourseRegistrationSession(Date startDate, Date endDate) {
+    public CourseRegistrationSession(Date startDate, Date endDate)
+    {
         this.startDate = startDate;
         this.endDate = endDate;
     }

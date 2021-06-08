@@ -5,9 +5,11 @@ import lombok.val;
 
 import java.util.List;
 
-public class CourseRegistrationSessionTableModel extends AbsTableModel<CourseRegistrationSession> {
+public class CourseRegistrationSessionTableModel extends AbsTableModel<CourseRegistrationSession>
+{
 
-    public CourseRegistrationSessionTableModel(List<CourseRegistrationSession> t) {
+    public CourseRegistrationSessionTableModel(List<CourseRegistrationSession> t)
+    {
         super(t);
 
         this.types = new Class[]{
@@ -27,11 +29,13 @@ public class CourseRegistrationSessionTableModel extends AbsTableModel<CourseReg
     }
 
     @Override
-    public Object[][] getRecords(List<CourseRegistrationSession> courseRegistrationSessionList) {
+    public Object[][] getRecords(List<CourseRegistrationSession> courseRegistrationSessionList)
+    {
 
         val records = new String[courseRegistrationSessionList.size()][getColumns().length];
 
-        for (int i = 0; i < courseRegistrationSessionList.size(); i++) {
+        for (int i = 0; i < courseRegistrationSessionList.size(); i++)
+        {
 
             val courseRegistrationSession = courseRegistrationSessionList.get(i);
             if (courseRegistrationSession == null) continue;
@@ -47,7 +51,8 @@ public class CourseRegistrationSessionTableModel extends AbsTableModel<CourseReg
     }
 
     @Override
-    public String[] getColumns() {
+    public String[] getColumns()
+    {
         return new String[]{"ID", "Start Date", "End Date", "Semester"};
     }
 }

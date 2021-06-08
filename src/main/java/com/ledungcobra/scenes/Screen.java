@@ -5,26 +5,29 @@ import lombok.val;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowListener;
 import java.util.Map;
 
 
-public abstract class Screen extends JFrame {
+public abstract class Screen extends JFrame
+{
 
     protected Map<String, Object> data;
 
 
-    public Screen() throws HeadlessException {
+    public Screen() throws HeadlessException
+    {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(false);
 
         this.setLocationRelativeTo(null);
         this.pack();
 
-        try {
+        try
+        {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             SwingUtilities.updateComponentTreeUI(this);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println("Error setting the LAF..." + e);
         }
 
@@ -32,7 +35,8 @@ public abstract class Screen extends JFrame {
     }
 
     @Override
-    public void setSize(int width, int height) {
+    public void setSize(int width, int height)
+    {
 
         super.setSize(width, height);
 
@@ -46,15 +50,18 @@ public abstract class Screen extends JFrame {
 
     public abstract void addEventListener();
 
-    public void setData(Map<String, Object> data) {
+    public void setData(Map<String, Object> data)
+    {
         this.data = data;
     }
 
-    public Map<String, Object> getData() {
+    public Map<String, Object> getData()
+    {
         return data;
     }
 
-    protected void finish() {
+    protected void finish()
+    {
         ScreenStackManager.getInstance().popTopScreen();
     }
 

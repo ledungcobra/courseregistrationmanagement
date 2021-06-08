@@ -1,6 +1,5 @@
 package com.ledungcobra.entites;
 
-import com.ledungcobra.dao.CourseDao;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "STUDENT_ACCOUNT", uniqueConstraints = {
@@ -20,7 +18,8 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class StudentAccount extends User {
+public class StudentAccount extends User
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +52,8 @@ public class StudentAccount extends User {
     private List<StudentCourse> listStudentCourses;
 
     public StudentAccount(String studentCardId,
-                          StudentInfo studentInfo, EducationType educationType) {
+                          StudentInfo studentInfo, EducationType educationType)
+    {
         super(studentCardId);
         this.studentCardId = studentCardId;
         this.password = studentCardId;
@@ -63,7 +63,8 @@ public class StudentAccount extends User {
 
     public StudentAccount(String password, String studentCardId,
                           StudentInfo studentInfo,
-                          EducationType educationType, Class studiedClass) {
+                          EducationType educationType, Class studiedClass)
+    {
         super(password);
         this.studentCardId = studentCardId;
         this.studentInfo = studentInfo;
@@ -73,32 +74,39 @@ public class StudentAccount extends User {
 
 
     @Override
-    public void create() {
+    public void create()
+    {
         super.create();
         this.password = studentCardId;
     }
 
     @Override
-    public String getUserId() {
+    public String getUserId()
+    {
         return studentCardId;
     }
 
     @Override
-    public String getFullName() {
+    public String getFullName()
+    {
         return this.studentInfo == null ? null : this.studentInfo.getFullName();
     }
 
-    public String getStudyingCourses() {
+    public String getStudyingCourses()
+    {
         StringBuilder coursesStringBuilder = new StringBuilder();
         if (this.courses == null) return "";
         int length = this.courses.size();
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++)
+        {
             Course currentCourse = this.courses.get(i);
 
             if (currentCourse.getSemester() != null &&
-                    currentCourse.getSemester().getActive()) {
+                    currentCourse.getSemester().getActive())
+            {
                 coursesStringBuilder.append(currentCourse.getSubjectName());
-                if (i < length - 1) {
+                if (i < length - 1)
+                {
                     coursesStringBuilder.append(", ");
                 }
             }

@@ -4,9 +4,11 @@ import com.ledungcobra.entites.Class;
 
 import java.util.List;
 
-public class ClassComboModel extends AbsComboModel<Class> {
+public class ClassComboModel extends AbsComboModel<Class>
+{
 
-    public ClassComboModel(List<Class> items) {
+    public ClassComboModel(List<Class> items)
+    {
         super(items);
     }
 

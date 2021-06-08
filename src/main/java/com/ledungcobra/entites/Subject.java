@@ -9,15 +9,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Subject")
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true,callSuper = false)
-public class Subject extends BaseEntity {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+public class Subject extends BaseEntity
+{
 
     @Id
     @Column(name = "SUBJECT_ID")
@@ -30,7 +30,8 @@ public class Subject extends BaseEntity {
     @Column(name = "SUBJECT_CREDIT", nullable = false)
     private Integer credit;
 
-    public Subject(String id, String name, Integer credit) {
+    public Subject(String id, String name, Integer credit)
+    {
         this.id = id;
         this.name = name;
         this.credit = credit;
@@ -38,7 +39,8 @@ public class Subject extends BaseEntity {
 
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return this.name + " - " + this.credit + (this.credit.equals(1) ? " credit" : " credits");
     }
 }

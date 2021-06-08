@@ -32,7 +32,8 @@ import static com.ledungcobra.scenes.StudentInfoDialog.STUDENT_INFO;
 /**
  * @author ledun
  */
-public class StudentManagementScreen extends Screen implements Searchable {
+public class StudentManagementScreen extends Screen implements Searchable
+{
 
     // <editor-fold defaultstate="collapsed desc="Class Fields">
     @BackButton
@@ -76,7 +77,8 @@ public class StudentManagementScreen extends Screen implements Searchable {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -261,27 +263,32 @@ public class StudentManagementScreen extends Screen implements Searchable {
     }// </editor-fold>
 
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         val selectedIndex = this.studentListTable.getSelectedRow();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a row to delete a student");
             return;
         }
 
         int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this student account", "Confirm", JOptionPane.YES_NO_OPTION);
 
-        if (result == JOptionPane.YES_OPTION) {
+        if (result == JOptionPane.YES_OPTION)
+        {
             service.deleteStudent(this.studentAccounts.get(selectedIndex));
             updateTableData();
         }
     }
 
     // <editor-fold defaultstate="collapsed desc="Update table data">
-    private void updateTableData() {
+    private void updateTableData()
+    {
 
-        if (this.selectedClass == null) {
+        if (this.selectedClass == null)
+        {
             JOptionPane.showMessageDialog(this, "You dont have class in database or you have not select a class");
             return;
         }
@@ -292,15 +299,18 @@ public class StudentManagementScreen extends Screen implements Searchable {
     }
     // </editor-fold>
 
-    private void updateTableData(List<StudentAccount> studentAccounts) {
+    private void updateTableData(List<StudentAccount> studentAccounts)
+    {
         this.studentAccounts = studentAccounts;
         this.studentListTable.setModel(new StudentTableModel(studentAccounts));
     }
 
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         int selectedIndex = this.studentListTable.getSelectedRow();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
@@ -318,7 +328,8 @@ public class StudentManagementScreen extends Screen implements Searchable {
 
     }
 
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         this.jLabel3.setText("Add new student account");
         this.insertBtn.setText("Insert");
@@ -326,18 +337,22 @@ public class StudentManagementScreen extends Screen implements Searchable {
         this.currentEdittingStudent = null;
         this.studentIdTextField.setText("");
 
-        if (this.classNameCombobox.getSelectedItem() != null) {
+        if (this.classNameCombobox.getSelectedItem() != null)
+        {
             this.classNameCombobox.setSelectedIndex(0);
-        } else {
+        } else
+        {
             this.classNameCombobox.setSelectedItem(null);
         }
 
 
         this.passwordTextField.setText("");
 
-        if (this.educationTypeComboBox.getSelectedItem() != null) {
+        if (this.educationTypeComboBox.getSelectedItem() != null)
+        {
             this.educationTypeComboBox.setSelectedIndex(0);
-        } else {
+        } else
+        {
             this.educationTypeComboBox.setSelectedItem(null);
         }
 
@@ -347,7 +362,8 @@ public class StudentManagementScreen extends Screen implements Searchable {
 
 
     @SneakyThrows
-    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         val studentCardId = this.studentIdTextField.getText();
         val password = this.passwordTextField.getText();
@@ -355,27 +371,32 @@ public class StudentManagementScreen extends Screen implements Searchable {
         val educationType = (EducationType) educationTypeComboBox.getSelectedItem();
         val identityCardNumber = identityCardNumberTextField.getText();
 
-        if (studentCardId == null || "".equals(studentCardId)) {
+        if (studentCardId == null || "".equals(studentCardId))
+        {
             JOptionPane.showMessageDialog(this, "You have to enter student card id to continue");
             return;
         }
 
-        if (password == null || "".equals(password)) {
+        if (password == null || "".equals(password))
+        {
             JOptionPane.showMessageDialog(this, "You have to enter password to continue");
             return;
         }
 
-        if (clazz == null) {
+        if (clazz == null)
+        {
             JOptionPane.showMessageDialog(this, "You have to select a class to continue");
             return;
         }
 
-        if (educationType == null) {
+        if (educationType == null)
+        {
             JOptionPane.showMessageDialog(this, "You have to select education type to continue");
             return;
         }
 
-        if (identityCardNumber == null || "".equals(identityCardNumber)) {
+        if (identityCardNumber == null || "".equals(identityCardNumber))
+        {
             JOptionPane.showMessageDialog(this, "You have to enter identity card to continue");
             return;
 
@@ -387,16 +408,20 @@ public class StudentManagementScreen extends Screen implements Searchable {
         data.put(StudentManagementScreen.class.getSimpleName(), StudentManagementScreen.this);
         StudentInfoDialog dialog = new StudentInfoDialog(data, (studentInfo) -> {
 
-            try {
+            try
+            {
 
-                if (currentEdittingStudent == null) {
+                if (currentEdittingStudent == null)
+                {
                     service.addStudentToClass(new StudentAccount(password, studentCardId, studentInfo, educationType, clazz), clazz);
-                } else {
+                } else
+                {
                     this.currentEdittingStudent.setStudentInfo(studentInfo);
                     this.currentEdittingStudent.setStudentCardId(studentCardId);
                     this.currentEdittingStudent.setPassword(password);
 
-                    if (!this.currentEdittingStudent.getStudiedClass().equals(clazz)) {
+                    if (!this.currentEdittingStudent.getStudiedClass().equals(clazz))
+                    {
                         this.currentEdittingStudent.getStudiedClass().getStudents().remove(this.currentEdittingStudent);
                         this.currentEdittingStudent.setStudiedClass(clazz);
                     }
@@ -409,16 +434,20 @@ public class StudentManagementScreen extends Screen implements Searchable {
                 this.getData().remove(StudentInfoDialog.class.getSimpleName());
                 this.getData().remove(STUDENT_INFO);
 
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
 
-                if (e.getCause().toString().contains("UK_STUDENT_ACCOUNT")) {
+                if (e.getCause().toString().contains("UK_STUDENT_ACCOUNT"))
+                {
                     JOptionPane.showMessageDialog(this, "One student can only learn in an education type");
-                } else {
+                } else
+                {
                     JOptionPane.showMessageDialog(this, e.getCause().toString());
                 }
 
                 e.printStackTrace();
-            } finally {
+            } finally
+            {
                 this.currentEdittingStudent = null;
                 this.jLabel3.setText("Add new student account");
                 this.insertBtn.setText("Insert");
@@ -429,7 +458,8 @@ public class StudentManagementScreen extends Screen implements Searchable {
     }
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
 
         service = AppContext.teachingManagerService;
@@ -441,32 +471,39 @@ public class StudentManagementScreen extends Screen implements Searchable {
         updateTableData();
     }
 
-    private void loadDataForComboBoxes() {
+    private void loadDataForComboBoxes()
+    {
 
         val educationTypes = service.getEducationTypes();
         val classes = service.getClasses();
-        if (classes.size() > 0) {
+        if (classes.size() > 0)
+        {
             this.selectedClass = classes.get(0);
         }
-        this.educationTypeComboBox.setModel(new AbsComboModel<EducationType>(educationTypes) {
+        this.educationTypeComboBox.setModel(new AbsComboModel<EducationType>(educationTypes)
+        {
         });
         this.classNameCombobox.setModel(new ClassComboModel(classes));
         this.classSearchCombobox.setModel(new ClassComboModel(classes));
     }
 
 
-    private void resetPasswordBtnPerformed() {
+    private void resetPasswordBtnPerformed()
+    {
 
         int selectedIndex = this.studentListTable.getSelectedRow();
 
-        if (selectedIndex == -1) {
+        if (selectedIndex == -1)
+        {
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
-        try {
+        try
+        {
             val selectedStudent = this.studentAccounts.get(selectedIndex);
             service.resetStudentPassword(selectedStudent);
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             JOptionPane.showMessageDialog(this, "Cannot reset password for this selected student account");
         }
 
@@ -474,7 +511,8 @@ public class StudentManagementScreen extends Screen implements Searchable {
 
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         editBtn.addActionListener(evt -> editBtnActionPerformed(evt));
         insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
         clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
@@ -485,32 +523,38 @@ public class StudentManagementScreen extends Screen implements Searchable {
         });
         searchBtn.addActionListener(e -> searchBtnActionPerformed(e));
         resetPasswordBtn.addActionListener(e -> resetPasswordBtnPerformed());
-        studentIdTextField.addKeyListener(new KeyListener() {
+        studentIdTextField.addKeyListener(new KeyListener()
+        {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void keyTyped(KeyEvent e)
+            {
 
             }
 
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent e)
+            {
 
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {
+            public void keyReleased(KeyEvent e)
+            {
                 StudentManagementScreen.this.passwordTextField.setText(studentIdTextField.getText());
             }
         });
     }
 
     @Override
-    public Map<String, Object> getData() {
+    public Map<String, Object> getData()
+    {
         if (this.data == null) data = new HashMap<String, Object>();
         return this.data;
     }
 
     @Override
-    public void searchBtnActionPerformed(ActionEvent evt) {
+    public void searchBtnActionPerformed(ActionEvent evt)
+    {
         val keyword = searchStudentTextField.getText();
 
         Class selectedSearchClass = (Class) classSearchCombobox.getSelectedItem();

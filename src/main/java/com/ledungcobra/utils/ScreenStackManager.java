@@ -9,13 +9,16 @@ import java.awt.event.WindowEvent;
 import java.util.Objects;
 import java.util.Stack;
 
-public class ScreenStackManager {
+public class ScreenStackManager
+{
 
     private static ScreenStackManager INSTANCE;
 
-    public static ScreenStackManager getInstance() {
+    public static ScreenStackManager getInstance()
+    {
 
-        if (Objects.isNull(INSTANCE)) {
+        if (Objects.isNull(INSTANCE))
+        {
             INSTANCE = new ScreenStackManager();
         }
         return INSTANCE;
@@ -23,13 +26,17 @@ public class ScreenStackManager {
 
     private Stack<Screen> screensStack;
 
-    private ScreenStackManager() {
+    private ScreenStackManager()
+    {
         screensStack = new Stack<>();
     }
 
-    public void pushScreen(@NonNull Screen screen) {
-        synchronized (screensStack) {
-            if (!screensStack.isEmpty()) {
+    public void pushScreen(@NonNull Screen screen)
+    {
+        synchronized (screensStack)
+        {
+            if (!screensStack.isEmpty())
+            {
                 hideScreen(screensStack.peek());
             }
             screensStack.push(screen);
@@ -37,42 +44,36 @@ public class ScreenStackManager {
         }
     }
 
-    private void showScreen(@NonNull Screen screen) {
+    private void showScreen(@NonNull Screen screen)
+    {
         screen.setLocationRelativeTo(null);
         screen.setVisible(true);
     }
 
-    private void hideScreen(@NonNull Screen screen) {
+    private void hideScreen(@NonNull Screen screen)
+    {
         screen.setVisible(false);
     }
 
-    private void closeScreen(@NonNull Screen screen) {
+    private void closeScreen(@NonNull Screen screen)
+    {
         WindowEvent winClosingEvent = new WindowEvent(screen, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
     }
 
-    public void forcePopTopScreen(){
-        synchronized (screensStack){
 
-            if (screensStack.size() > 1) {
-                val currentScreen = screensStack.pop();
-                closeScreen(currentScreen);
-            }
-
-            if (!screensStack.isEmpty()) {
-                showScreen(screensStack.peek());
-            }
-        }
-    }
-
-    public void popTopScreen() {
-        synchronized (screensStack) {
-            if (screensStack.size() > 1) {
+    public void popTopScreen()
+    {
+        synchronized (screensStack)
+        {
+            if (screensStack.size() > 1)
+            {
                 val currentScreen = screensStack.pop();
                 hideScreen(currentScreen);
             }
 
-            if (!screensStack.isEmpty()) {
+            if (!screensStack.isEmpty())
+            {
                 showScreen(screensStack.peek());
             }
         }

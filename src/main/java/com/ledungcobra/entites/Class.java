@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Class")
@@ -15,7 +14,8 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class Class extends BaseEntity {
+public class Class extends BaseEntity
+{
 
     @Id
     @Column(name = "CLASS_ID")
@@ -35,7 +35,8 @@ public class Class extends BaseEntity {
 
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return this.className;
     }
 }

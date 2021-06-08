@@ -8,19 +8,16 @@ package com.ledungcobra.scenes;
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.CourseRegistrationSession;
-import com.ledungcobra.entites.Semester;
-import com.ledungcobra.model.AbsComboModel;
 import com.ledungcobra.model.CourseRegistrationSessionTableModel;
 import com.ledungcobra.service.TeachingManagerService;
 import com.toedter.calendar.JDateChooser;
-import jdk.nashorn.internal.scripts.JO;
 import lombok.val;
 
-import javax.persistence.criteria.Join;
 import javax.swing.*;
 import java.util.List;
 
-public class CourseRegSessionManagementScreen extends Screen {
+public class CourseRegSessionManagementScreen extends Screen
+{
     // <editor-fold defaultstate="collapsed>
     @BackButton
     private javax.swing.JButton backBtn;
@@ -43,7 +40,8 @@ public class CourseRegSessionManagementScreen extends Screen {
 
     // </editor-fold>
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
         val teachingManagerService = AppContext.teachingManagerService;
         courseRegSessionListTable.setModel(new CourseRegistrationSessionTableModel(
@@ -54,7 +52,8 @@ public class CourseRegSessionManagementScreen extends Screen {
     }
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         clearBtn.addActionListener(evt -> clearBtnActionPerformed(evt));
         searchBtn.addActionListener(evt -> searchBtnActionPerformed(evt));
         insertBtn.addActionListener(evt -> insertBtnActionPerformed(evt));
@@ -63,7 +62,8 @@ public class CourseRegSessionManagementScreen extends Screen {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         JScrollPane jScrollPane2 = new JScrollPane();
         JTextArea jTextArea1 = new JTextArea();
@@ -94,7 +94,8 @@ public class CourseRegSessionManagementScreen extends Screen {
         searchBtn.setText("Search");
 
         jScrollPane1.setViewportView(courseRegSessionListTable);
-        if (courseRegSessionListTable.getColumnModel().getColumnCount() > 0) {
+        if (courseRegSessionListTable.getColumnModel().getColumnCount() > 0)
+        {
             courseRegSessionListTable.getColumnModel().getColumn(0).setHeaderValue("ID");
             courseRegSessionListTable.getColumnModel().getColumn(1).setHeaderValue("Start Date");
             courseRegSessionListTable.getColumnModel().getColumn(2).setHeaderValue("End Date");
@@ -185,46 +186,57 @@ public class CourseRegSessionManagementScreen extends Screen {
         pack();
     }// </editor-fold>
 
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         this.startDateChooser.setDate(null);
         this.endDateChooser.setDate(null);
     }
 
-    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
         val startDate = startDateChooser.getDate();
         val endDate = endDateChooser.getDate();
 
-        if (startDate == null) {
+        if (startDate == null)
+        {
             JOptionPane.showMessageDialog(this, "You have to choose start date to continue");
             return;
         }
-        if (endDate == null) {
+        if (endDate == null)
+        {
             JOptionPane.showMessageDialog(this, "You have to choose end date to continue");
             return;
         }
 
-        if (startDate.after(endDate)) {
+        if (startDate.after(endDate))
+        {
             JOptionPane.showMessageDialog(this, "The start date can not after the end date");
             return;
         }
 
-        try {
+        try
+        {
             service.addCourseRegistrationSession(new CourseRegistrationSession(startDate, endDate));
             updateTableData();
-        } catch (Exception e) {
-            if (e.getCause() != null) {
+        } catch (Exception e)
+        {
+            if (e.getCause() != null)
+            {
                 JOptionPane.showMessageDialog(this, e.getCause().getMessage());
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
     }
 
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
     }
 
-    public void updateTableData() {
+    public void updateTableData()
+    {
         this.sessionList = service.getCourseRegistrationSessionList();
         this.courseRegSessionListTable.setModel(new CourseRegistrationSessionTableModel(sessionList));
     }

@@ -1,10 +1,9 @@
-package com.ledungcobra.dto;
+package com.ledungcobra.utils;
 
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.anotations.SearchTextField;
 import com.ledungcobra.interfaces.Searchable;
 import com.ledungcobra.scenes.Screen;
-import com.ledungcobra.utils.ScreenStackManager;
 import lombok.SneakyThrows;
 
 import javax.swing.*;
@@ -14,7 +13,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-public class Navigator<T extends Screen> {
+public class Navigator<T extends Screen>
+{
 
     private Class<T> clazz;
     private T screen;
@@ -22,26 +22,26 @@ public class Navigator<T extends Screen> {
 
 
     @SneakyThrows
-    public Navigator(T... t) {
+    public Navigator(T... t)
+    {
         clazz = (Class<T>) t.getClass().getComponentType();
         screen = clazz.newInstance();
     }
 
-//    public Intent(T parentScreen) {
-//        this();
-//        this.parentScreen = parentScreen;
-//    }
-//
-
     @SneakyThrows
-    private void addGoBackListener() {
-        try {
-            for (Field field : screen.getClass().getDeclaredFields()) {
+    private void addGoBackListener()
+    {
+        try
+        {
+            for (Field field : screen.getClass().getDeclaredFields())
+            {
                 field.setAccessible(true);
 
                 Annotation[] annotations = field.getDeclaredAnnotations();
-                for (Annotation annotation : annotations) {
-                    if (annotation instanceof BackButton) {
+                for (Annotation annotation : annotations)
+                {
+                    if (annotation instanceof BackButton)
+                    {
                         JButton button = (JButton) field.get(screen);
                         button.addActionListener(e -> ScreenStackManager.getInstance().popTopScreen());
                         break;
@@ -49,33 +49,45 @@ public class Navigator<T extends Screen> {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
         }
     }
 
     @SneakyThrows
-    private void addOnEnterPressSearch() {
-        try {
-            for (Field field : screen.getClass().getDeclaredFields()) {
+    private void addOnEnterPressSearch()
+    {
+        try
+        {
+            for (Field field : screen.getClass().getDeclaredFields())
+            {
                 field.setAccessible(true);
                 Annotation[] annotations = field.getDeclaredAnnotations();
-                for (Annotation annotation : annotations) {
-                    if (annotation instanceof SearchTextField) {
+                for (Annotation annotation : annotations)
+                {
+                    if (annotation instanceof SearchTextField)
+                    {
                         JTextField searchField = (JTextField) field.get(screen);
-                        searchField.addKeyListener(new KeyListener() {
+                        searchField.addKeyListener(new KeyListener()
+                        {
                             @Override
-                            public void keyTyped(KeyEvent e) {
+                            public void keyTyped(KeyEvent e)
+                            {
                             }
 
                             @Override
-                            public void keyPressed(KeyEvent e) {
+                            public void keyPressed(KeyEvent e)
+                            {
 
                             }
 
                             @Override
-                            public void keyReleased(KeyEvent e) {
-                                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                                    if (screen instanceof Searchable) {
+                            public void keyReleased(KeyEvent e)
+                            {
+                                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                                {
+                                    if (screen instanceof Searchable)
+                                    {
                                         ((Searchable) screen).searchBtnActionPerformed(null);
                                     }
                                 }
@@ -87,16 +99,19 @@ public class Navigator<T extends Screen> {
             }
 
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
         }
     }
 
-    private void registerAnnotationProcessing(){
+    private void registerAnnotationProcessing()
+    {
         addGoBackListener();
         addOnEnterPressSearch();
     }
 
-    public void navigate(int width, int height, Map<String, Object> data) {
+    public void navigate(int width, int height, Map<String, Object> data)
+    {
         screen.setSize(width, height);
         screen.setData(data);
         screen.onCreateView();
@@ -106,7 +121,8 @@ public class Navigator<T extends Screen> {
         ScreenStackManager.getInstance().pushScreen(screen);
     }
 
-    public void navigate(Map<String, Object> data) {
+    public void navigate(Map<String, Object> data)
+    {
         screen.setData(data);
         screen.onCreateView();
         screen.addEventListener();
@@ -115,7 +131,8 @@ public class Navigator<T extends Screen> {
         ScreenStackManager.getInstance().pushScreen(screen);
     }
 
-    public void navigate() {
+    public void navigate()
+    {
         screen.onCreateView();
         screen.addEventListener();
         registerAnnotationProcessing();

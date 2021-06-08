@@ -5,7 +5,7 @@
  */
 package com.ledungcobra.scenes;
 
-import com.ledungcobra.dto.Navigator;
+import com.ledungcobra.utils.Navigator;
 import com.ledungcobra.entites.User;
 import com.ledungcobra.utils.ScreenStackManager;
 

@@ -5,8 +5,10 @@ import lombok.val;
 
 import java.util.List;
 
-public class TeachingManagerTableModel extends AbsTableModel<TeachingManager> {
-    public TeachingManagerTableModel(List<TeachingManager> t) {
+public class TeachingManagerTableModel extends AbsTableModel<TeachingManager>
+{
+    public TeachingManagerTableModel(List<TeachingManager> t)
+    {
         super(t);
         this.types = new Class[]{
                 String.class,
@@ -22,10 +24,12 @@ public class TeachingManagerTableModel extends AbsTableModel<TeachingManager> {
     }
 
     @Override
-    public Object[][] getRecords(List<TeachingManager> l) {
+    public Object[][] getRecords(List<TeachingManager> l)
+    {
         val records = new Object[l.size()][getColumns().length];
 
-        for (int i = 0; i < l.size(); i++) {
+        for (int i = 0; i < l.size(); i++)
+        {
 
             val teachingManager = l.get(i);
             records[i][0] = teachingManager.getId();
@@ -37,7 +41,8 @@ public class TeachingManagerTableModel extends AbsTableModel<TeachingManager> {
     }
 
     @Override
-    public String[] getColumns() {
+    public String[] getColumns()
+    {
         return new String[]{
                 "Teaching Manager ID",
                 "Full name",

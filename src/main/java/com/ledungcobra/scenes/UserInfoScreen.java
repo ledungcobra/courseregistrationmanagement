@@ -15,7 +15,8 @@ import javax.swing.*;
 import static com.ledungcobra.scenes.LoginScreen.USER_KEY;
 
 
-public class UserInfoScreen extends Screen {
+public class UserInfoScreen extends Screen
+{
     // <editor-fold defaultstate="collapsed desc="Class fields">
     @BackButton
     private JButton backBtn;
@@ -32,7 +33,8 @@ public class UserInfoScreen extends Screen {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -116,18 +118,22 @@ public class UserInfoScreen extends Screen {
 
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
         val user = (User) this.data.get(USER_KEY);
-        if (user != null) {
+        if (user != null)
+        {
             this.usernameTextField.setText(user.getFullName());
             this.userIdTextField.setText(user.getUserId());
             this.passwordTextField.setText(user.getPassword());
-            if (user instanceof StudentAccount) {
+            if (user instanceof StudentAccount)
+            {
                 this.genderComboBox.setVisible(true);
                 jLabel3.setVisible(true);
                 this.genderComboBox.setSelectedItem(((StudentAccount) user).getStudentInfo().getGender());
-            } else {
+            } else
+            {
                 this.genderComboBox.setVisible(false);
                 jLabel3.setVisible(false);
             }
@@ -138,7 +144,8 @@ public class UserInfoScreen extends Screen {
     }
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
 
     }
 }

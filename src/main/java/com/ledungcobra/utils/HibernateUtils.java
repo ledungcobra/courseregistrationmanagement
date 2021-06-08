@@ -7,44 +7,54 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.Objects;
 
-public class HibernateUtils {
+public class HibernateUtils
+{
 
     private static SessionFactory sessionFactory;
     private static Session session;
 
 
-    public static void buildSessionFactory() {
+    public static void buildSessionFactory()
+    {
         sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
-    public static void sql(String sql) {
+    public static void sql(String sql)
+    {
         val session = openSession();
 
         val trans = session.beginTransaction();
-        try {
+        try
+        {
             val query = session.createSQLQuery(sql);
             query.executeUpdate();
             session.clear();
             trans.commit();
-        } finally {
-            if (trans != null && trans.isActive()) {
+        } finally
+        {
+            if (trans != null && trans.isActive())
+            {
                 trans.rollback();
             }
         }
     }
 
 
-    public static Session openSession() {
+    public static Session openSession()
+    {
         if (sessionFactory == null) buildSessionFactory();
-        if (Objects.isNull(session)) {
+        if (Objects.isNull(session))
+        {
             session = sessionFactory.openSession();
         }
 
         return session;
     }
 
-    public static void closeSession() {
-        if (Objects.nonNull(session)) {
+    public static void closeSession()
+    {
+        if (Objects.nonNull(session))
+        {
             session.close();
         }
     }

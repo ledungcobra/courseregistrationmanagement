@@ -16,7 +16,8 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-public class StudentCourseId implements Serializable {
+public class StudentCourseId implements Serializable
+{
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "STUDENT_ID")
@@ -33,9 +34,4 @@ public class StudentCourseId implements Serializable {
     @EqualsAndHashCode.Include
     private Semester semester;
 
-    public StudentCourseId(StudentAccount student, Course course, Semester semester) {
-        this.studentAccount = student;
-        this.course = course;
-        this.semester = semester;
-    }
 }

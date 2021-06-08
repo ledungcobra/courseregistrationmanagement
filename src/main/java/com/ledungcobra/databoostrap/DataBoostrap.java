@@ -1,17 +1,21 @@
 package com.ledungcobra.databoostrap;
 
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.entites.*;
+import com.ledungcobra.entites.EducationType;
+import com.ledungcobra.entites.StudentAccount;
+import com.ledungcobra.entites.StudentInfo;
+import com.ledungcobra.entites.TeachingManager;
 import lombok.val;
 
 import java.util.Date;
 
-import static com.ledungcobra.utils.HibernateUtils.sql;
+public class DataBoostrap
+{
+    public void run()
+    {
 
-public class DataBoostrap {
-    public void run() {
-
-        try {
+        try
+        {
 
             val studentInfo = new StudentInfo("Boy", new Date(), "281160359", "Lê Quốc Dũng");
 
@@ -24,15 +28,18 @@ public class DataBoostrap {
             AppContext.studentService.save(account);
 
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println("OK");
         }
 
-        try {
+        try
+        {
             val teachingService = AppContext.teachingManagerService;
             val teachingManager = new TeachingManager("18120331", "Nguyễn Văn A", "18120331");
             teachingService.save(teachingManager);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println("OK");
 
         }

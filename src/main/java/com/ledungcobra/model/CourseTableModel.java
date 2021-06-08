@@ -5,9 +5,11 @@ import lombok.val;
 
 import java.util.List;
 
-public class CourseTableModel extends AbsTableModel<Course> {
+public class CourseTableModel extends AbsTableModel<Course>
+{
 
-    public CourseTableModel(List<Course> courseList) {
+    public CourseTableModel(List<Course> courseList)
+    {
         super(courseList);
         this.types = new Class[]{
                 String.class,
@@ -32,19 +34,22 @@ public class CourseTableModel extends AbsTableModel<Course> {
     }
 
     @Override
-    public String[] getColumns() {
+    public String[] getColumns()
+    {
         return new String[]{"Course ID", "Subject ", "Course Credit", "Theory teacher name",
                 "Day to study in week", "Classroom", "Shift", "Number of slot"};
     }
 
     @Override
-    public Object[][] getRecords(List<Course> courseList) {
+    public Object[][] getRecords(List<Course> courseList)
+    {
         val records = new String[courseList.size()][getColumns().length];
 
-        for (int i = 0; i < records.length; i++) {
+        for (int i = 0; i < records.length; i++)
+        {
             val course = courseList.get(i);
-            if(course == null) continue;
-            records[i][0] =course.getId().toString();
+            if (course == null) continue;
+            records[i][0] = course.getId().toString();
             val subject = course.getSubject();
             records[i][1] = subject.getName();
             records[i][2] = String.valueOf(course.getCredit());

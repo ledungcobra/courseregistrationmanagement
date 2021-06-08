@@ -1,9 +1,9 @@
 package com.ledungcobra.scenes;
 
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.dto.Navigator;
 import com.ledungcobra.exception.UserNotFound;
 import com.ledungcobra.service.UserService;
+import com.ledungcobra.utils.Navigator;
 import lombok.val;
 
 import javax.persistence.NoResultException;
@@ -17,12 +17,14 @@ import java.util.Objects;
 
 import static com.ledungcobra.utils.Constants.USERNAME;
 
-public class LoginScreen extends Screen {
+public class LoginScreen extends Screen
+{
 
     public static final String USER_KEY = "USER";
     public static final String ROLE_KEY = "ROLE";
 
-    public enum ROLE {
+    public enum ROLE
+    {
         STUDENT,
         TEACHING_MANAGER
     }
@@ -38,7 +40,8 @@ public class LoginScreen extends Screen {
 
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
 
         // Set up title
         val loginLabel = new JLabel("LOGIN", SwingConstants.LEFT);
@@ -112,26 +115,32 @@ public class LoginScreen extends Screen {
     }
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         studentRoleRadioBtn.addActionListener(e -> role = ROLE.STUDENT);
         teachingManagerRoleRadioBtn.addActionListener(e -> role = ROLE.TEACHING_MANAGER);
         loginButton.addActionListener(e -> login());
 
         loginButton.setMnemonic(KeyEvent.VK_L);
 
-        val onEnterEvent = new KeyListener() {
+        val onEnterEvent = new KeyListener()
+        {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void keyTyped(KeyEvent e)
+            {
             }
 
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent e)
+            {
 
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            public void keyReleased(KeyEvent e)
+            {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                {
                     login();
                 }
             }
@@ -143,24 +152,32 @@ public class LoginScreen extends Screen {
     }
 
 
-    private void login() {
-        try {
+    private void login()
+    {
+        try
+        {
 
             UserService userService = null;
 
-            if (role.equals(ROLE.STUDENT)) {
+            if (role.equals(ROLE.STUDENT))
+            {
                 userService = AppContext.studentService;
-            } else if (role.equals(ROLE.TEACHING_MANAGER)) {
+            } else if (role.equals(ROLE.TEACHING_MANAGER))
+            {
                 userService = AppContext.teachingManagerService;
             }
 
-            if (Objects.nonNull(userService)) {
-                if (userService.login(usernameTextField.getText(), passwordTextField.getText())) {
+            if (Objects.nonNull(userService))
+            {
+                if (userService.login(usernameTextField.getText(), passwordTextField.getText()))
+                {
                     Navigator intent = null;
 
-                    if (role.equals(ROLE.TEACHING_MANAGER)) {
+                    if (role.equals(ROLE.TEACHING_MANAGER))
+                    {
                         intent = new Navigator<TeachingManagerMenuScreen>();
-                    } else if (role.equals(ROLE.STUDENT)) {
+                    } else if (role.equals(ROLE.STUDENT))
+                    {
                         intent = new Navigator<StudentMenuScreen>();
                     }
 
@@ -170,20 +187,25 @@ public class LoginScreen extends Screen {
                     data.put(ROLE_KEY, role);
 
                     intent.navigate(data);
-                } else {
+                } else
+                {
                     // Login fail
                     JOptionPane.showMessageDialog(this, "User name or password does not match");
                 }
 
-            } else {
+            } else
+            {
                 throw new IllegalStateException("User service is null");
             }
 
-        } catch (UserNotFound e) {
+        } catch (UserNotFound e)
+        {
             JOptionPane.showMessageDialog(this, "User not found");
-        } catch (IllegalStateException illegalStateException) {
+        } catch (IllegalStateException illegalStateException)
+        {
             JOptionPane.showMessageDialog(this, illegalStateException.getMessage());
-        } catch (NoResultException e) {
+        } catch (NoResultException e)
+        {
             JOptionPane.showMessageDialog(this, "User not found");
         }
 

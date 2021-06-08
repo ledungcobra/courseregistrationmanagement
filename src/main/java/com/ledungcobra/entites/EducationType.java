@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "EDUCATION_TYPE")
@@ -14,7 +13,8 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class EducationType extends BaseEntity {
+public class EducationType extends BaseEntity
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,8 @@ public class EducationType extends BaseEntity {
     private Long id;
 
 
-    public EducationType(String name) {
+    public EducationType(String name)
+    {
         this.name = name;
     }
 
@@ -31,7 +32,8 @@ public class EducationType extends BaseEntity {
     private String name;
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return name;
     }
 }

@@ -7,19 +7,20 @@ import lombok.NonNull;
 import lombok.val;
 
 import javax.swing.*;
-
 import java.util.Map;
 import java.util.function.Consumer;
 
 import static com.ledungcobra.scenes.StudentManagementScreen.IDENTITY_NUMBER;
 
-public class StudentInfoDialog extends JDialog {
+public class StudentInfoDialog extends JDialog
+{
 
     private Map<String, Object> data;
     private StudentInfo studentInfo;
     private Consumer<StudentInfo> consumer;
 
-    public StudentInfoDialog(Map<String, Object> data, @NonNull Consumer<StudentInfo> run) {
+    public StudentInfoDialog(Map<String, Object> data, @NonNull Consumer<StudentInfo> run)
+    {
         this.consumer = run;
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -29,17 +30,18 @@ public class StudentInfoDialog extends JDialog {
         identityNumber = (String) getData().get(IDENTITY_NUMBER);
         prevScreen = (Screen) getData().get(StudentManagementScreen.class.getSimpleName());
 
-        if (identityNumber == null || "".equals(identityNumber)) {
+        if (identityNumber == null || "".equals(identityNumber))
+        {
             JOptionPane.showMessageDialog(this, "You have to add student info");
             throw new IllegalStateException("identity number must be passed from the previous screen");
         }
 
 
-
         addEventListener();
         studentInfo = service.findStudentInfoByIdentityNo(this.identityNumber);
 
-        if (studentInfo != null) {
+        if (studentInfo != null)
+        {
             this.fullNameTextField.setText(studentInfo.getFullName());
             this.birthDateChooser.setDate(studentInfo.getCreatedDate());
             this.genderComboBox.setSelectedItem(studentInfo.getGender());
@@ -52,16 +54,19 @@ public class StudentInfoDialog extends JDialog {
     private TeachingManagerService service = AppContext.teachingManagerService;
     private Screen prevScreen;
 
-    public Map<String, Object> getData() {
+    public Map<String, Object> getData()
+    {
         return data;
     }
 
-    public void setData(Map<String, Object> data) {
+    public void setData(Map<String, Object> data)
+    {
         this.data = data;
     }
 
 
-    public void addEventListener() {
+    public void addEventListener()
+    {
 
         updateBtn.addActionListener(e -> updateBtnActionPerformed());
         doneBtn.addActionListener(e -> doneBtnPerformed());
@@ -69,43 +74,52 @@ public class StudentInfoDialog extends JDialog {
 
     }
 
-    private void backBtnPerformed() {
+    private void backBtnPerformed()
+    {
 
-        if (studentInfo != null) {
+        if (studentInfo != null)
+        {
             prevScreen.getData().put(STUDENT_INFO, studentInfo);
             prevScreen.getData().put(StudentInfoDialog.class.getSimpleName(), true);
-        } else {
+        } else
+        {
             prevScreen.getData().put(StudentInfoDialog.class.getSimpleName(), false);
         }
         finish();
     }
 
-    protected void finish() {
+    protected void finish()
+    {
         this.setVisible(false);
         this.dispose();
     }
 
-    private void doneBtnPerformed() {
+    private void doneBtnPerformed()
+    {
         val fullName = fullNameTextField.getText();
-        if (fullName == null || "".equals(fullName)) {
+        if (fullName == null || "".equals(fullName))
+        {
             JOptionPane.showMessageDialog(this, "You have to enter full name to continue");
             return;
         }
 
         val birthdate = birthDateChooser.getDate();
-        if (birthdate == null) {
+        if (birthdate == null)
+        {
             JOptionPane.showMessageDialog(this, "You have to choose birth date to continue");
             return;
         }
 
         val gender = (String) genderComboBox.getSelectedItem();
-        if (gender == null || "".equals(gender)) {
+        if (gender == null || "".equals(gender))
+        {
             JOptionPane.showMessageDialog(this, "You have to select gender to continue");
             return;
         }
 
 
-        if (studentInfo != null) {
+        if (studentInfo != null)
+        {
             // Update data
             studentInfo.setFullName(fullName);
             studentInfo.setBirthdate(birthdate);
@@ -114,9 +128,10 @@ public class StudentInfoDialog extends JDialog {
             prevScreen.getData().put(StudentInfoDialog.class.getSimpleName(), true);
             service.updateStudentInfo(studentInfo);
 
-        } else {
+        } else
+        {
             this.studentInfo = new StudentInfo(gender, birthdate, identityNumber, fullName);
-            service.addStudentInfo( this.studentInfo);
+            service.addStudentInfo(this.studentInfo);
         }
 
         consumer.accept(studentInfo);
@@ -124,13 +139,15 @@ public class StudentInfoDialog extends JDialog {
 
     }
 
-    private void updateBtnActionPerformed() {
+    private void updateBtnActionPerformed()
+    {
 
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         backBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();

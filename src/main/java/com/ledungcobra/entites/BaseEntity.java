@@ -8,12 +8,12 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.util.Date;
-import java.util.Objects;
 
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class BaseEntity {
+public abstract class BaseEntity
+{
 
     @Column(name = "CREATED_DATE")
     private Date createdDate;
@@ -26,13 +26,15 @@ public abstract class BaseEntity {
 
 
     @PrePersist
-    public void create() {
+    public void create()
+    {
         this.createdDate = new Date();
         this.isDeleted = false;
     }
 
     @PreUpdate
-    public void update() {
+    public void update()
+    {
         this.updatedDate = new Date();
     }
 

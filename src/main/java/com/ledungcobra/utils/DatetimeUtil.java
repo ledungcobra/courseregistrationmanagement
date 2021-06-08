@@ -5,19 +5,24 @@ import lombok.SneakyThrows;
 
 import java.util.Date;
 
-public class DatetimeUtil {
+public class DatetimeUtil
+{
 
-    public static boolean isDate(String data) {
-        try {
+    public static boolean isDate(String data)
+    {
+        try
+        {
             AppContext.dateFormat.parse(data);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             return false;
         }
     }
 
     @SneakyThrows
-    public static Date getCurrentDate(){
-            return AppContext.dateFormat.parse("29-05-2021");
+    public static Date getCurrentDate()
+    {
+        return new Date();
     }
 }

@@ -6,11 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import static com.ledungcobra.utils.Constants.SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME;
 
@@ -25,7 +23,8 @@ import static com.ledungcobra.utils.Constants.SEMESTER_CHECK_CONSTRAINT_SEMESTER
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class Semester extends BaseEntity {
+public class Semester extends BaseEntity
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,12 +53,14 @@ public class Semester extends BaseEntity {
     @OneToMany(mappedBy = "semester", cascade = CascadeType.PERSIST)
     private List<CourseInfo> courseInfos;
 
-    public List<CourseInfo> getCourseInfos() {
+    public List<CourseInfo> getCourseInfos()
+    {
         if (courseInfos == null) courseInfos = new ArrayList<>();
         return courseInfos;
     }
 
-    public Semester(String semesterName, Integer year, Date startDate, Date endDate, Boolean active) {
+    public Semester(String semesterName, Integer year, Date startDate, Date endDate, Boolean active)
+    {
         this.semesterName = semesterName;
         this.year = year;
         this.startDate = startDate;
@@ -68,7 +69,8 @@ public class Semester extends BaseEntity {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return this.semesterName + " - " + this.year;
     }
 }

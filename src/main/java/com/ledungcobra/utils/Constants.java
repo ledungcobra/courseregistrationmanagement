@@ -1,8 +1,7 @@
 package com.ledungcobra.utils;
 
-import lombok.Getter;
-
-public class Constants {
+public class Constants
+{
 
 
     public static final String THU_2 = "Thứ 2";
