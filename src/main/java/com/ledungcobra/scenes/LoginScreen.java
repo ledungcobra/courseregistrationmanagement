@@ -1,7 +1,7 @@
 package com.ledungcobra.scenes;
 
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.dto.Intent;
+import com.ledungcobra.dto.Navigator;
 import com.ledungcobra.exception.UserNotFound;
 import com.ledungcobra.service.UserService;
 import lombok.val;
@@ -156,12 +156,12 @@ public class LoginScreen extends Screen {
 
             if (Objects.nonNull(userService)) {
                 if (userService.login(usernameTextField.getText(), passwordTextField.getText())) {
-                    Intent intent = null;
+                    Navigator intent = null;
 
                     if (role.equals(ROLE.TEACHING_MANAGER)) {
-                        intent = new Intent<TeachingManagerMenuScreen>();
+                        intent = new Navigator<TeachingManagerMenuScreen>();
                     } else if (role.equals(ROLE.STUDENT)) {
-                        intent = new Intent<StudentMenuScreen>();
+                        intent = new Navigator<StudentMenuScreen>();
                     }
 
                     val data = new HashMap<String, Object>();

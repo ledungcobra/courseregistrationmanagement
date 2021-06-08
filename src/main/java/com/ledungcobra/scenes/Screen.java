@@ -5,6 +5,7 @@ import lombok.val;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowListener;
 import java.util.Map;
 
 
@@ -53,7 +54,8 @@ public abstract class Screen extends JFrame {
         return data;
     }
 
-    protected void finish(){
+    protected void finish() {
         ScreenStackManager.getInstance().popTopScreen();
     }
+
 }

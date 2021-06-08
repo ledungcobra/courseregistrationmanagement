@@ -23,7 +23,8 @@ import java.util.List;
 /**
  * @author ledun
  */
-public class StudentRegisteredACourseScreen extends Screen implements Searchable {
+public class StudentRegisteredACourseScreen extends Screen implements Searchable
+{
 
 
     // <editor-fold defaultstate="collapsed desc="Class fields">
@@ -45,7 +46,8 @@ public class StudentRegisteredACourseScreen extends Screen implements Searchable
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         studentInCourseTable = new javax.swing.JTable();
@@ -65,7 +67,8 @@ public class StudentRegisteredACourseScreen extends Screen implements Searchable
                 new String[]{
                         "Student ID", "Full name", "Subject ID", "Subject name", "Theory Teacher Name", "Time", "Registerd Time"
                 }
-        ) {
+        )
+        {
             Class[] types = new Class[]{
                     java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
@@ -73,11 +76,13 @@ public class StudentRegisteredACourseScreen extends Screen implements Searchable
                     false, false, false, false, true, false, true
             };
 
-            public Class getColumnClass(int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
                 return types[columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit[columnIndex];
             }
         });
@@ -138,13 +143,15 @@ public class StudentRegisteredACourseScreen extends Screen implements Searchable
 
 
     @Override
-    public void onCreateView() {
+    public void onCreateView()
+    {
         initComponents();
         setUpComboBoxes();
     }
 
     @Override
-    public void addEventListener() {
+    public void addEventListener()
+    {
         searchBtn.addActionListener(e -> searchBtnActionPerformed(e));
         courseComboBox.addItemListener(e -> {
             updateTableData();
@@ -152,13 +159,23 @@ public class StudentRegisteredACourseScreen extends Screen implements Searchable
 
     }
 
-    private void setUpComboBoxes() {
-        val courses = service.getCourseInfos();
-        this.courseComboBox.setModel(new AbsComboModel<CourseInfo>(courses) {
-        });
+    private void setUpComboBoxes()
+    {
+        try
+        {
+            val courses = service.getCourseInfos();
+            this.courseComboBox.setModel(new AbsComboModel<CourseInfo>(courses)
+            {
+            });
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "There is no semester active");
+        }
+
     }
 
-    private void updateTableData() {
+    private void updateTableData()
+    {
         CourseInfo courseInfo = (CourseInfo) this.courseComboBox.getSelectedItem();
         if (courseInfo == null) return;
         Semester activeSemester = service.getActiveSemester();
@@ -167,18 +184,20 @@ public class StudentRegisteredACourseScreen extends Screen implements Searchable
     }
 
     @Override
-    public void searchBtnActionPerformed(ActionEvent evt) {
+    public void searchBtnActionPerformed(ActionEvent evt)
+    {
 
         val keyword = searchTextField.getText();
         CourseInfo courseInfo = (CourseInfo) this.courseComboBox.getSelectedItem();
 
-        if (courseInfo == null) {
+        if (courseInfo == null)
+        {
             JOptionPane.showMessageDialog(this, "There are no course selected");
             return;
         }
         val activeSemester = service.getActiveSemester();
         this.students = service.searchStudentRegACourse(keyword, courseInfo, activeSemester);
         updateTableData();
-        
+
     }
 }

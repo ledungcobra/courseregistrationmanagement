@@ -282,7 +282,7 @@ public class StudentManagementScreen extends Screen implements Searchable {
     private void updateTableData() {
 
         if (this.selectedClass == null) {
-            JOptionPane.showMessageDialog(this, "You must select a class to continue");
+            JOptionPane.showMessageDialog(this, "You dont have class in database or you have not select a class");
             return;
         }
 

@@ -15,5 +15,4 @@ public abstract class AbsComboModel<T extends BaseEntity> extends DefaultComboBo
         super(items.toArray(t));
     }
 
-
 }

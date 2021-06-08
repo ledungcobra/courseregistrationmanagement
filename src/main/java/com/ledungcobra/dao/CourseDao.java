@@ -33,7 +33,6 @@ public class CourseDao extends BaseDao<Course, String> {
                     "c.dayToStudyInWeek like :keyword or " +
                     "c.classroomName like :keyword or " +
                     "c.shiftToStudyInDay like :keyword" + extension);
-
             if (text.matches("\\d+")) {
                 query.setParameter("slot", Integer.parseInt(text));
                 query.setParameter("credit", Integer.parseInt(text));

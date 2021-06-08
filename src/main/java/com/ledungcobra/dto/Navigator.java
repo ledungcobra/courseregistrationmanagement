@@ -14,7 +14,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-public class Intent<T extends Screen> {
+public class Navigator<T extends Screen> {
 
     private Class<T> clazz;
     private T screen;
@@ -22,7 +22,7 @@ public class Intent<T extends Screen> {
 
 
     @SneakyThrows
-    public Intent(T... t) {
+    public Navigator(T... t) {
         clazz = (Class<T>) t.getClass().getComponentType();
         screen = clazz.newInstance();
     }

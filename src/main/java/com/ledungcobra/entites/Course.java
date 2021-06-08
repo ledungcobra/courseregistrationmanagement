@@ -4,15 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sun.plugin2.message.WindowActivationEventMessage;
 
 import javax.persistence.*;
-import java.beans.ConstructorProperties;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import static com.ledungcobra.utils.Constants.COURSE_CHECK_CONSTRAINT_DAY_IN_WEEK;
 
 @Table(name = "COURSE")
 @Entity
@@ -27,7 +21,6 @@ public class Course extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
-
 
     @Column(name = "THEORY_TEACHER_NAME", nullable = false)
     private String teacherName;

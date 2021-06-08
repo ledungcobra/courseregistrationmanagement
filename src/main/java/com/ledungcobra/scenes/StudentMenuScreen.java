@@ -5,11 +5,9 @@
  */
 package com.ledungcobra.scenes;
 
-import com.ledungcobra.dto.Intent;
+import com.ledungcobra.dto.Navigator;
 import com.ledungcobra.entites.User;
 import com.ledungcobra.utils.ScreenStackManager;
-
-import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 
@@ -49,11 +47,11 @@ public class StudentMenuScreen extends Screen {
     }
 
     private void userInfoBtnPerformed(ActionEvent e) {
-        new Intent<UserInfoScreen>().navigate(this.data);
+        new Navigator<UserInfoScreen>().navigate(this.data);
     }
 
     private void changePasswordBtnPerformed(ActionEvent e) {
-        new Intent<ChangePasswordScreen>().navigate(this.data);
+        new Navigator<ChangePasswordScreen>().navigate(this.data);
     }
 
 
@@ -142,11 +140,11 @@ public class StudentMenuScreen extends Screen {
     }
 
     private void listAllRegisteredCoursesActionPerformed(java.awt.event.ActionEvent evt) {
-        new Intent<ListAllRegisteredCoursesScreen>().navigate(this.data);
+        new Navigator<ListAllRegisteredCoursesScreen>().navigate(this.data);
     }
 
     private void registerCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        new Intent<StudentRegisterCoursesScreen>().navigate(this.data);
+        new Navigator<StudentRegisterCoursesScreen>().navigate(this.data);
     }
 
 }

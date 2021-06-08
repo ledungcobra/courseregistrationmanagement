@@ -5,7 +5,7 @@
  */
 package com.ledungcobra.scenes;
 
-import com.ledungcobra.dto.Intent;
+import com.ledungcobra.dto.Navigator;
 import com.ledungcobra.entites.User;
 import com.ledungcobra.utils.ScreenStackManager;
 
@@ -164,20 +164,20 @@ public class TeachingManagerMenuScreen extends Screen {
     @Override
     public void addEventListener() {
         classMngBtn.addActionListener(evt -> {
-            new Intent<ClassManagementScreen>().navigate();
+            new Navigator<ClassManagementScreen>().navigate();
         });
         teachingMngBtn.addActionListener(e -> {
-            new Intent<TeachingManagerManagementScreen>().navigate();
+            new Navigator<TeachingManagerManagementScreen>().navigate();
         });
-        courseMngBtn.addActionListener(e -> new Intent<CourseManagementScreen>().navigate());
-        semesterMngBtn.addActionListener(e -> new Intent<SemesterManagementScreen>().navigate());
-        studentMngBtn.addActionListener(e -> new Intent<StudentManagementScreen>().navigate());
-        userIfoMngBtn.addActionListener(e -> new Intent<UserInfoScreen>().navigate(this.data));
-        courseRegSessionMngBtn.addActionListener(e -> new Intent<CourseRegSessionManagementScreen>().navigate());
-        changePasswordBtn.addActionListener(e -> new Intent<ChangePasswordScreen>().navigate(this.data));
-        subjectMngBtn.addActionListener(e -> new Intent<SubjectManagementScreen>().navigate(this.data));
+        courseMngBtn.addActionListener(e -> new Navigator<CourseManagementScreen>().navigate());
+        semesterMngBtn.addActionListener(e -> new Navigator<SemesterManagementScreen>().navigate());
+        studentMngBtn.addActionListener(e -> new Navigator<StudentManagementScreen>().navigate());
+        userIfoMngBtn.addActionListener(e -> new Navigator<UserInfoScreen>().navigate(this.data));
+        courseRegSessionMngBtn.addActionListener(e -> new Navigator<CourseRegSessionManagementScreen>().navigate());
+        changePasswordBtn.addActionListener(e -> new Navigator<ChangePasswordScreen>().navigate(this.data));
+        subjectMngBtn.addActionListener(e -> new Navigator<SubjectManagementScreen>().navigate(this.data));
         logoutBtn.addActionListener(e -> logout());
-        studentRegCourse.addActionListener((e)->new Intent<StudentRegisteredACourseScreen>().navigate());
+        studentRegCourse.addActionListener((e)->new Navigator<StudentRegisteredACourseScreen>().navigate());
     }
 
 }
