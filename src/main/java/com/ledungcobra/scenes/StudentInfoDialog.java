@@ -2,7 +2,7 @@ package com.ledungcobra.scenes;
 
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.StudentInfo;
-import com.ledungcobra.service.TeachingManagerService;
+import com.ledungcobra.services.TeachingManagerService;
 import lombok.NonNull;
 import lombok.val;
 

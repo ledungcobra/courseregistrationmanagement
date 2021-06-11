@@ -13,10 +13,10 @@ import com.ledungcobra.entites.CourseInfo;
 import com.ledungcobra.entites.Semester;
 import com.ledungcobra.entites.Subject;
 import com.ledungcobra.interfaces.Searchable;
-import com.ledungcobra.model.AbsComboModel;
-import com.ledungcobra.model.CourseTableModel;
-import com.ledungcobra.model.SubjectComboModel;
-import com.ledungcobra.service.TeachingManagerService;
+import com.ledungcobra.models.AbsComboModel;
+import com.ledungcobra.models.CourseTableModel;
+import com.ledungcobra.models.SubjectComboModel;
+import com.ledungcobra.services.TeachingManagerService;
 import lombok.val;
 import org.hibernate.exception.ConstraintViolationException;
 

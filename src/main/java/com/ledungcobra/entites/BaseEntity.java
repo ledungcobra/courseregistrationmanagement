@@ -21,15 +21,11 @@ public abstract class BaseEntity
     @Column(name = "UPDATED_DATE")
     private Date updatedDate;
 
-    @Column(name = "isDeleted", columnDefinition = "TINYINT(1)")
-    private Boolean isDeleted;
-
 
     @PrePersist
     public void create()
     {
         this.createdDate = new Date();
-        this.isDeleted = false;
     }
 
     @PreUpdate

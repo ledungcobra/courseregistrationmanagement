@@ -6,8 +6,8 @@ import com.ledungcobra.entites.Course;
 import com.ledungcobra.entites.CourseRegistrationSession;
 import com.ledungcobra.entites.Semester;
 import com.ledungcobra.entites.StudentAccount;
-import com.ledungcobra.model.CourseTableModel;
-import com.ledungcobra.service.StudentService;
+import com.ledungcobra.models.CourseTableModel;
+import com.ledungcobra.services.StudentService;
 import lombok.SneakyThrows;
 import lombok.val;
 

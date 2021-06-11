@@ -13,9 +13,9 @@ import com.ledungcobra.entites.Semester;
 import com.ledungcobra.entites.StudentAccount;
 import com.ledungcobra.entites.StudentCourse;
 import com.ledungcobra.interfaces.Searchable;
-import com.ledungcobra.model.AbsComboModel;
-import com.ledungcobra.model.StudentRegCourseTableModel;
-import com.ledungcobra.service.TeachingManagerService;
+import com.ledungcobra.models.AbsComboModel;
+import com.ledungcobra.models.StudentRegCourseTableModel;
+import com.ledungcobra.services.TeachingManagerService;
 import lombok.val;
 
 import javax.swing.*;

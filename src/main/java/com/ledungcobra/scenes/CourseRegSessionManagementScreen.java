@@ -8,8 +8,8 @@ package com.ledungcobra.scenes;
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.CourseRegistrationSession;
-import com.ledungcobra.model.CourseRegistrationSessionTableModel;
-import com.ledungcobra.service.TeachingManagerService;
+import com.ledungcobra.models.CourseRegistrationSessionTableModel;
+import com.ledungcobra.services.TeachingManagerService;
 import com.toedter.calendar.JDateChooser;
 import lombok.val;
 

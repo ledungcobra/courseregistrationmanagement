@@ -1,8 +1,8 @@
 package com.ledungcobra.scenes;
 
 import com.ledungcobra.applicationcontext.AppContext;
-import com.ledungcobra.exception.UserNotFound;
-import com.ledungcobra.service.UserService;
+import com.ledungcobra.exceptions.UserNotFound;
+import com.ledungcobra.services.UserService;
 import com.ledungcobra.utils.Navigator;
 import lombok.val;
 

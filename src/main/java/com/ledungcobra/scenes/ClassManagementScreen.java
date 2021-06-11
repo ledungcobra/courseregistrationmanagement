@@ -8,8 +8,8 @@ package com.ledungcobra.scenes;
 import com.ledungcobra.anotations.BackButton;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.Class;
-import com.ledungcobra.model.ClassTableModel;
-import com.ledungcobra.service.TeachingManagerService;
+import com.ledungcobra.models.ClassTableModel;
+import com.ledungcobra.services.TeachingManagerService;
 import lombok.val;
 import org.hibernate.exception.ConstraintViolationException;
 

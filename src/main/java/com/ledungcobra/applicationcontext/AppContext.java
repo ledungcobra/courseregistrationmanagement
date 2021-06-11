@@ -1,9 +1,9 @@
 package com.ledungcobra.applicationcontext;
 
-import com.ledungcobra.dao.*;
+import com.ledungcobra.daos.*;
 import com.ledungcobra.databoostrap.DataBoostrap;
-import com.ledungcobra.service.StudentService;
-import com.ledungcobra.service.TeachingManagerService;
+import com.ledungcobra.services.StudentService;
+import com.ledungcobra.services.TeachingManagerService;
 import com.ledungcobra.utils.HibernateUtils;
 import org.hibernate.Session;
 
@@ -16,28 +16,29 @@ public class AppContext
 {
 
     public static Session session;
-    public static final ClassDao classDao;
-    public static final CourseDao courseDao;
-    public static final CourseRegistrationSessionDao courseRegistrationDao;
-    public static final SemesterDao semesterDao;
-    public static final StudentCourseDao studentCourseDao;
-    public static final StudentDao studentAccountDao;
-    public static final SubjectDao subjectDao;
-    public static final TeachingManagerDao teachingManagerDao;
-    public static final EducationTypeDao educationTypeDao;
-    public static final StudentService studentService;
-    public static final TeachingManagerService teachingManagerService;
-    public static final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, new Locale("vi", "VN"));
-    public static final StudentInfoDao studentInfoDao;
-    public static final CourseInfoDao courseInfoDao;
+    public static ClassDao classDao;
+    public static CourseDao courseDao;
+    public static CourseRegistrationSessionDao courseRegistrationDao;
+    public static SemesterDao semesterDao;
+    public static StudentCourseDao studentCourseDao;
+    public static StudentDao studentAccountDao;
+    public static SubjectDao subjectDao;
+    public static TeachingManagerDao teachingManagerDao;
+    public static EducationTypeDao educationTypeDao;
+    public static StudentService studentService;
+    public static TeachingManagerService teachingManagerService;
+    public static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, new Locale("vi", "VN"));
+    public static StudentInfoDao studentInfoDao;
+    public static CourseInfoDao courseInfoDao;
+    public static ExecutorService executorService;
 
-    public static final ExecutorService executorService;
+    public static String connectionString;
+    public static String username;
+    public static String password;
 
-
-    static
+    public static void build()
     {
-
-        HibernateUtils.buildSessionFactory();
+        HibernateUtils.buildSessionFactory(connectionString, username, password);
 
         session = HibernateUtils.openSession();
         classDao = new ClassDao(session);

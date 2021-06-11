@@ -12,10 +12,10 @@ import com.ledungcobra.entites.Class;
 import com.ledungcobra.entites.EducationType;
 import com.ledungcobra.entites.StudentAccount;
 import com.ledungcobra.interfaces.Searchable;
-import com.ledungcobra.model.AbsComboModel;
-import com.ledungcobra.model.ClassComboModel;
-import com.ledungcobra.model.StudentTableModel;
-import com.ledungcobra.service.TeachingManagerService;
+import com.ledungcobra.models.AbsComboModel;
+import com.ledungcobra.models.ClassComboModel;
+import com.ledungcobra.models.StudentTableModel;
+import com.ledungcobra.services.TeachingManagerService;
 import lombok.SneakyThrows;
 import lombok.val;
 

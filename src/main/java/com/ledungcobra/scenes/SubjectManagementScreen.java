@@ -10,8 +10,8 @@ import com.ledungcobra.anotations.SearchTextField;
 import com.ledungcobra.applicationcontext.AppContext;
 import com.ledungcobra.entites.Subject;
 import com.ledungcobra.interfaces.Searchable;
-import com.ledungcobra.model.SubjectTableModel;
-import com.ledungcobra.service.TeachingManagerService;
+import com.ledungcobra.models.SubjectTableModel;
+import com.ledungcobra.services.TeachingManagerService;
 import lombok.val;
 import org.hibernate.exception.ConstraintViolationException;
 

@@ -7,6 +7,8 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.Objects;
 
+import static com.ledungcobra.utils.Constants.*;
+
 public class HibernateUtils
 {
 
@@ -14,9 +16,14 @@ public class HibernateUtils
     private static Session session;
 
 
-    public static void buildSessionFactory()
+    public static void buildSessionFactory(String connectionString, String username, String password)
     {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+        cfg.setProperty("hibernate.connection.url", connectionString);
+        cfg.setProperty("hibernate.connection.username", username);
+        cfg.setProperty("hibernate.connection.password", password);
+
+        sessionFactory = cfg.buildSessionFactory();
     }
 
     public static void sql(String sql)
@@ -42,7 +49,7 @@ public class HibernateUtils
 
     public static Session openSession()
     {
-        if (sessionFactory == null) buildSessionFactory();
+        if (sessionFactory == null) buildSessionFactory(DEFAULT_CONNECTION_STRING, DEFAULT_USER_NAME, DEFAULT_PASSWORD);
         if (Objects.isNull(session))
         {
             session = sessionFactory.openSession();
