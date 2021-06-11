@@ -23,6 +23,6 @@ public class DatetimeUtil
     @SneakyThrows
     public static Date getCurrentDate()
     {
-        return new Date();
+        return   AppContext.dateFormat.parse("13-6-2021");
     }
 }

@@ -360,7 +360,6 @@ public class SemesterManagementScreen extends Screen implements Searchable
     }
 
 
-    @SneakyThrows
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt)
     {
 
@@ -372,28 +371,36 @@ public class SemesterManagementScreen extends Screen implements Searchable
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
-        if (selectedIndices.length == 1)
-        {
-            int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this semester", "Confirm", JOptionPane.YES_NO_OPTION);
 
-            if (result == JOptionPane.YES_OPTION)
-            {
-                val semester = this.semesterList.get(selectedIndex);
-                service.deleteSemester(semester);
-                updateTableData();
-            }
-        } else
+        try
         {
-            int result = JOptionPane.showConfirmDialog(this, "Do you want to delete these semester", "Confirm", JOptionPane.YES_NO_OPTION);
-
-            if (result == JOptionPane.YES_OPTION)
+            if (selectedIndices.length == 1)
             {
-                for (val index : selectedIndices)
+                int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this semester", "Confirm", JOptionPane.YES_NO_OPTION);
+
+                if (result == JOptionPane.YES_OPTION)
                 {
-                    service.deleteSemester(this.semesterList.get(index));
+
+                    val semester = this.semesterList.get(selectedIndex);
+                    service.deleteSemester(semester);
+                    updateTableData();
                 }
-                updateTableData();
+            } else
+            {
+                int result = JOptionPane.showConfirmDialog(this, "Do you want to delete these semester", "Confirm", JOptionPane.YES_NO_OPTION);
+
+                if (result == JOptionPane.YES_OPTION)
+                {
+                    for (val index : selectedIndices)
+                    {
+                        service.deleteSemester(this.semesterList.get(index));
+                    }
+                    updateTableData();
+                }
             }
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "An error occur, cannot delete this semester");
         }
     }
 
@@ -478,15 +485,9 @@ public class SemesterManagementScreen extends Screen implements Searchable
             }
             updateTableData();
 
-        } catch (ConstraintViolationException e)
-        {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        } catch (PersistenceException e)
-        {
-            JOptionPane.showMessageDialog(this, e.getMessage());
         } catch (Exception exception)
         {
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Duplicate at a tuple of semester name and year must be unique");
         } finally
         {
             this.currentEditingSemester = null;
@@ -506,7 +507,6 @@ public class SemesterManagementScreen extends Screen implements Searchable
         }
         val semesters = service.searchSemester(searchTextField.getText());
         updateTableData(semesters);
-
     }
 
 }

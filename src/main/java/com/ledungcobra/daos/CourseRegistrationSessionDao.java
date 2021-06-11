@@ -25,7 +25,6 @@ public class CourseRegistrationSessionDao extends BaseDao<CourseRegistrationSess
             return (CourseRegistrationSession) query.getSingleResult();
         } catch (Exception e)
         {
-            e.printStackTrace();
             throw new Exception("Cannot find valid session or the session belongs to the inactive semester");
         }
 
@@ -42,7 +41,6 @@ public class CourseRegistrationSessionDao extends BaseDao<CourseRegistrationSess
                     .getSingleResult();
         } catch (Exception e)
         {
-            e.printStackTrace();
             throw new Exception("There is no course registration session opened");
         }
 

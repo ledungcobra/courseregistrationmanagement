@@ -277,7 +277,7 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
                                 .addContainerGap())
         );
 
-        pack(); 
+        pack();
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed desc="Delete btn action">
@@ -440,15 +440,9 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
             }
             updateTableData();
 
-        } catch (ConstraintViolationException e)
-        {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        } catch (PersistenceException e)
-        {
-            JOptionPane.showMessageDialog(this, e.getMessage());
         } catch (Exception exception)
         {
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occur");
         } finally
         {
             clearBtnActionPerformed(null);
@@ -458,7 +452,6 @@ public class TeachingManagerManagementScreen extends Screen implements Searchabl
     public void searchBtnActionPerformed(java.awt.event.ActionEvent evt)
     {
         val keyword = searchTextField.getText();
-        System.out.println(keyword);
 
         List<TeachingManager> teachingManagerList = service.searchTeachingManager(keyword);
         updateTableData(teachingManagerList);

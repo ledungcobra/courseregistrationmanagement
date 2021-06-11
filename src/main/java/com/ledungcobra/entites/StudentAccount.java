@@ -36,7 +36,7 @@ public class StudentAccount extends User
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_STUDENT_ACCOUNT_STUDENT_INFO")
     )
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = CascadeType.ALL)
     private StudentInfo studentInfo;
 
     @JoinColumn(name = "EDUCATION_TYPE_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_STUDENT_ACCOUNT_EDUCATION_TYPE"))

@@ -28,7 +28,7 @@ public abstract class Screen extends JFrame
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e)
         {
-            System.out.println("Error setting the LAF..." + e);
+            JOptionPane.showMessageDialog(null, "Error when change appearance to windows look and feel");
         }
 
 

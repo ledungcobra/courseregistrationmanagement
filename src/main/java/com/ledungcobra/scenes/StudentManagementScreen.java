@@ -513,9 +513,8 @@ public class StudentManagementScreen extends Screen implements Searchable
                     JOptionPane.showMessageDialog(this, "One student can only learn in an education type");
                 } else
                 {
-                    JOptionPane.showMessageDialog(this, e.getCause().toString());
+                    JOptionPane.showMessageDialog(this, "An error occur");
                 }
-                e.printStackTrace();
             } finally
             {
                 this.currentEdittingStudent = null;

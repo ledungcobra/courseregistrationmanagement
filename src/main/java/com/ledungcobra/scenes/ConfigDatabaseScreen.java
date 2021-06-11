@@ -82,7 +82,6 @@ public class ConfigDatabaseScreen extends Screen
         } catch (Exception e)
         {
             JOptionPane.showMessageDialog(this, "Cannot establish connection");
-            e.printStackTrace();
         }
 
     }
@@ -98,12 +97,9 @@ public class ConfigDatabaseScreen extends Screen
         {
             properties.store(os, "Used for login to database");
 
-        } catch (FileNotFoundException e)
+        } catch (Exception e)
         {
-            e.printStackTrace();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occur when store properties file");
         }
     }
 

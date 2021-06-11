@@ -393,41 +393,38 @@ public class CourseManagementScreen extends Screen implements Searchable
             JOptionPane.showMessageDialog(this, "You must select a record to perform this action");
             return;
         }
-        if (selectedIndices.length == 1)
+
+        try
         {
-            int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this course", "Confirm", JOptionPane.YES_NO_OPTION);
-            if (result == JOptionPane.YES_OPTION)
+            if (selectedIndices.length == 1)
             {
-                val course = this.courseList.get(selectedIndex);
-                try
+                int result = JOptionPane.showConfirmDialog(this, "Do you want to delete this course", "Confirm", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION)
                 {
+                    val course = this.courseList.get(selectedIndex);
                     service.deleteCourse(course);
                     updateTableData();
-                } catch (Exception exception)
-                {
-                    exception.printStackTrace();
-                }
-            }
-        } else
-        {
-            int result = JOptionPane.showConfirmDialog(this, "Do you want to delete these courses", "Confirm", JOptionPane.YES_NO_OPTION);
 
-            if (result == JOptionPane.YES_OPTION)
+                }
+            } else
             {
-                try
+                int result = JOptionPane.showConfirmDialog(this, "Do you want to delete these courses", "Confirm", JOptionPane.YES_NO_OPTION);
+
+                if (result == JOptionPane.YES_OPTION)
                 {
+
                     for (val index : selectedIndices)
                     {
 
                         service.deleteCourse(this.courseList.get(index));
                         updateTableData();
                     }
-                } catch (Exception exception)
-                {
-                    exception.printStackTrace();
                 }
-
             }
+
+        } catch (Exception exception)
+        {
+            JOptionPane.showMessageDialog(this, "An error occur when delete this course");
         }
     }
 
@@ -476,7 +473,6 @@ public class CourseManagementScreen extends Screen implements Searchable
         } catch (Exception e)
         {
             JOptionPane.showMessageDialog(null, "You haven't set a semester as active semester yet");
-            e.printStackTrace();
         }
 
 
@@ -679,7 +675,6 @@ public class CourseManagementScreen extends Screen implements Searchable
         } catch (Exception ex)
         {
             JOptionPane.showMessageDialog(this, "Cannot add new course info because it is already exists");
-            ex.printStackTrace();
         }
 
     }

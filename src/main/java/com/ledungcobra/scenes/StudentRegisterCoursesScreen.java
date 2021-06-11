@@ -8,6 +8,7 @@ import com.ledungcobra.entites.Semester;
 import com.ledungcobra.entites.StudentAccount;
 import com.ledungcobra.models.CourseTableModel;
 import com.ledungcobra.services.StudentService;
+import com.ledungcobra.utils.Navigator;
 import lombok.SneakyThrows;
 import lombok.val;
 
@@ -91,163 +92,8 @@ public class StudentRegisterCoursesScreen extends Screen
         updateTempCourseList();
     }
 
-    void loadData()
-    {
-        this.tempCourseSet = new HashSet<>(service.getRegisteredCourses(activeSemester, this.studentAccount));
-    }
-
-    private void updateTempCourseList()
-    {
-        this.previewCourses.setModel(new CourseTableModel(new ArrayList<>(this.tempCourseSet)));
-    }
-
-    private void updateLoadedCourseList()
-    {
-        this.openedCourseListTable.setModel(new CourseTableModel(new ArrayList<>()));
-        this.loadedCourseList = service.getCoursesOpenedInActiveSemester();
-        this.openedCourseListTable.setModel(new CourseTableModel(this.loadedCourseList));
-    }
-
-    @Override
-    protected void finish()
-    {
-        AppContext.executorService.submit(() -> {
-            try
-            {
-                Thread.sleep(400);
-
-                SwingUtilities.invokeAndWait(super::finish);
-            } catch (InterruptedException | InvocationTargetException e)
-            {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    @Override
-    public void addEventListener()
-    {
-        addBtn.addActionListener(this::addCourseToTempListActionPerform);
-        removeBtn.addActionListener(this::removeCourseFromTempListActionPerform);
-        editRegisteredCourseListBtn.addActionListener(this::onEditCourseListBtnPerform);
-        registerBtn.addActionListener(this::onRegisterBtnActionPerformed);
-    }
-
-    private void onRegisterBtnActionPerformed(ActionEvent e)
-    {
-        try
-        {
-            if (checkBeforeSubmit())
-            {
-                service.removeCourses(removedCoursesSet, studentAccount, activeSemester);
-                service.registerCourses(tempCourseSet, studentAccount, this.currentSession, activeSemester);
-                loadData();
-                updateTempCourseList();
-                updateLoadedCourseList();
-
-                JOptionPane.showMessageDialog(this, "Register success");
-
-            } else
-            {
-                JOptionPane.showMessageDialog(this, "You are allowed to register 8 courses or you have a conflict in time between courses in your temp list");
-            }
-
-
-        } catch (Exception ex)
-        {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        }
-
-    }
-
-    boolean checkBeforeSubmit()
-    {
-        if (tempCourseSet.size() > 8) return false;
-        val courses = new ArrayList<>(tempCourseSet);
-        for (int i = 0; i < courses.size(); i++)
-        {
-            val currentCourse = courses.get(i);
-            for (int j = 0; j < courses.size(); j++)
-            {
-                if (i != j &&
-                        currentCourse.getShiftToStudyInDay()
-                                .equals(courses.get(j).getShiftToStudyInDay()) &&
-                        currentCourse.getDayToStudyInWeek().equals(courses.get(j).getDayToStudyInWeek())
-                )
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private void onEditCourseListBtnPerform(ActionEvent e)
-    {
-
-    }
-
-    private void removeCourseFromTempListActionPerform(ActionEvent e)
-    {
-        int[] coursesIndices = previewCourses.getSelectedRows();
-        if (coursesIndices != null || coursesIndices.length > 0)
-        {
-            List<Course> courses = new ArrayList<>(this.tempCourseSet);
-
-            Arrays.stream(coursesIndices).forEach(i -> {
-                this.removedCoursesSet.add(courses.get(i));
-                this.tempCourseSet.remove(courses.get(i));
-            });
-
-            updateTempCourseList();
-        } else
-        {
-            JOptionPane.showMessageDialog(this, "You have to choose any course to add to your temp course list");
-        }
-    }
-
-    private void addCourseToTempListActionPerform(ActionEvent e)
-    {
-        int[] courseIndices = openedCourseListTable.getSelectedRows();
-        if (!checkBeforeAddCourse()) return;
-
-        if (courseIndices != null || courseIndices.length > 0)
-        {
-            Arrays.stream(courseIndices).forEach(i -> {
-                this.tempCourseSet.add(this.loadedCourseList.get(i));
-                this.removedCoursesSet.remove(this.loadedCourseList.get(i));
-            });
-
-            updateTempCourseList();
-        } else
-        {
-            JOptionPane.showMessageDialog(this, "You have to choose any course to add to your temp course list");
-        }
-    }
-
-    private boolean checkBeforeAddCourse()
-    {
-        int[] selectedCourseIndices = openedCourseListTable.getSelectedRows();
-        if (selectedCourseIndices == null || selectedCourseIndices.length == 0) return true;
-        List<Course> courses = new ArrayList<>(tempCourseSet);
-
-        for (int i = 0; i < selectedCourseIndices.length; i++)
-        {
-            val currentCourse = loadedCourseList.get(selectedCourseIndices[i]);
-            for (int j = 0; j < courses.size(); j++)
-            {
-                if (currentCourse.getSubject() != null &&
-                        currentCourse.getSubject().equals(courses.get(j).getSubject()))
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents()
     {
 
@@ -463,6 +309,163 @@ public class StudentRegisterCoursesScreen extends Screen
         );
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>
+
+    void loadData()
+    {
+        this.tempCourseSet = new HashSet<>(service.getRegisteredCourses(activeSemester, this.studentAccount));
+    }
+
+    private void updateTempCourseList()
+    {
+        this.previewCourses.setModel(new CourseTableModel(new ArrayList<>(this.tempCourseSet)));
+    }
+
+    private void updateLoadedCourseList()
+    {
+        this.openedCourseListTable.setModel(new CourseTableModel(new ArrayList<>()));
+        this.loadedCourseList = service.getCoursesOpenedInActiveSemester();
+        this.openedCourseListTable.setModel(new CourseTableModel(this.loadedCourseList));
+    }
+
+    @Override
+    protected void finish()
+    {
+        AppContext.executorService.submit(() -> {
+            try
+            {
+                Thread.sleep(400);
+
+                SwingUtilities.invokeAndWait(super::finish);
+            } catch (InterruptedException | InvocationTargetException e)
+            {
+                JOptionPane.showMessageDialog(null, "An error occur");
+            }
+        });
+    }
+
+    @Override
+    public void addEventListener()
+    {
+        addBtn.addActionListener(this::addCourseToTempListActionPerform);
+        removeBtn.addActionListener(this::removeCourseFromTempListActionPerform);
+        editRegisteredCourseListBtn.addActionListener(this::onEditCourseListBtnPerform);
+        registerBtn.addActionListener(this::onRegisterBtnActionPerformed);
+    }
+
+    private void onRegisterBtnActionPerformed(ActionEvent e)
+    {
+        try
+        {
+            if (checkBeforeSubmit())
+            {
+                service.removeCourses(removedCoursesSet, studentAccount, activeSemester);
+                service.registerCourses(tempCourseSet, studentAccount, this.currentSession, activeSemester);
+                loadData();
+                updateTempCourseList();
+                updateLoadedCourseList();
+
+                JOptionPane.showMessageDialog(this, "Register success");
+
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "You are allowed to register 8 courses or you have a conflict in time between courses in your temp list");
+            }
+
+
+        } catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+
+    }
+
+    boolean checkBeforeSubmit()
+    {
+        if (tempCourseSet.size() > 8) return false;
+        val courses = new ArrayList<>(tempCourseSet);
+        for (int i = 0; i < courses.size(); i++)
+        {
+            val currentCourse = courses.get(i);
+            for (int j = 0; j < courses.size(); j++)
+            {
+                if (i != j &&
+                        currentCourse.getShiftToStudyInDay()
+                                .equals(courses.get(j).getShiftToStudyInDay()) &&
+                        currentCourse.getDayToStudyInWeek().equals(courses.get(j).getDayToStudyInWeek())
+                )
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void onEditCourseListBtnPerform(ActionEvent e)
+    {
+        new Navigator<ListAllRegisteredCoursesScreen>().navigate(this.data);
+    }
+
+    private void removeCourseFromTempListActionPerform(ActionEvent e)
+    {
+        int[] coursesIndices = previewCourses.getSelectedRows();
+        if (coursesIndices != null || coursesIndices.length > 0)
+        {
+            List<Course> courses = new ArrayList<>(this.tempCourseSet);
+
+            Arrays.stream(coursesIndices).forEach(i -> {
+                this.removedCoursesSet.add(courses.get(i));
+                this.tempCourseSet.remove(courses.get(i));
+            });
+
+            updateTempCourseList();
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "You have to choose any course to add to your temp course list");
+        }
+    }
+
+    private void addCourseToTempListActionPerform(ActionEvent e)
+    {
+        int[] courseIndices = openedCourseListTable.getSelectedRows();
+        if (!checkBeforeAddCourse()) return;
+
+        if (courseIndices != null || courseIndices.length > 0)
+        {
+            Arrays.stream(courseIndices).forEach(i -> {
+                this.tempCourseSet.add(this.loadedCourseList.get(i));
+                this.removedCoursesSet.remove(this.loadedCourseList.get(i));
+            });
+
+            updateTempCourseList();
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "You have to choose any course to add to your temp course list");
+        }
+    }
+
+    private boolean checkBeforeAddCourse()
+    {
+        int[] selectedCourseIndices = openedCourseListTable.getSelectedRows();
+        if (selectedCourseIndices == null || selectedCourseIndices.length == 0) return true;
+        List<Course> courses = new ArrayList<>(tempCourseSet);
+
+        for (int i = 0; i < selectedCourseIndices.length; i++)
+        {
+            val currentCourse = loadedCourseList.get(selectedCourseIndices[i]);
+            for (int j = 0; j < courses.size(); j++)
+            {
+                if (currentCourse.getSubject() != null &&
+                        currentCourse.getSubject().equals(courses.get(j).getSubject()))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
 
 }

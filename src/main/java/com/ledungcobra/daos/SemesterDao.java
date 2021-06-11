@@ -87,7 +87,6 @@ public class SemesterDao extends BaseDao<Semester, Long>
                     query.setParameter("endDate", AppContext.dateFormat.parse(text));
                 } catch (ParseException e)
                 {
-                    e.printStackTrace();
                 }
             }
 

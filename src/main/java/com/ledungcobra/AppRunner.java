@@ -5,6 +5,7 @@ import com.ledungcobra.scenes.ConfigDatabaseScreen;
 import com.ledungcobra.utils.Navigator;
 import lombok.val;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class AppRunner
 
         } catch (Exception e)
         {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occur when read properties file");
         }
 
         // Load app context

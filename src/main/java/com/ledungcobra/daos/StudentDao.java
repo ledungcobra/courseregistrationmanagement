@@ -58,7 +58,6 @@ public class StudentDao extends BaseDao<StudentAccount, String> implements UserD
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
             return new ArrayList<>();
         }
 
@@ -95,7 +94,6 @@ public class StudentDao extends BaseDao<StudentAccount, String> implements UserD
 
         } catch (Exception e)
         {
-            e.printStackTrace();
             return new ArrayList<>();
         }
     }

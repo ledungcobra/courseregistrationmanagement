@@ -8,7 +8,6 @@ import com.ledungcobra.entites.Semester;
 import com.ledungcobra.entites.StudentAccount;
 import com.ledungcobra.models.CourseTableModel;
 import com.ledungcobra.services.StudentService;
-import lombok.SneakyThrows;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -49,15 +48,14 @@ public class ListAllRegisteredCoursesScreen extends Screen
     private JPanel jPanel2;
 
 
-    @SneakyThrows
     @Override
     public void onCreateView()
     {
         initComponents();
 
-        if (this.data == null) throw new Exception("The data should not be null");
+        if (this.data == null) throw new RuntimeException("The data should not be null");
         this.studentAccount = (StudentAccount) this.data.get(USER_KEY);
-        if (this.studentAccount == null) throw new Exception("Student account can not be null");
+        if (this.studentAccount == null) throw new RuntimeException("Student account can not be null");
         removedCourses = new HashSet<>();
 
         try
@@ -65,32 +63,25 @@ public class ListAllRegisteredCoursesScreen extends Screen
             try
             {
                 this.currentSession = service.getValidCourseRegistrationSession();
-            } catch (Exception e)
+            }finally
             {
-                System.out.println("Inactive semester");
+                this.activeSemester = service.getActiveSemester();
+                this.semesterLbl.setText(this.activeSemester.toString());
+
+                loadData();
+                updateTableData();
+                if (this.currentSession == null)
+                    return;
+                this.startDateLbl.setText(this.currentSession.getStartDate().toString());
+                this.endDateLbl.setText(this.currentSession.getEndDate().toString());
             }
-
-
-
-            this.activeSemester = service.getActiveSemester();
-
-            if (this.currentSession == null)
-                return;
-            this.semesterLbl.setText(this.currentSession.getSemester().toString());
-            this.startDateLbl.setText(this.currentSession.getStartDate().toString());
-            this.endDateLbl.setText(this.currentSession.getEndDate().toString());
 
         } catch (Exception e)
         {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
             finish();
             return;
         }
-
-
-        loadData();
-        updateTableData();
     }
 
     private void loadData()
@@ -168,7 +159,7 @@ public class ListAllRegisteredCoursesScreen extends Screen
                 SwingUtilities.invokeAndWait(super::finish);
             } catch (InterruptedException | InvocationTargetException e)
             {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "An error occur");
             }
         });
     }
