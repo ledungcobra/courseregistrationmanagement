@@ -24,7 +24,7 @@ public class StudentCourse extends BaseEntity
     @EqualsAndHashCode.Include
     private StudentCourseId studentCourseId;
 
-    @JoinColumn(name = "SESSION_ID")
+    @JoinColumn(name = "SESSION_ID", foreignKey = @ForeignKey(name = "FK_STUDENT_COURSE_COURSE_REGISTRATION_SESSION"))
     @ManyToOne(fetch = FetchType.LAZY)
     private CourseRegistrationSession courseRegistrationSession;
 

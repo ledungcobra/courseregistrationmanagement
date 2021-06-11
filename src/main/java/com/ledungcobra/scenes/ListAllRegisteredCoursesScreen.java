@@ -45,6 +45,8 @@ public class ListAllRegisteredCoursesScreen extends Screen
     private Semester activeSemester;
     private StudentAccount studentAccount;
     private CourseRegistrationSession currentSession;
+    private JPanel jPanel1;
+    private JPanel jPanel2;
 
 
     @SneakyThrows
@@ -60,9 +62,20 @@ public class ListAllRegisteredCoursesScreen extends Screen
 
         try
         {
-            this.currentSession = service.getValidCourseRegistrationSession();
+            try
+            {
+                this.currentSession = service.getValidCourseRegistrationSession();
+            } catch (Exception e)
+            {
+                System.out.println("Inactive semester");
+            }
+
+
+
             this.activeSemester = service.getActiveSemester();
 
+            if (this.currentSession == null)
+                return;
             this.semesterLbl.setText(this.currentSession.getSemester().toString());
             this.startDateLbl.setText(this.currentSession.getStartDate().toString());
             this.endDateLbl.setText(this.currentSession.getEndDate().toString());
@@ -99,6 +112,13 @@ public class ListAllRegisteredCoursesScreen extends Screen
 
     private void registerBtnActionPerformed(ActionEvent actionEvent)
     {
+
+        if (this.currentSession == null)
+        {
+            JOptionPane.showMessageDialog(this, "There are no register session or it is expired");
+            return;
+        }
+
         try
         {
             this.service.removeCourses(removedCourses, studentAccount, activeSemester);
@@ -110,6 +130,13 @@ public class ListAllRegisteredCoursesScreen extends Screen
 
     private void removeBtnActionPerformed(ActionEvent e)
     {
+
+        if (this.currentSession == null)
+        {
+            JOptionPane.showMessageDialog(this, "There are no register session or it is expired");
+            return;
+        }
+
         int[] coursesIndices = resultCourseListTable.getSelectedRows();
         if (coursesIndices != null || coursesIndices.length > 0)
         {
@@ -152,52 +179,112 @@ public class ListAllRegisteredCoursesScreen extends Screen
     private void initComponents()
     {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        startDateLbl = new javax.swing.JLabel();
-        endDateLbl = new javax.swing.JLabel();
-        registerBtn = new javax.swing.JButton();
-        semesterLbl = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         resultCourseListTable = new javax.swing.JTable();
-        removeBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        endDateLbl = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        startDateLbl = new javax.swing.JLabel();
+        semesterLbl = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        registerBtn = new javax.swing.JButton();
+        removeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
-        jLabel1.setText("Info");
-
-        jLabel2.setText("Semester");
-
-        jLabel3.setText("Register session:");
-
-        jLabel4.setText("Start date");
-
-        jLabel5.setText("End date");
-
-        startDateLbl.setText("12/12/2001");
-
-        endDateLbl.setText("12/12/2001");
-
-        registerBtn.setBackground(new java.awt.Color(51, 255, 51));
-        registerBtn.setText("Register");
-
-        semesterLbl.setText("HK1");
-
         jScrollPane2.setViewportView(resultCourseListTable);
-
-        removeBtn.setBackground(new java.awt.Color(255, 0, 0));
-        removeBtn.setText("Remove");
 
         backBtn.setText("Back");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
         jLabel6.setText("Result registered courses in this session ");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 14))); // NOI18N
+
+        jLabel3.setText("Register session:");
+
+        jLabel5.setText("End date");
+
+        jLabel4.setText("Start date");
+
+//        endDateLbl.setText("12/12/2001");
+
+        jLabel2.setText("Semester");
+
+//        startDateLbl.setText("12/12/2001");
+
+//        semesterLbl.setText("HK1");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(semesterLbl)
+                                .addGap(103, 103, 103)
+                                .addComponent(jLabel3)
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel4)
+                                .addGap(22, 22, 22)
+                                .addComponent(startDateLbl)
+                                .addGap(49, 49, 49)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(endDateLbl)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(semesterLbl)
+                                                .addComponent(jLabel3))
+                                        .addComponent(jLabel2)
+                                        .addComponent(startDateLbl)
+                                        .addComponent(jLabel4)
+                                        .addComponent(endDateLbl)
+                                        .addComponent(jLabel5))
+                                .addContainerGap())
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Actions"));
+
+        registerBtn.setBackground(new java.awt.Color(51, 255, 51));
+        registerBtn.setText("Register");
+
+        removeBtn.setBackground(new java.awt.Color(255, 0, 0));
+        removeBtn.setText("Remove");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,65 +293,35 @@ public class ListAllRegisteredCoursesScreen extends Screen
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(28, 28, 28)
+                                                .addGap(25, 25, 25)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(22, 22, 22)
+                                                .addComponent(jLabel6))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(25, 25, 25)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel1)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(jLabel2)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(semesterLbl)
-                                                                .addGap(103, 103, 103)
-                                                                .addComponent(jLabel3)
-                                                                .addGap(21, 21, 21)
-                                                                .addComponent(jLabel4)
-                                                                .addGap(22, 22, 22)
-                                                                .addComponent(startDateLbl)
-                                                                .addGap(49, 49, 49)
-                                                                .addComponent(jLabel5)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(endDateLbl))))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(backBtn))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jLabel6)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(17, 17, 17))
+                                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(backBtn))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(backBtn)
-                                .addGap(11, 11, 11)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(semesterLbl)
-                                                .addComponent(jLabel3))
-                                        .addComponent(jLabel2)
-                                        .addComponent(startDateLbl)
-                                        .addComponent(jLabel4)
-                                        .addComponent(endDateLbl)
-                                        .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(24, Short.MAX_VALUE))
+                                                .addComponent(backBtn)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(11, 11, 11)
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();

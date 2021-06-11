@@ -55,7 +55,7 @@ public class Constants
     public static final String CONNECTION_STRING = "CONNECTION_STRING";
     public static final String USER_NAME = "USER_NAME";
     public static final String PASSWORD = "PASSWORD";
-    public static final String DEFAULT_CONNECTION_STRING = "jdbc:mysql://localhost:3306/test2";
+    public static final String DEFAULT_CONNECTION_STRING = "jdbc:mysql://localhost:3306/test3";
     public static final String DEFAULT_USER_NAME = "root";
     public static final String DEFAULT_PASSWORD = "Anhchang01";
 

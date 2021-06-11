@@ -75,24 +75,21 @@ public class CourseManagementScreen extends Screen implements Searchable
     private Semester activeSemester;
 
     private TeachingManagerService service = AppContext.teachingManagerService;
+    private JLayeredPane jLayeredPane1;
+    private JPanel jPanel1;
+    private JPanel jPanel2;
+    private JPanel jPanel3;
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents()
     {
 
+
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         courseListTable = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        editBtn = new javax.swing.JButton();
-        insertBtn = new javax.swing.JButton();
-        clearBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        subjectCombobox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         theoryTeacherNameTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -103,61 +100,31 @@ public class CourseManagementScreen extends Screen implements Searchable
         shiftToStudyInDay = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         numberOfSlotTextField = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        searchTextField = new javax.swing.JTextField();
-        searchBtn = new javax.swing.JButton();
-        addACourseInfoBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         courseInfoComboBox = new javax.swing.JComboBox<>();
+        removeCourseInfoBtn = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        editBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        clearBtn = new javax.swing.JButton();
+        insertBtn = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        searchBtn = new javax.swing.JButton();
+        searchTextField = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        subjectCombobox = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        addACourseInfoBtn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         backBtn.setText("Back");
 
-        courseListTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
 
-                },
-                new String[]{
-                        "ID", "Full name", "Password"
-                }
-        )
-        {
-            Class[] types = new Class[]{
-                    java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean[]{
-                    false, true, false
-            };
-
-            public Class getColumnClass(int columnIndex)
-            {
-                return types[columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
-                return canEdit[columnIndex];
-            }
-        });
         jScrollPane1.setViewportView(courseListTable);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jLabel3.setText("Add new course");
-
-        jLabel4.setText("Subject");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jLabel6.setText("Manage course");
-
-        editBtn.setText("Edit");
-
-        insertBtn.setText("Insert");
-
-        clearBtn.setText("Clear");
-
-        deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
-        deleteBtn.setText("Delete");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel7.setText("Opened courses in this season");
@@ -166,94 +133,204 @@ public class CourseManagementScreen extends Screen implements Searchable
 
         jLabel8.setText("Day to study in week");
 
+
         jLabel9.setText("Class room name");
 
         jLabel10.setText("Shift to study in day");
 
         jLabel11.setText("Number of slot");
 
-        jLabel12.setText("Keyword");
+        jLabel2.setText("Course info");
+
+
+        removeCourseInfoBtn.setText("Remove course info");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manage Course", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 14))); // NOI18N
+
+        editBtn.setText("Edit");
+
+        deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
+        deleteBtn.setText("Delete");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(editBtn)
+                                        .addComponent(deleteBtn))
+                                .addContainerGap())
+        );
+
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Actions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 14))); // NOI18N
+
+        clearBtn.setText("Clear");
+
+        insertBtn.setText("Insert");
+
+        jLayeredPane1.setLayer(clearBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(insertBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+                jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(insertBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+                jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(clearBtn)
+                                        .addComponent(insertBtn))
+                                .addContainerGap())
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 14))); // NOI18N
 
         searchBtn.setText("Search");
 
+        jLabel12.setText("Keyword");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(searchBtn)
+                                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(searchBtn))
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addContainerGap())
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Add Course Info"), "Add Course Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 14))); // NOI18N
+
+        jLabel4.setText("Subject");
+
         addACourseInfoBtn.setText("Add a course info");
 
-        jLabel2.setText("Course info");
-        removeCourseInfoBtn = new JButton();
-        removeCourseInfoBtn.setText("Remove course info");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(addACourseInfoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(subjectCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(subjectCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(addACourseInfoBtn)
+                                .addContainerGap())
+        );
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jLabel3.setText("Add new course");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(59, 59, 59)
+                                                .addComponent(jScrollPane1)))
+                                .addGap(43, 43, 43))
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(68, 68, 68)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(backBtn)
+                                                .addGap(20, 20, 20))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jLabel8)
-                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
-                                                                        .addComponent(jLabel10)
-                                                                        .addComponent(jLabel11)
-                                                                        .addComponent(jLabel2))
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                        .addComponent(dayToStudyInWeekCombobox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addComponent(shiftToStudyInDay, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addComponent(classRoomNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(theoryTeacherNameTextField)
-                                                                        .addComponent(numberOfSlotTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(subjectCombobox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                                .addComponent(courseInfoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(11, 11, 11)
-                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(addACourseInfoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                        .addComponent(removeCourseInfoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addGap(549, 549, 549)
-                                                                                .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(18, 18, 18)
-                                                                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                                .addGap(106, 106, 106))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(backBtn)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(jLabel12)
-                                                                .addGap(18, 18, 18)
+                                                                .addGap(53, 53, 53)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(jLabel4))
-                                                                                .addGap(0, 0, Short.MAX_VALUE))
+                                                                                        .addComponent(jLabel8)
+                                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                                                                                        .addComponent(jLabel10)
+                                                                                        .addComponent(jLabel11)
+                                                                                        .addComponent(jLabel2))
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                        .addComponent(dayToStudyInWeekCombobox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                                        .addComponent(shiftToStudyInDay, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                                        .addComponent(classRoomNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(theoryTeacherNameTextField)
+                                                                                        .addComponent(numberOfSlotTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                                                                .addComponent(courseInfoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addGap(11, 11, 11)
+                                                                                                .addComponent(removeCourseInfoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(searchTextField)
-                                                                                .addGap(18, 18, 18)
-                                                                                .addComponent(searchBtn)))))
-                                                .addGap(20, 20, 20))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(80, 80, 80)
-                                                .addComponent(jScrollPane1))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(insertBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(106, 106, 106))
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                                .addGap(58, 58, 58)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                .addGap(43, 43, 43))))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,19 +338,12 @@ public class CourseManagementScreen extends Screen implements Searchable
                                 .addContainerGap()
                                 .addComponent(backBtn)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel12)
-                                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(searchBtn))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(17, 17, 17)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(subjectCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(addACourseInfoBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel2)
                                         .addComponent(courseInfoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,21 +368,15 @@ public class CourseManagementScreen extends Screen implements Searchable
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel11)
                                         .addComponent(numberOfSlotTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(clearBtn)
-                                        .addComponent(insertBtn))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addGap(13, 13, 13)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(editBtn)
-                                        .addComponent(deleteBtn))
-                                .addGap(18, 18, 18))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
 
         pack();
@@ -335,8 +399,14 @@ public class CourseManagementScreen extends Screen implements Searchable
             if (result == JOptionPane.YES_OPTION)
             {
                 val course = this.courseList.get(selectedIndex);
-                service.deleteCourse(course);
-                updateTableData();
+                try
+                {
+                    service.deleteCourse(course);
+                    updateTableData();
+                } catch (Exception exception)
+                {
+                    exception.printStackTrace();
+                }
             }
         } else
         {
@@ -344,13 +414,19 @@ public class CourseManagementScreen extends Screen implements Searchable
 
             if (result == JOptionPane.YES_OPTION)
             {
-
-                for (val index : selectedIndices)
+                try
                 {
-                    service.deleteCourse(this.courseList.get(index));
+                    for (val index : selectedIndices)
+                    {
+
+                        service.deleteCourse(this.courseList.get(index));
+                        updateTableData();
+                    }
+                } catch (Exception exception)
+                {
+                    exception.printStackTrace();
                 }
 
-                updateTableData();
             }
         }
     }
@@ -496,6 +572,9 @@ public class CourseManagementScreen extends Screen implements Searchable
         } catch (PersistenceException e)
         {
             JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         } finally
         {
             this.editingCourse = null;
@@ -610,9 +689,9 @@ public class CourseManagementScreen extends Screen implements Searchable
     {
         val keyword = searchTextField.getText();
 
-        if ("".equals(keyword))
+        if (keyword == null)
         {
-            JOptionPane.showMessageDialog(this, "You must enter some thing to search");
+            JOptionPane.showMessageDialog(this, "Keyword cannot be null");
             return;
         }
 

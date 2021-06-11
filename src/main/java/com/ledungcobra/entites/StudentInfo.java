@@ -10,7 +10,12 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Student_Info")
+@Table(name = "STUDENT_INFO",
+        uniqueConstraints =
+        @UniqueConstraint(name = "UK_STUDENT_INFO",
+                columnNames = {"IDENTITY_CARD_NUMBER"}
+        )
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,7 +35,7 @@ public class StudentInfo extends BaseEntity
     @Column(name = "BIRTHDAY")
     private Date birthdate;
 
-    @Column(name = "IDENTITY_CARD_NUMBER", unique = true, nullable = false)
+    @Column(name = "IDENTITY_CARD_NUMBER", nullable = false)
     private String identityCardNumber;
 
     @OneToMany(mappedBy = "studentInfo")

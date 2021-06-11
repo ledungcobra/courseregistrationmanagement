@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "Subject")
+@Table(name = "SUBJECT",
+        uniqueConstraints =
+        @UniqueConstraint(name = "UK_SUBJECT", columnNames = {"SUBJECT_NAME"}))
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,7 +23,7 @@ public class Subject extends BaseEntity
     @EqualsAndHashCode.Include
     private String id;
 
-    @Column(name = "SUBJECT_NAME", unique = true)
+    @Column(name = "SUBJECT_NAME")
     private String name;
 
     @Column(name = "SUBJECT_CREDIT", nullable = false)

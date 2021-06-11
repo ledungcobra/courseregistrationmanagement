@@ -13,8 +13,8 @@ import java.util.List;
 import static com.ledungcobra.utils.Constants.SEMESTER_CHECK_CONSTRAINT_SEMESTER_NAME;
 
 @Entity
-@Table(name = "Semester",
-        uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "SEMESTER",
+        uniqueConstraints = @UniqueConstraint(name = "UK_SEMESTER",columnNames = {
                 "SEMESTER_NAME",
                 "YEAR"
         })

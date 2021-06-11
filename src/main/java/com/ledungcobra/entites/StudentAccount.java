@@ -10,9 +10,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "STUDENT_ACCOUNT", uniqueConstraints = {
-        @UniqueConstraint(name = "UK_STUDENT_ACCOUNT"
+        @UniqueConstraint(name = "UK_STUDENT_ACCOUNT1"
                 , columnNames = {"STUDENT_INFO_ID", "EDUCATION_TYPE_ID"}
-        )
+        ),
+        @UniqueConstraint(name = "UK_STUDENT_ACCOUNT", columnNames = {"STUDENT_CARD_ID"})
 })
 @Getter
 @Setter
@@ -27,29 +28,33 @@ public class StudentAccount extends User
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(name = "STUDENT_CARD_ID", nullable = false, unique = true)
+    @Column(name = "STUDENT_CARD_ID", nullable = false)
     private String studentCardId;
 
     @JoinColumn(name = "STUDENT_INFO_ID",
-            referencedColumnName = "STUDENT_INFO_ID", nullable = false)
+            referencedColumnName = "STUDENT_INFO_ID",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_STUDENT_ACCOUNT_STUDENT_INFO")
+    )
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private StudentInfo studentInfo;
 
-    @JoinColumn(name = "EDUCATION_TYPE_ID", nullable = false)
+    @JoinColumn(name = "EDUCATION_TYPE_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_STUDENT_ACCOUNT_EDUCATION_TYPE"))
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private EducationType educationType;
 
-    @JoinColumn(name = "CLASS_ID")
+    @JoinColumn(name = "CLASS_ID", foreignKey = @ForeignKey(name = "FK_STUDENT_ACCOUNT_CLASS"))
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private Class studiedClass;
 
     @ManyToMany
-    @JoinTable(name = "STUDENT_COURSE", joinColumns = @JoinColumn(name = "STUDENT_ID"), inverseJoinColumns = @JoinColumn(name = "COURSE_ID",
-            referencedColumnName = "COURSE_ID"))
+    @JoinTable(name = "STUDENT_COURSE",
+            joinColumns = @JoinColumn(name = "STUDENT_ID",
+                    foreignKey = @ForeignKey(name = "FK_STUDENT_COURSE_STUDENT_ACCOUNT")),
+            inverseJoinColumns = @JoinColumn(name = "COURSE_ID",
+                    foreignKey = @ForeignKey(name = "FK_STUDENT_COURSE_COURSE"),
+                    referencedColumnName = "COURSE_ID"))
     private List<Course> courses;
-
-    @OneToMany
-    private List<StudentCourse> listStudentCourses;
 
     public StudentAccount(String studentCardId,
                           StudentInfo studentInfo, EducationType educationType)

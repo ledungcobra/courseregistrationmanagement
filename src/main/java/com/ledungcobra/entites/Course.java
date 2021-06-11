@@ -42,11 +42,16 @@ public class Course extends BaseEntity
 
     @ManyToMany
     @JoinTable(name = "STUDENT_COURSE", joinColumns = @JoinColumn(name = "COURSE_ID",
-            referencedColumnName = "COURSE_ID"), inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"))
+            foreignKey = @ForeignKey(name ="FK_STUDENT_COURSE_COURSE" ),
+            referencedColumnName = "COURSE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"
+            ,foreignKey = @ForeignKey(name = "FK_STUDENT_COURSE_STUDENT_ACCOUNT")
+            )
+    )
     private List<StudentAccount> studentAccounts;
 
     @ManyToOne
-    @JoinColumn(name = "COURSE_INFO_ID")
+    @JoinColumn(name = "COURSE_INFO_ID", foreignKey = @ForeignKey(name = "FK_COURSE_COURSE_INFO"))
     private CourseInfo courseInfo;
 
     public Course(CourseInfo courseInfo, String teacherName, String dayToStudyInWeek, String classroomName, String shiftToStudyInDay, Integer numberOfSlot)

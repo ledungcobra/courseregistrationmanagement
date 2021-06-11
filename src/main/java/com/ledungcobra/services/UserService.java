@@ -14,37 +14,47 @@ import org.hibernate.Transaction;
 import javax.persistence.NoResultException;
 import java.util.Objects;
 
-public abstract class UserService<E extends User> {
+public abstract class UserService<E extends User>
+{
 
     protected UserDao userDao;
 
-    protected UserService(E... e) {
+    protected UserService(E... e)
+    {
 
         Class<E> typeClass = (Class<E>) e.getClass().getComponentType();
         if (typeClass.getSimpleName()
-                .equals(StudentAccount.class.getSimpleName())) {
+                .equals(StudentAccount.class.getSimpleName()))
+        {
             userDao = AppContext.studentAccountDao;
-        } else if (typeClass.getSimpleName().equals(TeachingManager.class.getSimpleName())) {
+        } else if (typeClass.getSimpleName().equals(TeachingManager.class.getSimpleName()))
+        {
             userDao = AppContext.teachingManagerDao;
         }
 
     }
 
-    protected Transaction beginTransaction() {
+    protected Transaction beginTransaction()
+    {
         return AppContext.session.beginTransaction();
     }
 
-    public boolean login(@NonNull String username, @NonNull String password) throws UserNotFound, NoResultException {
+    public boolean login(@NonNull String username, @NonNull String password) throws UserNotFound, NoResultException
+    {
 
         User user = userDao.findByUserName(username);
 
-        if (Objects.nonNull(user)) {
-            if (password.equals(user.getPassword())) {
+        if (Objects.nonNull(user))
+        {
+            if (password.equals(user.getPassword()))
+            {
                 return true;
-            } else {
+            } else
+            {
                 return false;
             }
-        } else {
+        } else
+        {
             throw new UserNotFound("");
         }
     }
@@ -54,40 +64,48 @@ public abstract class UserService<E extends User> {
                                @NonNull String oldPassword,
                                @NonNull String newPassword,
                                @NonNull String confirmPassword)
-            throws AccountNotFound, PasswordDoesNotChange, ConfirmPasswordFail, CannotUpdatePassword {
+            throws AccountNotFound, PasswordDoesNotChange, ConfirmPasswordFail, CannotUpdatePassword
+    {
 
         User user = userDao.findByUserName(id);
 
-        if (Objects.isNull(user)) {
+        if (Objects.isNull(user))
+        {
             throw new AccountNotFound("The id " + id + " is match with no rows");
         }
 
-        if (oldPassword.equals(newPassword)) {
+        if (oldPassword.equals(newPassword))
+        {
             throw new PasswordDoesNotChange("The new password must be different from the former password");
         }
 
-        if (!newPassword.equals(confirmPassword)) {
+        if (!newPassword.equals(confirmPassword))
+        {
             throw new ConfirmPasswordFail("Password does not match");
         }
 
         user.setPassword(newPassword);
 
-        try {
+        try
+        {
 
             val trans = beginTransaction();
             userDao.update(user);
             trans.commit();
 
-        } catch (Exception exception) {
+        } catch (Exception exception)
+        {
             throw new CannotUpdatePassword("Update password failed");
         }
     }
 
-    public E findById(String id) {
+    public E findById(String id)
+    {
         return (E) userDao.findByUserName(id);
     }
 
-    public E save(E e) {
+    public E save(E e)
+    {
 
         val trans = beginTransaction();
         val value = (E) ((BaseDao) userDao).save(e);
@@ -96,14 +114,24 @@ public abstract class UserService<E extends User> {
         return value;
     }
 
-    protected void doTransaction(DoWork work){
+    public abstract void updateInfo(Object info);
+
+    protected void doTransaction(DoWork work) throws RuntimeException
+    {
         Transaction trans = null;
-        try {
+        try
+        {
             trans = beginTransaction();
             work.run();
             trans.commit();
-        } finally {
-            if (trans != null && trans.isActive()) {
+        } catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw new RuntimeException(exception);
+        } finally
+        {
+            if (trans != null && trans.isActive())
+            {
                 trans.rollback();
             }
         }

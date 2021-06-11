@@ -64,7 +64,7 @@ public class StudentService extends UserService<StudentAccount>
                 val currentCourse = courses.get(i);
                 if (courses.get(i).getNumberOfSlot() <= 0)
                 {
-                    return;
+                    throw new Exception("Cannot register the course have number of slot equals to zero");
                 }
                 currentCourse.setNumberOfSlot(currentCourse.getNumberOfSlot() - 1);
                 courseDao.update(currentCourse);
@@ -87,6 +87,14 @@ public class StudentService extends UserService<StudentAccount>
     {
         doTransaction(() -> {
             this.studentCourseDao.deleteStudentCourse(removedCoursesSet, studentAccount, semester);
+        });
+    }
+
+    @Override
+    public void updateInfo(Object user)
+    {
+        doTransaction(() -> {
+            AppContext.studentAccountDao.update((StudentAccount) user);
         });
     }
 }

@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Class")
+@Table(name = "CLASS", uniqueConstraints = @UniqueConstraint(name = "UK_CLASS", columnNames = {"CLASS_NAME"}))
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,7 +23,7 @@ public class Class extends BaseEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "CLASS_NAME", unique = true)
+    @Column(name = "CLASS_NAME")
     private String className;
 
     @ManyToOne

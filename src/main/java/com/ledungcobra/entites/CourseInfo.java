@@ -29,10 +29,10 @@ public class CourseInfo extends BaseEntity
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "SUBJECT_ID", nullable = false)
+    @JoinColumn(name = "SUBJECT_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_COURSE_INFO_SUBJECT"))
     private Subject subject;
 
-    @JoinColumn(name = "SEMESTER_ID", nullable = false)
+    @JoinColumn(name = "SEMESTER_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_COURSE_INFO_SEMESTER"))
     @ManyToOne
     private Semester semester;
 
