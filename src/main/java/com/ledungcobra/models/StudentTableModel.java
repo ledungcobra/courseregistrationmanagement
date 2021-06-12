@@ -3,6 +3,7 @@ package com.ledungcobra.models;
 import com.ledungcobra.entites.StudentAccount;
 import lombok.val;
 
+import javax.swing.*;
 import java.util.List;
 
 public class StudentTableModel extends AbsTableModel<StudentAccount>
@@ -32,7 +33,9 @@ public class StudentTableModel extends AbsTableModel<StudentAccount>
                 false,
 
         };
+
     }
+
 
 
     @Override

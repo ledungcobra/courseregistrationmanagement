@@ -15,6 +15,7 @@ import com.ledungcobra.interfaces.Searchable;
 import com.ledungcobra.models.AbsComboModel;
 import com.ledungcobra.models.ClassComboModel;
 import com.ledungcobra.models.StudentTableModel;
+import com.ledungcobra.models.cell.MultiLineCellRenderer;
 import com.ledungcobra.services.TeachingManagerService;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -45,16 +46,11 @@ public class StudentManagementScreen extends Screen implements Searchable
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton editBtn;
     private javax.swing.JButton insertBtn;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton resetPasswordBtn;
     private javax.swing.JButton searchBtn;
@@ -88,7 +84,7 @@ public class StudentManagementScreen extends Screen implements Searchable
     {
 
         backBtn = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+
         studentListTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -118,10 +114,10 @@ public class StudentManagementScreen extends Screen implements Searchable
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+
         backBtn.setText("Back");
 
-        jScrollPane1.setViewportView(studentListTable);
-
+        jScrollPane1 = new javax.swing.JScrollPane(studentListTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel3.setText("Add new student account");
 
@@ -368,14 +364,18 @@ public class StudentManagementScreen extends Screen implements Searchable
         }
 
         this.studentAccounts = service.getListStudentInClass(this.selectedClass);
+
         this.studentListTable.setModel(new StudentTableModel(studentAccounts));
+
 
     }
     // </editor-fold>
 
+
     private void updateTableData(List<StudentAccount> studentAccounts)
     {
         this.studentAccounts = studentAccounts;
+
         this.studentListTable.setModel(new StudentTableModel(studentAccounts));
     }
 
@@ -536,6 +536,7 @@ public class StudentManagementScreen extends Screen implements Searchable
         this.classSearchCombobox.setModel(new ClassComboModel(classes));
         this.classNameCombobox.setModel(new ClassComboModel(classes));
 
+
         loadDataForComboBoxes();
         updateTableData();
     }
@@ -571,6 +572,7 @@ public class StudentManagementScreen extends Screen implements Searchable
         {
             val selectedStudent = this.studentAccounts.get(selectedIndex);
             service.resetStudentPassword(selectedStudent);
+            updateTableData();
         } catch (Exception ex)
         {
             JOptionPane.showMessageDialog(this, "Cannot reset password for this selected student account");

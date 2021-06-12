@@ -62,10 +62,12 @@ public class StudentService extends UserService<StudentAccount>
             for (int i = 0; i < courses.size(); i++)
             {
                 val currentCourse = courses.get(i);
+
                 if (courses.get(i).getNumberOfSlot() <= 0)
                 {
                     throw new Exception("Cannot register the course have number of slot equals to zero");
                 }
+
                 currentCourse.setNumberOfSlot(currentCourse.getNumberOfSlot() - 1);
                 courseDao.update(currentCourse);
                 studentCourseDao.save(new StudentCourse(courseSession, currentCourse, studentAccount, activeSemester));

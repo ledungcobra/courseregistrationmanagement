@@ -49,6 +49,8 @@ public class StudentRegisterCoursesScreen extends Screen
     private javax.swing.JLabel startDateLbl;
 
     private HashSet<Course> tempCourseSet;
+    private HashSet<Course> registeredCourse;
+
     private List<Course> loadedCourseList;
     private final StudentService service = AppContext.studentService;
     private CourseRegistrationSession currentSession;
@@ -313,7 +315,8 @@ public class StudentRegisterCoursesScreen extends Screen
 
     void loadData()
     {
-        this.tempCourseSet = new HashSet<>(service.getRegisteredCourses(activeSemester, this.studentAccount));
+        this.registeredCourse = new HashSet<>(service.getRegisteredCourses(activeSemester, this.studentAccount));
+        this.tempCourseSet = new HashSet<>(this.registeredCourse);
     }
 
     private void updateTempCourseList()
@@ -360,6 +363,11 @@ public class StudentRegisterCoursesScreen extends Screen
             if (checkBeforeSubmit())
             {
                 service.removeCourses(removedCoursesSet, studentAccount, activeSemester);
+
+                registeredCourse.forEach(c -> {
+                    tempCourseSet.remove(c);
+                });
+
                 service.registerCourses(tempCourseSet, studentAccount, this.currentSession, activeSemester);
                 loadData();
                 updateTempCourseList();
@@ -369,7 +377,7 @@ public class StudentRegisterCoursesScreen extends Screen
 
             } else
             {
-                JOptionPane.showMessageDialog(this, "You are allowed to register 8 courses or you have a conflict in time between courses in your temp list");
+                JOptionPane.showMessageDialog(this, "You have a conflict in time between courses in your temp list");
             }
 
 
@@ -382,7 +390,12 @@ public class StudentRegisterCoursesScreen extends Screen
 
     boolean checkBeforeSubmit()
     {
-        if (tempCourseSet.size() > 8) return false;
+        if (tempCourseSet.size() > 8)
+        {
+            JOptionPane.showMessageDialog(this, "You are allowed to register maximum 8 course");
+            return false;
+        }
+
         val courses = new ArrayList<>(tempCourseSet);
         for (int i = 0; i < courses.size(); i++)
         {
@@ -465,7 +478,6 @@ public class StudentRegisterCoursesScreen extends Screen
         }
         return true;
     }
-
 
 
 }

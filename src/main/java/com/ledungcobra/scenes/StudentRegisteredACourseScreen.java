@@ -43,7 +43,6 @@ public class StudentRegisteredACourseScreen extends Screen implements Searchable
     private javax.swing.JTable studentInCourseTable;
 
     private TeachingManagerService service = AppContext.teachingManagerService;
-    private List<StudentAccount> students;
     private JPanel jPanel1;
     private JPanel jPanel2;
     private JPanel jPanel3;
@@ -221,6 +220,13 @@ public class StudentRegisteredACourseScreen extends Screen implements Searchable
         this.studentInCourseTable.setModel(new StudentRegCourseTableModel(studentCourseList));
     }
 
+    private void updateTableData(List<StudentCourse> studentCourseList)
+    {
+        CourseInfo courseInfo = (CourseInfo) this.courseComboBox.getSelectedItem();
+        if (courseInfo == null) return;
+        this.studentInCourseTable.setModel(new StudentRegCourseTableModel(studentCourseList));
+    }
+
     @Override
     public void searchBtnActionPerformed(ActionEvent evt)
     {
@@ -234,8 +240,7 @@ public class StudentRegisteredACourseScreen extends Screen implements Searchable
             return;
         }
         val activeSemester = service.getActiveSemester();
-        this.students = service.searchStudentRegACourse(keyword, courseInfo, activeSemester);
-        updateTableData();
+        updateTableData(service.searchStudentRegACourse(keyword, courseInfo, activeSemester));
 
     }
 }

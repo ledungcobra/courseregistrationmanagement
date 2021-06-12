@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,7 +32,7 @@ public class Class extends BaseEntity
     private TeachingManager createdBy;
 
     @OneToMany(mappedBy = "studiedClass", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
-    private List<StudentAccount> students;
+    private List<StudentAccount> students = new ArrayList<>();
 
 
     @Override

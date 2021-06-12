@@ -1,10 +1,8 @@
 package com.ledungcobra.daos;
 
 import com.ledungcobra.applicationcontext.AppContext;
+import com.ledungcobra.entites.*;
 import com.ledungcobra.entites.Class;
-import com.ledungcobra.entites.CourseInfo;
-import com.ledungcobra.entites.Semester;
-import com.ledungcobra.entites.StudentAccount;
 import com.ledungcobra.utils.DatetimeUtil;
 import lombok.val;
 import org.hibernate.Session;
@@ -69,7 +67,7 @@ public class StudentDao extends BaseDao<StudentAccount, String> implements UserD
         session.saveOrUpdate(student);
     }
 
-    public List<StudentAccount> searchStudentRegACourse(String keyword, CourseInfo courseInfo, Semester semester)
+    public List<StudentCourse> searchStudentRegACourse(String keyword, CourseInfo courseInfo, Semester semester)
     {
         try
         {
@@ -86,11 +84,12 @@ public class StudentDao extends BaseDao<StudentAccount, String> implements UserD
                             "   st.studentCardId like :k or " +
                             "   st.studentInfo.gender like :k or " +
                             "   st.studentInfo.fullName like :k  or " +
-                            "   st.studentInfo.identityCardNumber like :k  )");
+                            "   st.studentInfo.identityCardNumber like :k  )", StudentCourse.class);
             query.setParameter("k", "%" + keyword + "%");
             query.setParameter("courseInfo", courseInfo);
             query.setParameter("semester", semester);
-            return (List<StudentAccount>) query.getResultList();
+
+            return query.getResultList();
 
         } catch (Exception e)
         {

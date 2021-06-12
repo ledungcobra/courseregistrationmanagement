@@ -16,12 +16,15 @@ public class ClassTableModel extends AbsTableModel<Class>
         this.types = new java.lang.Class[]{
                 String.class,
                 Long.class,
+                Long.class,
                 Long.class
         };
 
         this.canEdit = new boolean[]{
                 false,
-                false, false
+                false,
+                false,
+                false
         };
     }
 
@@ -39,6 +42,7 @@ public class ClassTableModel extends AbsTableModel<Class>
             long numberOfBoys = countBoys(classes.get(i).getStudents());
             records[i][1] = String.valueOf(numberOfBoys);
             records[i][2] = String.valueOf(countGirls(classes.get(i).getStudents()));
+            records[i][3] = String.valueOf(classes.get(i).getStudents().size());
         }
         return records;
 
@@ -48,19 +52,25 @@ public class ClassTableModel extends AbsTableModel<Class>
     public String[] getColumns()
     {
         return new String[]{"Class Name",
-                "Number of boys", "Number of girls"};
+                "Number of boys", "Number of girls", "Total"};
     }
 
     private long countBoys(List<StudentAccount> studentAccounts)
     {
         if (studentAccounts == null) return 0;
-        return studentAccounts.stream().filter(s -> "boy".equalsIgnoreCase(s.getStudentInfo().getGender())).count();
+        return studentAccounts
+                .stream()
+                .filter(s -> "boy".equalsIgnoreCase(s.getStudentInfo().getGender()))
+                .count();
     }
 
     private long countGirls(List<StudentAccount> studentAccounts)
     {
         if (studentAccounts == null) return 0;
-        return studentAccounts.stream().filter(s -> "girl".equalsIgnoreCase(s.getStudentInfo().getGender())).count();
+        return studentAccounts
+                .stream()
+                .filter(s -> "girl".equalsIgnoreCase(s.getStudentInfo().getGender()))
+                .count();
     }
 
 }

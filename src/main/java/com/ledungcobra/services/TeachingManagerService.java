@@ -324,7 +324,7 @@ public class TeachingManagerService extends UserService<TeachingManager>
     }
 
 
-    public List<StudentAccount> searchStudentRegACourse(String keyword, CourseInfo courseInfo, Semester activeSemester)
+    public List<StudentCourse> searchStudentRegACourse(String keyword, CourseInfo courseInfo, Semester activeSemester)
     {
         return studentDao.searchStudentRegACourse(keyword, courseInfo, activeSemester);
     }
