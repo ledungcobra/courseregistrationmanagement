@@ -112,7 +112,7 @@ public class StudentAccount extends User
                 coursesStringBuilder.append(currentCourse.getSubjectName());
                 if (i < length - 1)
                 {
-                    coursesStringBuilder.append("\r\n");
+                    coursesStringBuilder.append(", ");
                 }
             }
 
